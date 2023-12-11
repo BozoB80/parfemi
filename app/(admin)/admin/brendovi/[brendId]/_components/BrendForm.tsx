@@ -16,50 +16,53 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast"
 import * as z from "zod";
-import { Baner } from "@prisma/client";
+import { Brand } from "@prisma/client";
+import { Textarea } from "@/components/ui/textarea";
 
 const formSchema = z.object({
   label: z.string().min(1),
-  imageUrl: z.string().min(1)
+  logo: z.string().min(1),
+  description: z.string().min(1)
 })
 
-type BanerFormValues = z.infer<typeof formSchema>
+type BrendFormValues = z.infer<typeof formSchema>
 
-interface BanerFormProps {
-  initialData: Baner | null
+interface BrendFormProps {
+  initialData: Brand | null
 }
 
 
-const BanerForm: React.FC<BanerFormProps> = ({ initialData }) => {
+const BrendForm: React.FC<BrendFormProps> = ({ initialData }) => {
   const params = useParams()
   const router = useRouter()
   const { toast } = useToast()
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const title = initialData ? "Uredi baner" : "Dodaj baner"
-  const description = initialData ? "Uredi a baner" : "Dodaj novi baner"
-  const toastMessage = initialData ? "Baner ažuriran" : "Baner kreiran"
+  const title = initialData ? "Uredi brend" : "Dodaj brend"
+  const description = initialData ? "Uredi brend" : "Dodaj novi brend"
+  const toastMessage = initialData ? "Brend ažuriran" : "Brend kreiran"
   const action = initialData ? "Sačuvaj izmjene" : "Dodaj"
 
-  const form = useForm<BanerFormValues>({
+  const form = useForm<BrendFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData || {
       label: '',
-      imageUrl: ''
+      logo: '',
+      description: ''
     }
   })
 
-  const onSubmit = async (data: BanerFormValues) => {
+  const onSubmit = async (data: BrendFormValues) => {
     try {
       setLoading(true)
       if (initialData) {
-        await axios.patch(`/api/baneri/${params.banerId}`, data)
+        await axios.patch(`/api/brendovi/${params.brendId}`, data)
       } else {
-        await axios.post(`/api/baneri`, data)
+        await axios.post(`/api/brendovi`, data)
       }
+      router.push(`/admin/brendovi`)
       router.refresh()
-      router.push(`/admin/baneri`)
       toast({ description: toastMessage })
       
     } catch (error) {
@@ -72,13 +75,13 @@ const BanerForm: React.FC<BanerFormProps> = ({ initialData }) => {
   const onDelete = async () => {
      try {
       setLoading(true)
-      await axios.delete(`/api/baneri/${params.banerId}`)
+      await axios.delete(`/api/brendovi/${params.brendId}`)
       router.refresh()
-      router.push(`/admin/baneri`)
-      toast({ description: "Baner izbrisan" })
+      router.push(`/admin/brendovi`)
+      toast({ description: "Brend izbrisan" })
       
      } catch (error) {
-      toast({ variant: "destructive", description: "Baner nije izbrisan"})
+      toast({ variant: "destructive", description: "Brend nije izbrisan"})
      } finally {
       setLoading(false)
       setOpen(false)
@@ -112,7 +115,7 @@ const BanerForm: React.FC<BanerFormProps> = ({ initialData }) => {
       <Separator />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
-          <div className="max-w-md">
+          <div className="max-w-lg">
             <FormField 
               control={form.control}
               name="label"
@@ -122,7 +125,7 @@ const BanerForm: React.FC<BanerFormProps> = ({ initialData }) => {
                   <FormControl>
                     <Input 
                       disabled={loading}
-                      placeholder="Tekst banera"
+                      placeholder="Tekst brenda"
                       {...field}
                     />
                   </FormControl>
@@ -131,12 +134,30 @@ const BanerForm: React.FC<BanerFormProps> = ({ initialData }) => {
               )}
             />
           </div>
+          <FormField 
+              control={form.control}
+              name="description"
+              render={({field}) => (
+                <FormItem>
+                  <FormLabel>Opis</FormLabel>
+                  <FormControl>
+                    <Textarea 
+                      disabled={loading}
+                      placeholder="Unesite opis brenda"
+                      className="max-w-lg"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField 
                 control={form.control}
-                name="imageUrl"
+                name="logo"
                 render={({field}) => (
                   <FormItem>
-                    <FormLabel>Pozadinska slika</FormLabel>
+                    <FormLabel>Logo</FormLabel>
                     <FormControl>
                       <ImageUpload 
                         value={field.value ? [field.value] : []}
@@ -149,7 +170,7 @@ const BanerForm: React.FC<BanerFormProps> = ({ initialData }) => {
                   </FormItem>
                 )}
               />
-          <Button disabled={loading} className="ml-auto" type="submit">
+          <Button disabled={loading} size="lg" className="ml-auto" type="submit">
             {action}
           </Button>
         </form>
@@ -159,4 +180,4 @@ const BanerForm: React.FC<BanerFormProps> = ({ initialData }) => {
   );
 }
 
-export default BanerForm;
+export default BrendForm;

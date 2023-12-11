@@ -1,10 +1,10 @@
 'use client'
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { BanerColumn } from "./columns";
+import { BrandsColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 
@@ -13,12 +13,11 @@ import AlertModal from "@/components/modals/AlertModal";
 
 
 interface CellActionProps {
-  data: BanerColumn
+  data: BrandsColumn
 }
 
 const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter()
-  const params = useParams()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
@@ -26,9 +25,9 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
      setLoading(true)
-     await axios.delete(`/api/baneri/${data.id}`)
+     await axios.delete(`/api/brendovi/${data.id}`)
      router.refresh()
-     toast({description: "Baner izbrisan."})
+     toast({description: "Brend izbrisan."})
     } catch (error) {
       toast({variant: "destructive", description: "Nešto nije u redu."})
     } finally {
@@ -56,7 +55,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>
             Opcije
           </DropdownMenuLabel>     
-          <DropdownMenuItem onClick={() => router.push(`/admin/baneri/${data.id}`)}>
+          <DropdownMenuItem onClick={() => router.push(`/admin/brendovi/${data.id}`)}>
             <Edit className="mr-2 h-4 w-4" />  
             Ažuriraj
           </DropdownMenuItem>    

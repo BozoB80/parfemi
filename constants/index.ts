@@ -1,4 +1,4 @@
-import { Globe, LayoutDashboard, Library, PanelLeftOpen, Store, Swords } from "lucide-react";
+import { Building2, Globe, LayoutDashboard, Library, Package, PanelLeftOpen, Store, Swords } from "lucide-react";
 
 export const sidebarLinks = [
   {
@@ -12,12 +12,17 @@ export const sidebarLinks = [
     label: "Baneri",
   },
   {
+    icon: Building2,
+    route: "/admin/brendovi",
+    label: "Brendovi",
+  },
+  {
     icon: Globe,
     route: "/admin/kategorije",
     label: "Kategorije",
   },
   {
-    icon: Swords,
+    icon: Package,
     route: "/admin/proizvodi",
     label: "Proizvodi",
   },  
