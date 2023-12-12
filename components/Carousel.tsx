@@ -44,8 +44,10 @@ const CarouselPage = ({ baneri }: CarouselProps) => {
           key={baner.id}
           src={baner.imageUrl}
           alt={baner.id}
-          width={1000}
-          height={1000}
+          width={5000}
+          height={5000}
+          quality={100}
+          priority
           className="w-full h-48 sm:h-80 lg:h-96 xl:h-[650px] object-cover object-center"
         />
       ))}

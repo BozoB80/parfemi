@@ -4,8 +4,15 @@ import MainNav from "./MainNav";
 import Searchbar from "./Searchbar";
 import NavRight from "./NavRight";
 import MobileMenu from "./MobileMenu";
+import prismadb from "@/lib/prismadb";
 
 const Navbar = async () => {
+  const brendovi = await prismadb.brand.findMany({
+    orderBy: {
+      label: "asc"
+    }
+  })
+
   return (
     <nav className="border-b shadow-xl">
       <div className="h-16 sm:h-24 flex justify-between items-center px-4 gap-10">
@@ -22,7 +29,7 @@ const Navbar = async () => {
         </Link>
         <NavRight />
       </div>
-      <MainNav />
+      <MainNav brendovi={brendovi} />
     </nav>
   );
 };

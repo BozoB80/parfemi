@@ -52,7 +52,7 @@ const Brands = ({ brands }: BrandsProps) => {
           width={200}
           height={100}
           onClick={() => router.push(`/brend/${brand.label.toLowerCase().replace(/\s/g, '-')}`)}
-          className="w-full h-6 sm:h-10 object-contain object-center cursor-pointer"
+          className="w-full h-6 sm:h-10 object-contain object-center cursor-pointer dark:invert"
         />
       ))}
     </Carousel>

@@ -1,3 +1,5 @@
+"use client"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,9 +10,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "../ui/button";
+import { Brand } from "@prisma/client";
+import { useRouter } from "next/navigation";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 
+interface MainNavProps {
+  brendovi: Brand[]
+}
 
-const MainNav = () => {
+const MainNav = ({ brendovi }: MainNavProps) => {
+  const router = useRouter()
+
   return (
     <div className="hidden max-w-7xl mx-auto md:flex justify-between items-center space-x-3">
       <Button variant="ghost" className="uppercase text-md">Proizvodi</Button>
@@ -76,7 +86,20 @@ const MainNav = () => {
 
         </DropdownMenuContent>
       </DropdownMenu>
-      <Button variant="ghost" className="uppercase text-md">Brandovi</Button>
+
+      <HoverCard openDelay={100} closeDelay={100}>
+        <HoverCardTrigger asChild>
+          <Button variant="ghost" className="uppercase text-md">Brandovi</Button>
+        </HoverCardTrigger>
+        <HoverCardContent className="space-y-2">
+          {brendovi.map((brend) => (
+            <h1 key={brend.id} onClick={() => router.push(`/brend/${brend.label.toLowerCase().replace(/\s/g, '-')}`)} className="cursor-pointer hover:bg-primary-foreground">
+              {brend.label}
+            </h1>
+          ))}
+        </HoverCardContent>
+      </HoverCard>
+      
       <Button variant="ghost" className="uppercase text-md">O Nama</Button>
       <Button variant="ghost" className="uppercase text-md">Kontakt</Button>
       <Button variant="ghost" className="uppercase text-md">Moj račun</Button>
