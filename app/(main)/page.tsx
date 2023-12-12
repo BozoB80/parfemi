@@ -1,5 +1,6 @@
 import Brands from "@/components/Brands";
 import Carousel from "@/components/Carousel";
+import Categories from "@/components/Categories";
 import prismadb from "@/lib/prismadb";
 
 const Home = async () => {
@@ -9,12 +10,16 @@ const Home = async () => {
       label: "asc"
     }
   })
+  const categories = await prismadb.category.findMany({
+  
+  })
 
   return (
-    <div className="h-full">
+    <main>
       <Carousel baneri={baneri} />
       <Brands brands={brands} />
-    </div>
+      <Categories categories={categories} />
+    </main>
   );
 }
 

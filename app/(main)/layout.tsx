@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar/Navbar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
+import Footer from "@/components/navbar/Footer";
 
 const font = Asap({ subsets: ["latin"] });
 
@@ -25,6 +26,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <Navbar />
             {children}
+            <Footer />
             <Toaster />
           </ThemeProvider>
         </body>

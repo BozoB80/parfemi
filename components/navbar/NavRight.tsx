@@ -20,7 +20,7 @@ const NavRight = () => {
         <Button
           variant="ghost"
           onClick={() => router.push("/admin")}
-          className="max-md:hidden border-black text-black text-md font-medium uppercase animate-bounce"
+          className="max-md:hidden text-md font-medium uppercase"
         >
           <ShieldCheck fill="red" className="h-6 w-6 mr-2" />
           Admin

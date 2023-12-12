@@ -42,7 +42,7 @@ const Brands = ({ brands }: BrandsProps) => {
       autoPlaySpeed={4000}
       customTransition="all 2s linear"
       transitionDuration={2000}    
-      className="max-w-7xl mx-auto my-3 sm:my-10"  
+      className="max-w-7xl mx-auto py-6 sm:my-10"  
     >
       {brands.map((brand) => (
         <Image 

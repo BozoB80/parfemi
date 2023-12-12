@@ -39,7 +39,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
   const [loading, setLoading] = useState(false)
 
   const title = initialData ? "Uredi kategoriju" : "Dodaj kategoriju"
-  const description = initialData ? "Uredi kategoriju" : "Dodaj novi kategoriju"
+  const description = initialData ? "Uredi kategoriju" : "Dodaj novu kategoriju"
   const toastMessage = initialData ? "Kategorija ažurirana" : "Kategorija kreirana"
   const action = initialData ? "Sačuvaj izmjene" : "Dodaj"
 
@@ -123,7 +123,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
                   <FormControl>
                     <Input 
                       disabled={loading}
-                      placeholder="Tekst categorya"
+                      placeholder="Naziv kategorije"
                       {...field}
                     />
                   </FormControl>
