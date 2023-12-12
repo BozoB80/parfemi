@@ -2,7 +2,7 @@ import prismadb from "@/lib/prismadb";
 import BrendForm from "./_components/BrendForm";
 
 
-const BillboardsIdPage = async ({ params }: { params: { brendId: string }}) => {
+const BrandsIdPage = async ({ params }: { params: { brendId: string }}) => {
 
   let brend = null
   
@@ -25,4 +25,4 @@ const BillboardsIdPage = async ({ params }: { params: { brendId: string }}) => {
   );
 }
 
-export default BillboardsIdPage;
+export default BrandsIdPage;

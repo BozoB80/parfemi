@@ -28,7 +28,8 @@ model Brand {
 
 model Category {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
+  label     String
+  imageUrl  String
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 
@@ -37,7 +38,8 @@ model Category {
 
 model Subcategory {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
+  label     String
+  imageUrl  String
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 
