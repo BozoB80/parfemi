@@ -21,6 +21,7 @@ const ProductIdPage = async ({ params }: { params: { proizvodId: string }}) => {
 
   const categories = await prismadb.category.findMany()
   const brands = await prismadb.brand.findMany()
+  const sizes = await prismadb.size.findMany()
 
   return (
     <div className="flex-1 flex-col">
@@ -29,6 +30,7 @@ const ProductIdPage = async ({ params }: { params: { proizvodId: string }}) => {
           initialData={product}
           categories={categories}
           brands={brands}
+          sizes={sizes}
         />
       </div>      
     </div>

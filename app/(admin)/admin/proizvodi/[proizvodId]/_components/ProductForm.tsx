@@ -36,10 +36,9 @@ import {
 const formSchema = z.object({
   title: z.string().min(2).max(30),
   description: z.string().min(2).max(1000),
-  sizes: z.object({ label: z.string(), price: z.coerce.number() }).array(),
-  discount: z.coerce.number().min(1).optional(),
-  rating: z.coerce.number().min(1).optional(),
-  images: z.object({ imageUrl: z.string() }).array(),
+  sizes: z.object({ label: z.string(), price: z.number() }).array(),
+  discount: z.coerce.number().optional(),
+  images: z.object({ url: z.string() }).array(),
   categoryId: z.string().min(1),
   brandId: z.string().min(1),
 });
@@ -55,12 +54,14 @@ interface ProductFormProps {
     | null;
   categories: Category[];
   brands: Brand[];
+  sizes: Size[]
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({
   initialData,
   brands,
   categories,
+  sizes
 }) => {
   const params = useParams();
   const router = useRouter();
@@ -79,9 +80,11 @@ const ProductForm: React.FC<ProductFormProps> = ({
       ? {
           title: initialData.title || "",
           description: initialData.description || "",
-          sizes: initialData.sizes || [],
+          sizes: initialData.sizes.map((size) => ({
+            label: size.label || "",
+            price: size.price || 0,
+          })),
           discount: initialData.discount || 0,
-          rating: initialData.rating || 0,
           images: initialData.images || [],
           categoryId: initialData.categoryId || "",
           brandId: initialData.brandId || "",
@@ -91,7 +94,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
           description: "",
           sizes: [],
           discount: 0,
-          rating: 0,
           images: [],
           categoryId: "",
           brandId: "",
@@ -156,7 +158,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full grid grid-cols-3 gap-3"
+          className="w-full grid grid-cols-2 gap-3"
         >
           <FormField
             control={form.control}
@@ -281,23 +283,119 @@ const ProductForm: React.FC<ProductFormProps> = ({
             control={form.control}
             name="images"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="max-w-md">
                 <FormLabel>Slike</FormLabel>
                 <FormControl>
                   <ImageUpload
-                    value={field.value?.map((image) => image.imageUrl)}
+                    value={field.value?.map((image) => image.url)}
                     onChange={(url) =>
                       field.onChange([...(field.value || []), { url }])
                     }
                     onRemove={(url) =>
                       field.onChange([
                         ...(field.value || []).filter(
-                          (current) => current.imageUrl !== url
+                          (current) => current.url !== url
                         ),
                       ])
                     }
                   />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="sizes"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Unesite ponudu</FormLabel>
+                {field.value.map((offer, index) => (
+                  <div key={index} className="flex space-x-2">
+                    <Select
+                      value={offer.label || ""}
+                      onValueChange={(selectedValue: string) => {
+                        const newOtherOffers = [...field.value];
+                        newOtherOffers[index] = {
+                          ...newOtherOffers[index],
+                          label: selectedValue
+                        };
+                        field.onChange(newOtherOffers);
+                      }}
+                      
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue
+                            defaultValue={offer.label}
+                            placeholder="Izaberite mjeru"
+                          />
+                        </SelectTrigger>
+
+                        {/* <Input
+                          type="text"
+                          value={offer.label}
+                          onChange={(e) => {
+                            const newOtherOffers = [...field.value];
+                            newOtherOffers[index] = {
+                              ...newOtherOffers[index],
+                              label: e.target.value,
+                            };
+                            field.onChange(newOtherOffers);
+                          }}
+                          placeholder="Izaberite jedinicu mjere"
+                        /> */}
+                      </FormControl>
+                      <SelectContent>
+                        {sizes.map((size) => (
+                          <SelectItem key={size.id} value={size.label}>
+                            {size.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormControl>
+                      <Input
+                        type="number"
+                        value={offer.price.toString()}
+                        onChange={(e) => {
+                          const newOtherOffers = [...field.value];
+                          newOtherOffers[index] = {
+                            ...newOtherOffers[index],
+                            price: Number(e.target.value),
+                          };
+                          field.onChange(newOtherOffers);
+                        }}
+                        placeholder="Unesite cijenu"
+                      />
+                    </FormControl>
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      onClick={() => {
+                        const newOtherOffers = [...field.value];
+                        newOtherOffers.splice(index, 1);
+                        field.onChange(newOtherOffers);
+                      }}
+                    >
+                      Izbriši
+                    </Button>
+                  </div>
+                ))}
+                <Button
+                  type="button"
+                  className="w-1/3"
+                  onClick={() => {
+                    const newOtherOffers = [
+                      ...field.value,
+                      { label: "", price: 0 },
+                    ];
+                    field.onChange(newOtherOffers);
+                  }}
+                >
+                  Dodaj cijenu
+                </Button>
                 <FormMessage />
               </FormItem>
             )}

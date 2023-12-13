@@ -9,11 +9,7 @@ const ProductPage = async () => {
       brand: true,
       category: true,
       images: true,
-      sizes: {
-        include: {
-          price: true
-        }
-      }
+      sizes: true
     },
     orderBy: {
       createdAt: "asc"
@@ -23,7 +19,7 @@ const ProductPage = async () => {
   const formattedProduct: ProductColumn[] = product.map((item) => ({
     id: item.id,
     title: item.title,
-    price: item.sizes.map((item) => item.price.value),
+    price: item.sizes.map((size) => size.price ?? 0),
     discount: item.discount || 0,
     rating: item.rating || 0,
     createdAt: format(item.createdAt, "MMMM do, yyyy")
