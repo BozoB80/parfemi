@@ -4,6 +4,7 @@ import Sidebar from "@/components/admin/Sidebar";
 import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import AdminNavbar from "@/components/admin/AdminNavbar";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import "../globals.css";
 
@@ -30,6 +31,7 @@ export default function AuthLayout({
               {children}
             </main>
             <Toaster />
+            <SpeedInsights />
           </ThemeProvider>
         </body>
       </html>

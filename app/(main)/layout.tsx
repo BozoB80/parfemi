@@ -1,4 +1,5 @@
 import "../globals.css";
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from "next";
 import { Asap } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
@@ -28,6 +29,7 @@ export default function RootLayout({
             {children}
             <Footer />
             <Toaster />
+            <SpeedInsights />
           </ThemeProvider>
         </body>
       </html>
