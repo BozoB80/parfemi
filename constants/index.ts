@@ -1,4 +1,4 @@
-import { Building2, Globe, LayoutDashboard, Library, Package, PanelLeftOpen, Store, Swords } from "lucide-react";
+import { Building2, Droplets, Globe, LayoutDashboard, Library, Package, PanelLeftOpen, Store, Swords } from "lucide-react";
 
 export const sidebarLinks = [
   {
@@ -20,6 +20,11 @@ export const sidebarLinks = [
     icon: Globe,
     route: "/admin/kategorije",
     label: "Kategorije",
+  },
+  {
+    icon: Droplets,
+    route: "/admin/kolicine",
+    label: "Količine",
   },
   {
     icon: Package,

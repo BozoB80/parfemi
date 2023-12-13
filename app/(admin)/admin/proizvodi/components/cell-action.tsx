@@ -1,7 +1,7 @@
 'use client'
 
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { CategoryColumn } from "./columns";
+import { SizeColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -12,7 +12,7 @@ import AlertModal from "@/components/modals/AlertModal";
 
 
 interface CellActionProps {
-  data: CategoryColumn
+  data: SizeColumn
 }
 
 const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -24,9 +24,9 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const onDelete = async () => {
     try {
      setLoading(true)
-     await axios.delete(`/api/kategorije/${data.id}`)
+     await axios.delete(`/api/kolicine/${data.id}`)
      router.refresh()
-     toast({description: "Kategorija izbrisana."})
+     toast({description: "Količina izbrisana."})
     } catch (error) {
       toast({variant: "destructive", description: "Nešto nije u redu."})
     } finally {
@@ -54,7 +54,7 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <DropdownMenuLabel>
             Opcije
           </DropdownMenuLabel>     
-          <DropdownMenuItem onClick={() => router.push(`/admin/brendovi/${data.id}`)}>
+          <DropdownMenuItem onClick={() => router.push(`/admin/kolicine/${data.id}`)}>
             <Edit className="mr-2 h-4 w-4" />  
             Ažuriraj
           </DropdownMenuItem>    

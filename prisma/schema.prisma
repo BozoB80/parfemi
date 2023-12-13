@@ -24,6 +24,8 @@ model Brand {
   logo        String
   createdAt   DateTime @default(now())
   updateAt    DateTime @updatedAt
+
+  products Product[]
 }
 
 model Category {
@@ -34,6 +36,7 @@ model Category {
   updateAt  DateTime @updatedAt
 
   subcategory Subcategory[]
+  products    Product[]
 }
 
 model Subcategory {
@@ -47,4 +50,53 @@ model Subcategory {
   categoryId String   @db.ObjectId
 
   @@index([categoryId])
+}
+
+model Size {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  label     String
+  value     Float
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  price     Price    @relation(fields: [priceId], references: [id])
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?  @db.ObjectId
+  priceId   String   @db.ObjectId
+}
+
+model Price {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  value     Float
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  size Size[]
+}
+
+model Product {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  discount    Int?
+  rating      Float?
+  createdAt   DateTime @default(now())
+  updateAt    DateTime @updatedAt
+
+  images     Image[]
+  sizes      Size[]
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?   @db.ObjectId
+  brand      Brand?    @relation(fields: [brandId], references: [id])
+  brandId    String?   @db.ObjectId
+}
+
+model Image {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  imageUrl  String
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  product   Product? @relation(fields: [productId], references: [id])
+  productId String?  @db.ObjectId
 }
