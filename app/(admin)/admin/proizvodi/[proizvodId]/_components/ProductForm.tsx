@@ -23,7 +23,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import * as z from "zod";
-import { Brand, Category, Image, Product, Size } from "@prisma/client";
+import { Brand, Category, Image, PriceVariant, Product, Size } from "@prisma/client";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -36,7 +36,7 @@ import {
 const formSchema = z.object({
   title: z.string().min(2).max(30),
   description: z.string().min(2).max(1000),
-  sizes: z.object({ label: z.string(), price: z.number() }).array(),
+  priceVariants: z.object({ label: z.string(), price: z.number() }).array(),
   discount: z.coerce.number().optional(),
   images: z.object({ url: z.string() }).array(),
   categoryId: z.string().min(1),
@@ -49,7 +49,7 @@ interface ProductFormProps {
   initialData:
     | (Product & {
         images: Image[];
-        sizes: Size[];
+        priceVariants: PriceVariant[]
       })
     | null;
   categories: Category[];
@@ -80,9 +80,9 @@ const ProductForm: React.FC<ProductFormProps> = ({
       ? {
           title: initialData.title || "",
           description: initialData.description || "",
-          sizes: initialData.sizes.map((size) => ({
-            label: size.label || "",
-            price: size.price || 0,
+          priceVariants: initialData.priceVariants.map((item) => ({
+            label: item.label || "",
+            price: item.price || 0,
           })),
           discount: initialData.discount || 0,
           images: initialData.images || [],
@@ -92,7 +92,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
       : {
           title: "",
           description: "",
-          sizes: [],
+          priceVariants: [],
           discount: 0,
           images: [],
           categoryId: "",
@@ -104,7 +104,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
     try {
       setLoading(true);
       if (initialData) {
-        await axios.patch(`/api/proizvodi/${params.productId}`, data);
+        await axios.patch(`/api/proizvodi/${params.proizvodId}`, data);
       } else {
         await axios.post(`/api/proizvodi`, data);
       }
@@ -121,7 +121,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   const onDelete = async () => {
     try {
       setLoading(true);
-      await axios.delete(`/api/proizvodi/${params.productId}`);
+      await axios.delete(`/api/proizvodi/${params.proizvodId}`);
       router.refresh();
       router.push(`/admin/proizvodi`);
       toast({ description: "Proizvod izbrisan" });
@@ -307,7 +307,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
 
           <FormField
             control={form.control}
-            name="sizes"
+            name="priceVariants"
             render={({ field }) => (
               <FormItem className="flex flex-col">
                 <FormLabel>Unesite ponudu</FormLabel>
@@ -323,7 +323,6 @@ const ProductForm: React.FC<ProductFormProps> = ({
                         };
                         field.onChange(newOtherOffers);
                       }}
-                      
                     >
                       <FormControl>
                         <SelectTrigger>
@@ -331,21 +330,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
                             defaultValue={offer.label}
                             placeholder="Izaberite mjeru"
                           />
-                        </SelectTrigger>
-
-                        {/* <Input
-                          type="text"
-                          value={offer.label}
-                          onChange={(e) => {
-                            const newOtherOffers = [...field.value];
-                            newOtherOffers[index] = {
-                              ...newOtherOffers[index],
-                              label: e.target.value,
-                            };
-                            field.onChange(newOtherOffers);
-                          }}
-                          placeholder="Izaberite jedinicu mjere"
-                        /> */}
+                        </SelectTrigger>              
                       </FormControl>
                       <SelectContent>
                         {sizes.map((size) => (

@@ -8,7 +8,7 @@ export async function POST(req: Request) {
     const { userId } = auth();
     const body = await req.json();
 
-    const { title, description, sizes, discount, images, categoryId, brandId } = body;
+    const { title, description, priceVariants, discount, images, categoryId, brandId } = body;
 
     if (!userId) {
       return new NextResponse("Morate se prijaviti", { status: 403 });
@@ -26,9 +26,9 @@ export async function POST(req: Request) {
       data: {
         title,
         description,
-        sizes: {
+        priceVariants: {
           createMany: {
-            data: sizes.map((item: { label: string, price: number }) => ({
+            data: priceVariants.map((item: { label: string, price: number }) => ({
               label: item.label,
               price: item.price
             }))
@@ -64,7 +64,7 @@ export async function GET(req: Request) {
         images: true,
         category: true,
         brand: true,
-        sizes: true
+        priceVariants: true
       }
     });
   

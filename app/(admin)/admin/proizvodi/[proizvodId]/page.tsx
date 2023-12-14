@@ -14,7 +14,7 @@ const ProductIdPage = async ({ params }: { params: { proizvodId: string }}) => {
         images: true,
         brand: true,
         category: true,
-        sizes: true
+        priceVariants: true
       }
     })
   } 

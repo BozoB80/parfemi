@@ -55,12 +55,23 @@ model Subcategory {
 model Size {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   label     String
-  value     Float?
-  price     Float?
+  value     Float
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
 
-  product   Product? @relation(fields: [productId], references: [id])
+  priceVariant   PriceVariant? @relation(fields: [priceVariantId], references: [id])
+  priceVariantId String?       @db.ObjectId
+}
+
+model PriceVariant {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  label     String
+  price     Float
+  createdAt DateTime @default(now())
+  updateAt  DateTime @updatedAt
+
+  sizes     Size[]
+  Product   Product? @relation(fields: [productId], references: [id])
   productId String?  @db.ObjectId
 }
 
@@ -73,12 +84,12 @@ model Product {
   createdAt   DateTime @default(now())
   updateAt    DateTime @updatedAt
 
-  images     Image[]
-  sizes      Size[]
-  category   Category? @relation(fields: [categoryId], references: [id])
-  categoryId String?   @db.ObjectId
-  brand      Brand?    @relation(fields: [brandId], references: [id])
-  brandId    String?   @db.ObjectId
+  images        Image[]
+  priceVariants PriceVariant[]
+  category      Category?      @relation(fields: [categoryId], references: [id])
+  categoryId    String?        @db.ObjectId
+  brand         Brand?         @relation(fields: [brandId], references: [id])
+  brandId       String?        @db.ObjectId
 }
 
 model Image {

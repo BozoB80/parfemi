@@ -20,7 +20,7 @@ export async function GET(
         images: true,
         category: true,
         brand: true,
-        sizes: true
+        priceVariants: true
       }
     });
   
@@ -69,7 +69,7 @@ export async function PATCH(
     const { userId } = auth();
 
     const body = await req.json();
-    const { title, description, sizes, discount, images, categoryId, brandId } = body;
+    const { title, description, priceVariants, discount, images, categoryId, brandId } = body;
 
     if (!userId) {
       return new NextResponse("Unauthenticated", { status: 403 });
@@ -83,8 +83,8 @@ export async function PATCH(
       return new NextResponse("Images are required", { status: 400 });
     }
 
-    if (!sizes) {
-      return new NextResponse("Price is required", { status: 400 });
+    if (!priceVariants || !priceVariants.length) {
+      return new NextResponse("PriceVariants are required", { status: 400 });
     }
 
     if (!categoryId) {
@@ -106,28 +106,50 @@ export async function PATCH(
       data: {
         title,
         description,
-        sizes,
-        discount, 
+        discount,
         categoryId,
         brandId,
+        priceVariants: {
+          deleteMany: {}
+        },
         images: {
           deleteMany: {}
         }
       }
-    })
+    });
 
-    const proizvod = await prismadb.product.update({
+    await prismadb.product.update({
       where: {
         id: params.proizvodId
       },
       data: {
+        priceVariants: {
+          createMany: {
+            data: priceVariants.map((item: { label: string, price: number }) => ({
+              label: item.label,
+              price: item.price
+            }))
+          }
+        },
         images: {
           createMany: {
-            data: [
-              ...images.map((image: { url: string }) => image)
-            ]
+            data: images.map((image: { url: string }) => ({
+              url: image.url
+            }))
           }
         }
+      }
+    });
+
+    const proizvod = await prismadb.product.findUnique({
+      where: {
+        id: params.proizvodId
+      },
+      include: {
+        images: true,
+        category: true,
+        brand: true,
+        priceVariants: true
       }
     });
   
