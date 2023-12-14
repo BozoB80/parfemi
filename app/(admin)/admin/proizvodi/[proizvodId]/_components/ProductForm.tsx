@@ -34,7 +34,7 @@ import {
 } from "@/components/ui/select";
 
 const formSchema = z.object({
-  title: z.string().min(2).max(30),
+  title: z.string().min(2).max(50),
   description: z.string().min(2).max(1000),
   priceVariants: z.object({ label: z.string(), price: z.number() }).array(),
   discount: z.coerce.number().optional(),

@@ -13,6 +13,7 @@ import { Button } from "../ui/button";
 import { Brand } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
+import Link from "next/link";
 
 interface MainNavProps {
   brendovi: Brand[]
@@ -23,7 +24,9 @@ const MainNav = ({ brendovi }: MainNavProps) => {
 
   return (
     <div className="hidden max-w-7xl mx-auto md:flex justify-between items-center space-x-3">
-      <Button variant="ghost" className="uppercase text-md">Proizvodi</Button>
+      <Link href="/parfemi">
+        <Button variant="ghost" className="uppercase text-md">Proizvodi</Button>
+      </Link>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
