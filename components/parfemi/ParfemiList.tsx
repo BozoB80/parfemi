@@ -14,7 +14,7 @@ interface ParfemiListProps {
 const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   return (
     <div>
-      <BreadCrumbs page="parfemi" params="" />
+      <BreadCrumbs page="parfemi" />
       <div className="flex w-full">
         <div className="w-1/5 hidden lg:block">
           <p>Filteri</p>

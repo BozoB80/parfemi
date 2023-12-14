@@ -16,7 +16,7 @@ const Home = async () => {
 
   return (
     <main>
-      <Carousel baneri={baneri} />
+      <Carousel baneri={baneri} height />
       <Brands brands={brands} />
       <Categories categories={categories} />
     </main>

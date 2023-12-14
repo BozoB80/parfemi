@@ -16,14 +16,21 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Trash } from "lucide-react";
+import { PackagePlus, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useToast } from "@/components/ui/use-toast";
 import * as z from "zod";
-import { Brand, Category, Image, PriceVariant, Product, Size } from "@prisma/client";
+import {
+  Brand,
+  Category,
+  Image,
+  PriceVariant,
+  Product,
+  Size,
+} from "@prisma/client";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
@@ -34,13 +41,19 @@ import {
 } from "@/components/ui/select";
 
 const formSchema = z.object({
-  title: z.string().min(2, { message: "Naziv može biti od 2 do 50 karaktera"}).max(50),
-  description: z.string().min(2, { message: "Opis može biti od 2 do 1000 karaktera"}).max(1000),
+  title: z
+    .string()
+    .min(2, { message: "Naziv može biti od 2 do 50 karaktera" })
+    .max(50),
+  description: z
+    .string()
+    .min(2, { message: "Opis može biti od 2 do 1000 karaktera" })
+    .max(1000),
   priceVariants: z.object({ label: z.string(), price: z.number() }).array(),
   discount: z.coerce.number().optional(),
   images: z.object({ url: z.string() }).array(),
-  categoryId: z.string().min(1),
-  brandId: z.string().min(1),
+  categoryId: z.string().min(1, { message: "Izaberite kategoriju" }),
+  brandId: z.string().min(1, { message: "Izaberite brend" }),
 });
 
 type ProductFormValues = z.infer<typeof formSchema>;
@@ -49,19 +62,19 @@ interface ProductFormProps {
   initialData:
     | (Product & {
         images: Image[];
-        priceVariants: PriceVariant[]
+        priceVariants: PriceVariant[];
       })
     | null;
   categories: Category[];
   brands: Brand[];
-  sizes: Size[]
+  sizes: Size[];
 }
 
 const ProductForm: React.FC<ProductFormProps> = ({
   initialData,
   brands,
   categories,
-  sizes
+  sizes,
 }) => {
   const params = useParams();
   const router = useRouter();
@@ -72,7 +85,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
   const title = initialData ? "Uredi proizvod" : "Dodaj proizvod";
   const description = initialData ? "Uredi proizvod" : "Dodaj novi proizvod";
   const toastMessage = initialData ? "Proizvod ažuriran" : "Proizvod kreiran";
-  const action = initialData ? "Sačuvaj izmjene" : "Dodaj";
+  const action = initialData ? "Sačuvaj izmjene" : "Dodaj novi proizvod";
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(formSchema),
@@ -158,239 +171,244 @@ const ProductForm: React.FC<ProductFormProps> = ({
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-full grid grid-cols-2 gap-3"
+          className="flex flex-col gap-4"
+          //className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"
         >
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem className="max-w-md">
-                <FormLabel>Naziv</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled={loading}
-                    placeholder="Naziv proizvoda"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem className="max-w-md">
-                <FormLabel>Opis</FormLabel>
-                <FormControl>
-                  <Textarea
-                    disabled={loading}
-                    placeholder="Unesite opis proizvoda"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="categoryId"
-            render={({ field }) => (
-              <FormItem className="max-w-md">
-                <FormLabel>Kategorija</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  defaultValue={field.value}
-                >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem className="max-w-md">
+                  <FormLabel>Naziv</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue
-                        defaultValue={field.value}
-                        placeholder="Izaberite kategoriju"
-                      />
-                    </SelectTrigger>
+                    <Input
+                      disabled={loading}
+                      placeholder="Naziv proizvoda"
+                      {...field}
+                    />
                   </FormControl>
-                  <SelectContent>
-                    {categories?.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        <p className="capitalize">{category.label}</p>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
-          <FormField
-            control={form.control}
-            name="brandId"
-            render={({ field }) => (
-              <FormItem className="max-w-md">
-                <FormLabel>Brend</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  value={field.value}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue
-                        defaultValue={field.value}
-                        placeholder="Izaberite brend"
-                      />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    {brands?.map((brand) => (
-                      <SelectItem key={brand.id} value={brand.id}>
-                        <p className="capitalize">{brand.label}</p>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="discount"
-            render={({ field }) => (
-              <FormItem className="max-w-md">
-                <FormLabel>Popust</FormLabel>
-                <FormControl>
-                  <Input
-                    disabled={loading}
-                    type="number"
-                    placeholder="Unesite popust"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="images"
-            render={({ field }) => (
-              <FormItem className="max-w-md">
-                <FormLabel>Slike</FormLabel>
-                <FormControl>
-                  <ImageUpload
-                    value={field.value?.map((image) => image.url)}
-                    onChange={(url) =>
-                      field.onChange([...(field.value || []), { url }])
-                    }
-                    onRemove={(url) =>
-                      field.onChange([
-                        ...(field.value || []).filter(
-                          (current) => current.url !== url
-                        ),
-                      ])
-                    }
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="priceVariants"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Unesite ponudu</FormLabel>
-                {field.value.map((offer, index) => (
-                  <div key={index} className="flex space-x-2">
-                    <Select
-                      value={offer.label || ""}
-                      onValueChange={(selectedValue: string) => {
-                        const newOtherOffers = [...field.value];
-                        newOtherOffers[index] = {
-                          ...newOtherOffers[index],
-                          label: selectedValue
-                        };
-                        field.onChange(newOtherOffers);
-                      }}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue
-                            defaultValue={offer.label}
-                            placeholder="Izaberite mjeru"
-                          />
-                        </SelectTrigger>              
-                      </FormControl>
-                      <SelectContent>
-                        {sizes.map((size) => (
-                          <SelectItem key={size.id} value={size.label}>
-                            {size.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+            <FormField
+              control={form.control}
+              name="brandId"
+              render={({ field }) => (
+                <FormItem className="max-w-md">
+                  <FormLabel>Brend</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
                     <FormControl>
-                      <Input
-                        type="number"
-                        value={offer.price.toString()}
-                        onChange={(e) => {
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Izaberite brend"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {brands?.map((brand) => (
+                        <SelectItem key={brand.id} value={brand.id}>
+                          <p className="capitalize">{brand.label}</p>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="categoryId"
+              render={({ field }) => (
+                <FormItem className="max-w-md">
+                  <FormLabel>Kategorija</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue
+                          defaultValue={field.value}
+                          placeholder="Izaberite kategoriju"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories?.map((category) => (
+                        <SelectItem key={category.id} value={category.id}>
+                          <p className="capitalize">{category.label}</p>
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="discount"
+              render={({ field }) => (
+                <FormItem className="max-w-md">
+                  <FormLabel>Popust (opcija)</FormLabel>
+                  <FormControl>
+                    <Input
+                      disabled={loading}
+                      type="number"
+                      placeholder="Unesite popust"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem className="max-w-md">
+                  <FormLabel>Opis</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      disabled={loading}
+                      placeholder="Unesite opis proizvoda"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="priceVariants"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Unesite cijene</FormLabel>
+                  {field.value.map((offer, index) => (
+                    <div key={index} className="flex space-x-2">
+                      <Select
+                        value={offer.label || ""}
+                        onValueChange={(selectedValue: string) => {
                           const newOtherOffers = [...field.value];
                           newOtherOffers[index] = {
                             ...newOtherOffers[index],
-                            price: Number(e.target.value),
+                            label: selectedValue,
                           };
                           field.onChange(newOtherOffers);
                         }}
-                        placeholder="Unesite cijenu"
-                      />
-                    </FormControl>
-                    <Button
-                      type="button"
-                      variant="destructive"
-                      onClick={() => {
-                        const newOtherOffers = [...field.value];
-                        newOtherOffers.splice(index, 1);
-                        field.onChange(newOtherOffers);
-                      }}
-                    >
-                      Izbriši
-                    </Button>
-                  </div>
-                ))}
-                <Button
-                  type="button"
-                  className="w-1/3"
-                  onClick={() => {
-                    const newOtherOffers = [
-                      ...field.value,
-                      { label: "", price: 0 },
-                    ];
-                    field.onChange(newOtherOffers);
-                  }}
-                >
-                  Dodaj cijenu
-                </Button>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue
+                              defaultValue={offer.label}
+                              placeholder="Izaberite mjeru"
+                            />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {sizes.map((size) => (
+                            <SelectItem key={size.id} value={size.label}>
+                              {size.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          value={offer.price.toString()}
+                          onChange={(e) => {
+                            const newOtherOffers = [...field.value];
+                            newOtherOffers[index] = {
+                              ...newOtherOffers[index],
+                              price: Number(e.target.value),
+                            };
+                            field.onChange(newOtherOffers);
+                          }}
+                          placeholder="Unesite cijenu"
+                        />
+                      </FormControl>
+                      <Button
+                        type="button"
+                        variant="destructive"
+                        onClick={() => {
+                          const newOtherOffers = [...field.value];
+                          newOtherOffers.splice(index, 1);
+                          field.onChange(newOtherOffers);
+                        }}
+                      >
+                        Izbriši
+                      </Button>
+                    </div>
+                  ))}
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="mr-auto"
+                    onClick={() => {
+                      const newOtherOffers = [
+                        ...field.value,
+                        { label: "", price: 0 },
+                      ];
+                      field.onChange(newOtherOffers);
+                    }}
+                  >
+                    <PackagePlus className="w-4 h-4 mr-2" />
+                    Dodaj cijenu
+                  </Button>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="images"
+              render={({ field }) => (
+                <FormItem className="max-w-md">
+                  <FormLabel>Slike</FormLabel>
+                  <FormControl>
+                    <ImageUpload
+                      value={field.value?.map((image) => image.url)}
+                      onChange={(url) =>
+                        field.onChange([...(field.value || []), { url }])
+                      }
+                      onRemove={(url) =>
+                        field.onChange([
+                          ...(field.value || []).filter(
+                            (current) => current.url !== url
+                          ),
+                        ])
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <Button
             disabled={loading}
             size="lg"
-            className="ml-auto"
             type="submit"
+            className="md:w-60 mx-auto"
           >
             {action}
           </Button>

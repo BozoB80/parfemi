@@ -1,12 +1,18 @@
 "use client"
 
+import { cn } from "@/lib/utils";
 import { Baner } from "@prisma/client";
 import Image from "next/image";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 interface CarouselProps {
-  baneri: Baner[]
+  baneri: {
+    id: string,
+    imageUrl?: string,
+    url?: string
+  } []
+  height?: boolean
 }
 
 const responsive = {
@@ -27,7 +33,7 @@ const responsive = {
   }
 };
 
-const CarouselPage = ({ baneri }: CarouselProps) => {
+const CarouselPage = ({ baneri, height }: CarouselProps) => {
   return (
     <Carousel
       swipeable={true}
@@ -35,20 +41,21 @@ const CarouselPage = ({ baneri }: CarouselProps) => {
       ssr={true}
       infinite={true}
       autoPlay={true}
-      autoPlaySpeed={4000}
+      autoPlaySpeed={6000}
       customTransition="all 2s"
-      transitionDuration={2000}      
+      transitionDuration={2000}   
+      arrows={responsive.mobile ? false : true}
     >
       {baneri.map((baner) => (
         <Image 
           key={baner.id}
-          src={baner.imageUrl}
+          src={baner.imageUrl || baner.url || ""}
           alt={baner.id}
           width={5000}
           height={5000}
           quality={100}
           priority
-          className="w-full h-48 sm:h-80 lg:h-96 xl:h-[650px] object-cover object-center"
+          className={cn("w-full sm:h-80 lg:h-96 xl:h-[650px] object-cover object-center", height && "h-48")}
         />
       ))}
     </Carousel>

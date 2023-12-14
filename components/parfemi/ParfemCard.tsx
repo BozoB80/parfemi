@@ -18,24 +18,24 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
   return (
     <Card className="shadow-lg">
       <CardHeader className="p-0 py-3">
-        <Link href={`/brend/${parfem.id.toLowerCase().replace(/\s/g, '-')}`} className="overflow-hidden">
+        <Link href={`/parfemi/${parfem.category?.label.replace(/\s/g, '-')}/${parfem.title.toLowerCase().replace(/\s/g, '-')}`} className="overflow-hidden">
           <Image 
             src={firstImageUrl}
             alt={parfem.title}
             width={500}
             height={500}
-            className="hover:scale-110 transition duration-500 rounded-sm hover:rounded-sm"
+            className="aspect-square object-contain hover:scale-110 transition duration-500 rounded-sm hover:rounded-sm"
           />
         </Link>
       </CardHeader>
       <CardContent className="text-center p-0 py-2">
         <Link href={`/brend/${parfem.brand?.label.toLowerCase().replace(/\s/g, '-')}`} className="text-xl font-bold">{parfem.brand?.label}</Link>
-        <p className="text-base">{parfem.title}</p>
+        <p className="text-sm sm:text-base">{parfem.title}</p>
       </CardContent>
-      <CardFooter className="flex justify-around">
+      <CardFooter className="flex justify-between md:justify-around max-lg:px-2 max-lg:py-2 gap-1">
         {parfem.priceVariants.map((item) => (
-          <div key={item.id} className="border px-4 py-2 rounded-md">
-            <p className="text-sm">{item.label}</p>
+          <div key={item.id} className="border px-2 md:px-4 py-1 sm:py-2 rounded-md">
+            <p className="text-xs md:text-sm">{item.label}</p>
           </div>
         ))}
       </CardFooter>

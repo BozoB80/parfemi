@@ -13,10 +13,16 @@ const Navbar = async () => {
     }
   })
 
+  const kategorije = await prismadb.category.findMany({
+    orderBy: {
+      label: "asc"
+    }
+  })
+
   return (
     <nav className="border-b shadow-xl">
       <div className="h-16 sm:h-24 flex justify-between items-center px-4 gap-10">
-        <MobileMenu />
+        <MobileMenu kategorije={kategorije} brendovi={brendovi} />
         <Searchbar />
         <Link href="/">
           <Image

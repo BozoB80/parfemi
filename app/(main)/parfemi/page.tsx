@@ -15,7 +15,7 @@ const ParfemiPage = async () => {
   })
 
   return (
-    <div className="h-full max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto">
       <ParfemiList parfemi={parfemi} />
     </div>
   );
