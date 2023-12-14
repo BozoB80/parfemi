@@ -19,6 +19,8 @@ const ProductPage = async () => {
   const formattedProduct: ProductColumn[] = product.map((item) => ({
     id: item.id,
     title: item.title,
+    brand: item.brand?.label || "",
+    category: item.category?.label || "",
     price: item.priceVariants.map((size) => size.price ?? 0),
     discount: item.discount || 0,
     rating: item.rating || 0,

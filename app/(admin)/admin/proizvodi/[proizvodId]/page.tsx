@@ -20,7 +20,11 @@ const ProductIdPage = async ({ params }: { params: { proizvodId: string }}) => {
   } 
 
   const categories = await prismadb.category.findMany()
-  const brands = await prismadb.brand.findMany()
+  const brands = await prismadb.brand.findMany({
+    orderBy: {
+      label: "asc"
+    }
+  })
   const sizes = await prismadb.size.findMany()
 
   return (

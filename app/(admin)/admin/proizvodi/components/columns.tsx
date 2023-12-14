@@ -8,6 +8,8 @@ import CellAction from "./cell-action"
 export type ProductColumn = {
   id: string
   title: string
+  brand: string
+  category: string
   price: number[]
   discount: number
   rating: number
@@ -24,6 +26,34 @@ export const columns: ColumnDef<ProductColumn>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Naziv
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+  },
+  {
+    accessorKey: "brand",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Brend
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
+  },
+  {
+    accessorKey: "category",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Kategorija
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       )

@@ -34,8 +34,8 @@ import {
 } from "@/components/ui/select";
 
 const formSchema = z.object({
-  title: z.string().min(2).max(50),
-  description: z.string().min(2).max(1000),
+  title: z.string().min(2, { message: "Naziv može biti od 2 do 50 karaktera"}).max(50),
+  description: z.string().min(2, { message: "Opis može biti od 2 do 1000 karaktera"}).max(1000),
   priceVariants: z.object({ label: z.string(), price: z.number() }).array(),
   discount: z.coerce.number().optional(),
   images: z.object({ url: z.string() }).array(),

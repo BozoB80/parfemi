@@ -17,7 +17,7 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
 
   return (
     <Card className="shadow-lg">
-      <CardHeader className="p-0">
+      <CardHeader className="p-0 py-3">
         <Link href={`/brend/${parfem.id.toLowerCase().replace(/\s/g, '-')}`} className="overflow-hidden">
           <Image 
             src={firstImageUrl}
@@ -28,9 +28,9 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
           />
         </Link>
       </CardHeader>
-      <CardContent className="text-center">
-        <Link href={`/brend/${parfem.brand?.label.toLowerCase().replace(/\s/g, '-')}`} className="text-lg font-bold">{parfem.brand?.label}</Link>
-        <p>{parfem.title}</p>
+      <CardContent className="text-center p-0 py-2">
+        <Link href={`/brend/${parfem.brand?.label.toLowerCase().replace(/\s/g, '-')}`} className="text-xl font-bold">{parfem.brand?.label}</Link>
+        <p className="text-base">{parfem.title}</p>
       </CardContent>
       <CardFooter className="flex justify-around">
         {parfem.priceVariants.map((item) => (
