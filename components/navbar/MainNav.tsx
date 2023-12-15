@@ -25,7 +25,7 @@ const MainNav = ({ brendovi }: MainNavProps) => {
   return (
     <div className="hidden max-w-7xl mx-auto md:flex justify-between items-center space-x-3">
       <Link href="/parfemi">
-        <Button variant="ghost" className="uppercase text-md">Proizvodi</Button>
+        <Button variant="ghost" className="uppercase text-md">Parfemi</Button>
       </Link>
 
       <DropdownMenu>

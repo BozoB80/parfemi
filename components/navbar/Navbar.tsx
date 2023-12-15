@@ -15,7 +15,7 @@ const Navbar = async () => {
 
   const kategorije = await prismadb.category.findMany({
     orderBy: {
-      label: "asc"
+      createdAt: "asc"
     }
   })
 

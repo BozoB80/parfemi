@@ -1,3 +1,4 @@
+import BreadCrumbs from "@/components/Breadcrumbs";
 import ParfemiList from "@/components/parfemi/ParfemiList";
 import prismadb from "@/lib/prismadb";
 
@@ -16,6 +17,7 @@ const ParfemiPage = async () => {
 
   return (
     <div className="max-w-7xl mx-auto">
+      <BreadCrumbs page="parfemi" />
       <ParfemiList parfemi={parfemi} />
     </div>
   );

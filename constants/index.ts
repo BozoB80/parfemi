@@ -45,12 +45,12 @@ export const inclusions = [
     icon: '/icons/shipping.svg',
   },
   {
-    title: 'Povrat Novca',
+    title: 'Povrat novca',
     description: 'Novac vraćamo unutar 30 dana',
     icon: '/icons/dollar.svg',
   },
   {
-    title: 'Online Podrška',
+    title: 'Online podrška',
     description: '24 sata na dan, 7 dana u tjednu',
     icon: '/icons/support.svg',
   },

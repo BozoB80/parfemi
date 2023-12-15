@@ -14,45 +14,48 @@ const Footer = () => {
           </div>
         ))}
       </div>
-      <div className="bg-black w-full p-10 flex justify-between items-center">
-        <Link href="/">
-          <Image 
-            src="/logo2.png"
-            alt="logo"
-            width={150}
-            height={80}
-          />
-        </Link>
-        <h1 className="text-white/90 max-lg:text-sm max-sm:hidden">Copyright © PARFEMI {new Date().getFullYear()}. Sva prava pridržana.</h1>
-        <div className="flex items-center gap-2 sm:gap-8">
+      <div className="bg-black w-full px-5 py-2 sm:p-10 flex flex-col justify-between items-center">
+        <div className="flex justify-between items-center w-full">
           <Link href="/">
             <Image 
-              src="/facebook.svg"
-              alt="facebook"
-              width={30}
-              height={30}
-              className="hover:scale-110 transition"
+              src="/logo2.png"
+              alt="logo"
+              width={150}
+              height={80}
             />
           </Link>
-          <Link href="/">
-            <Image 
-              src="/instagram.svg"
-              alt="instagram"
-              width={30}
-              height={30}
-              className="hover:scale-110 transition"
-            />
-          </Link>
-          <Link href="/">
-            <Image 
-              src="/twitter.svg"
-              alt="twitter"
-              width={30}
-              height={30}
-              className="hover:scale-110 transition"
-            />
-          </Link>
+          <h1 className="text-white/90 max-lg:text-sm max-sm:hidden">Copyright © PARFEMI {new Date().getFullYear()}. Sva prava pridržana.</h1>
+          <div className="flex items-center gap-2 sm:gap-8">
+            <Link href="/">
+              <Image 
+                src="/facebook.svg"
+                alt="facebook"
+                width={30}
+                height={30}
+                className="hover:scale-110 transition"
+              />
+            </Link>
+            <Link href="/">
+              <Image 
+                src="/instagram.svg"
+                alt="instagram"
+                width={30}
+                height={30}
+                className="hover:scale-110 transition"
+              />
+            </Link>
+            <Link href="/">
+              <Image 
+                src="/twitter.svg"
+                alt="twitter"
+                width={30}
+                height={30}
+                className="hover:scale-110 transition"
+              />
+            </Link>
+          </div>
         </div>
+        <h1 className="text-white/90 text-xs mt-2 sm:hidden">Copyright © PARFEMI {new Date().getFullYear()}. Sva prava pridržana.</h1>
       </div>
     </footer>
   );

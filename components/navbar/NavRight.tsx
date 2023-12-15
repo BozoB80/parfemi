@@ -5,7 +5,7 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 //import MobileMenu from "./MobileMenu";
-import { ShieldCheck } from "lucide-react";
+import { Search, ShieldCheck } from "lucide-react";
 import { ThemeToggle } from "../ThemeToggle";
 import NavCart from "./NavCart";
 import WishlistButton from "../WishlistButton";
@@ -29,7 +29,12 @@ const NavRight = () => {
       <div className="hidden sm:block">
         <ThemeToggle />
       </div>
-      <WishlistButton />
+      <div className="hidden sm:block">
+        <WishlistButton />
+      </div>
+      <div className="sm:hidden">
+        <Search size={24} />
+      </div>
       <NavCart />
 
       <div className="max-lg:hidden">
