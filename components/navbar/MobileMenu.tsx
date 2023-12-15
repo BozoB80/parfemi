@@ -67,15 +67,15 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
           </SheetHeader>
 
           <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="item-1" onClick={() => router.push("/")}>
+            <AccordionItem value="item-1">
               <AccordionTrigger>
-                <SheetClose>Početna</SheetClose>
+                <SheetClose onClick={() => router.push("/")}>Početna</SheetClose>
               </AccordionTrigger>
             </AccordionItem>
 
-            <AccordionItem value="item-2" onClick={() => router.push("/parfemi")}>
+            <AccordionItem value="item-2">
               <AccordionTrigger>
-                <SheetClose>Parfemi</SheetClose>
+                <SheetClose onClick={() => router.push("/parfemi")}>Parfemi</SheetClose>
               </AccordionTrigger>
             </AccordionItem>
 

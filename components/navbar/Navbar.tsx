@@ -35,7 +35,7 @@ const Navbar = async () => {
         </Link>
         <NavRight />
       </div>
-      <MainNav brendovi={brendovi} />
+      <MainNav brendovi={brendovi} kategorije={kategorije} />
     </nav>
   );
 };

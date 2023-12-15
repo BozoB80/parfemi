@@ -30,7 +30,7 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
       </CardHeader>
       <CardContent className="text-center p-0 py-2">
         <Link href={`/brend/${parfem.brand?.label.toLowerCase().replace(/\s/g, '-')}`} className="text-xl font-bold">{parfem.brand?.label}</Link>
-        <p className="text-sm sm:text-base">{parfem.title}</p>
+        <p className="text-sm sm:text-base truncate px-1">{parfem.title}</p>
       </CardContent>
       <CardFooter className="flex justify-between md:justify-around max-lg:px-2 max-lg:py-2 gap-1">
         {parfem.priceVariants.map((item) => (

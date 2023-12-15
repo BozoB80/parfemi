@@ -24,7 +24,7 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
   }) 
 
   return (
-    <div>
+    <div className="max-w-7xl mx-auto">
       <BreadCrumbs page="parfemi" params={`${params.categoryName}`} />
       <ParfemiList parfemi={parfemi} />
     </div>

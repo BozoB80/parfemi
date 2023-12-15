@@ -59,6 +59,7 @@ const AdminNavbar = () => {
           alt="logo"
           width={150}
           height={150}
+          onClick={() => router.push("/")}
           className="cursor-pointer"
         />
 
