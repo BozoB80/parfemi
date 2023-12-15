@@ -39,6 +39,7 @@ const localization = {
       goodPassword: 'Vaša lozinka zadovoljava sve potrebne uvjete.',
     },
   },  
+  
   signIn: {
     start: {
       title: 'Prijava',
@@ -88,7 +89,7 @@ export default function AuthLayout({
     <ClerkProvider localization={localization}>
       <html lang="en">
         <body className={font.className}>
-          <div className="w-full min-h-screen flex justify-center items-center">
+          <div className="w-full h-full flex justify-center items-center">
             {children}
           </div>
         </body>

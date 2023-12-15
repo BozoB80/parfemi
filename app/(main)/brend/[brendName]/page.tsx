@@ -9,11 +9,13 @@ interface BrandProps {
 }
 
 const BrendNamePage = async ({ params }: BrandProps) => {
+  const decodedBrandName = params.brendName.replace(/%26/g, '&');
+
   const parfemi = await prismadb.product.findMany({
     where: {
       brand: {
         label: {
-          contains: params.brendName.replace(/-/g, ' '),
+          contains: decodedBrandName.replace(/-/g, ' '),
           mode: "insensitive"
         }
       }
@@ -24,7 +26,7 @@ const BrendNamePage = async ({ params }: BrandProps) => {
       images: true,
       priceVariants: true
     }
-  })
+  })  
   
   return (
     <div className="max-w-7xl mx-auto">
