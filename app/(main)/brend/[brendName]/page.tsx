@@ -13,7 +13,7 @@ const BrendNamePage = async ({ params }: BrandProps) => {
     where: {
       brand: {
         label: {
-          contains: params.brendName,
+          contains: params.brendName.replace(/-/g, ' '),
           mode: "insensitive"
         }
       }

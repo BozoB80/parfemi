@@ -381,7 +381,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
               control={form.control}
               name="images"
               render={({ field }) => (
-                <FormItem className="max-w-md">
+                <FormItem className="w-full">
                   <FormLabel>Slike</FormLabel>
                   <FormControl>
                     <ImageUpload

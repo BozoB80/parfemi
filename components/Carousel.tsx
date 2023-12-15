@@ -1,8 +1,8 @@
 "use client"
 
 import { cn } from "@/lib/utils";
-import { Baner } from "@prisma/client";
 import Image from "next/image";
+import { Skeleton } from "@/components/ui/skeleton";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
@@ -63,3 +63,9 @@ const CarouselPage = ({ baneri, height }: CarouselProps) => {
 }
 
 export default CarouselPage;
+
+CarouselPage.Skeleton = function SkeletonCarouselPage() {
+  return (
+    <Skeleton className="w-[1000px] sm:h-80 lg:h-96 xl:h-[650px]" />
+  )
+}

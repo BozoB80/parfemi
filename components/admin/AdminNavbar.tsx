@@ -33,7 +33,7 @@ const AdminNavbar = () => {
                   key={link.label}
                   href={link.route}
                   className={`relative dark:text-white/80 flex justify-start gap-4 rounded-md p-4 ${
-                    isActive && "bg-primary text-black font-bold"
+                    isActive && "bg-primary text-white/90 font-bold"
                   }`}
                 >
                   <link.icon className="w-6 h-6" />

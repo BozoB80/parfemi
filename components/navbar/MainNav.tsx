@@ -30,7 +30,7 @@ const MainNav = ({ brendovi, kategorije }: MainNavProps) => {
         <HoverCardTrigger asChild>
           <Button variant="ghost" className="uppercase text-md">Kategorije</Button>
         </HoverCardTrigger>
-        <HoverCardContent className="w-full flex flex-col p-10 gap-10">
+        <HoverCardContent className="w-full flex flex-col p-4 gap-4">
           {kategorije.map((kategorija) => {
             const handleClick = () => {
               router.push(`/parfemi/${kategorija.label.toLowerCase().replace(/\s/g, "-")}`)
@@ -56,7 +56,7 @@ const MainNav = ({ brendovi, kategorije }: MainNavProps) => {
 
       <HoverCard open={openBrend} onOpenChange={setOpenBrend} openDelay={100} closeDelay={100}>
         <HoverCardTrigger asChild>
-          <Button variant="ghost" className="uppercase text-md">Brandovi</Button>
+          <Button variant="ghost" className="uppercase text-md">Brendovi</Button>
         </HoverCardTrigger>
         <HoverCardContent className="space-y-2">
           {brendovi.map((brend) => {
