@@ -22,19 +22,52 @@ const localization = {
   formFieldLabel__firstName: 'Ime',
   formFieldLabel__lastName: 'Prezime',
   formButtonPrimary: 'Nastavite',
-  formFieldHintText__optional: 'Opcionalno',
-  passwordComplexity: {
-    sentencePrefix: 'Lozinka mora sadržavati',
-    minimumLength: '{{length}} ili više znakova',
-    maximumLength: 'manje od {{length}} znakova',
-  },
+  formFieldHintText__optional: 'Opcija',
+  formFieldInputPlaceholder__confirmDeletionUserAccount: 'Izbrišite račun',
+  formFieldAction__forgotPassword: 'Zaboravljena lozinka?',
+  signInEnterPasswordTitle: 'Unesite vašu lozinku',
+  backButton: 'Natrag',
+  unstable__errors: {
+    passwordComplexity: {
+      sentencePrefix: 'Lozinka mora sadržavati',
+      minimumLength: '{{length}} ili više znakova',
+      maximumLength: 'manje od {{length}} znakova',
+    },
+    zxcvbn: {
+      notEnough: 'Your password is not strong enough.',
+      couldBeStronger: 'Your password works, but could be stronger. Try adding more characters.',
+      goodPassword: 'Vaša lozinka zadovoljava sve potrebne uvjete.',
+    },
+  },  
   signIn: {
     start: {
       title: 'Prijava',
       subtitle: 'za nastavak na {{applicationName}}',
       actionText: 'Nemate račun?',
       actionLink: 'Registrirajte se',
-    }
+    },
+    password: {
+      title: 'Unesite vašu lozinku',
+      subtitle: 'Unesite lozinku vezanu za vaš email račun',
+      actionLink: 'Koristite drugu metodu',
+    },
+    forgotPasswordAlternativeMethods: {
+      title: 'Zaboravljena lozinka?',
+      label__alternativeMethods: 'Ili, prijava po drugoj metodi',
+      blockButton__resetPassword: 'Resetirajte vašu lozinku',
+    },
+    alternativeMethods: {
+      title: 'Koristite drugu metodu',
+      actionLink: 'Zatražite pomoć',
+      blockButton__emailLink: 'Pošaljite poveznicu emailom na {{identifier}}',
+      blockButton__emailCode: 'Pošaljite šifru emailom na {{identifier}}',
+      blockButton__phoneCode: 'Send SMS code to {{identifier}}',
+      getHelp: {
+        title: 'Zatražite pomoć',
+        content: `Ako imate poteškoće pri prijavu na vaš račun, pošaljite nam email i mi ćemo se potruditi riješiti vaš problem.`,
+        blockButton__emailSupport: 'Email podrška',
+      },
+    },
   },
   signUp: {
     start: {
