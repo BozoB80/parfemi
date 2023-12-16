@@ -1,12 +1,10 @@
 "use client";
 
 import { UserButton, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { Search, ShieldCheck } from "lucide-react";
 
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
-//import MobileMenu from "./MobileMenu";
-import { Search, ShieldCheck } from "lucide-react";
-import { ThemeToggle } from "../ThemeToggle";
 import NavCart from "./NavCart";
 import WishlistButton from "../WishlistButton";
 
@@ -26,9 +24,6 @@ const NavRight = () => {
           Admin
         </Button>
       )}
-      <div className="hidden sm:block">
-        <ThemeToggle />
-      </div>
       <div className="hidden sm:block">
         <WishlistButton />
       </div>
@@ -53,7 +48,6 @@ const NavRight = () => {
           </div>
         )}
       </div>
-      {/* <MobileMenu /> */}
     </div>
   );
 };

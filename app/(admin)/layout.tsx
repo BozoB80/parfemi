@@ -1,10 +1,9 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Asap } from "next/font/google";
 import Sidebar from "@/components/admin/Sidebar";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { Toaster } from "@/components/ui/toaster";
 import AdminNavbar from "@/components/admin/AdminNavbar";
-import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import "../globals.css";
 
@@ -24,15 +23,13 @@ export default function AuthLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={font.className}>
-          <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-            <AdminNavbar />
-            <main className="flex flex-row">
-              <Sidebar />
-              {children}
-            </main>
-            <Toaster />
-            <SpeedInsights />
-          </ThemeProvider>
+          <AdminNavbar />
+          <main className="flex flex-row">
+            <Sidebar />
+            {children}
+          </main>
+          <Toaster />
+          <SpeedInsights />
         </body>
       </html>
     </ClerkProvider>

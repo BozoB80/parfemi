@@ -1,5 +1,4 @@
 import { Brand, Category, Image, PriceVariant, Product } from "@prisma/client";
-import BreadCrumbs from "../Breadcrumbs";
 import ParfemCard from "./ParfemCard";
 
 interface ParfemiListProps {

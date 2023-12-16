@@ -1,9 +1,9 @@
 import "../globals.css";
-import { SpeedInsights } from '@vercel/speed-insights/next';
+
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Asap } from "next/font/google";
 import Navbar from "@/components/navbar/Navbar";
-import { ThemeProvider } from "@/components/providers/ThemeProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/navbar/Footer";
@@ -24,13 +24,11 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={font.className}>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Navbar />
-            {children}
-            <Footer />
-            <Toaster />
-            <SpeedInsights />
-          </ThemeProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <Toaster />
+          <SpeedInsights />
         </body>
       </html>
     </ClerkProvider>

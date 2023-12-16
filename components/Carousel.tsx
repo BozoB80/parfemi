@@ -44,7 +44,8 @@ const CarouselPage = ({ baneri, height }: CarouselProps) => {
       autoPlaySpeed={6000}
       customTransition="all 2s"
       transitionDuration={2000}   
-      arrows={responsive.mobile ? false : true}
+      arrows={true}
+      removeArrowOnDeviceType={["tablet", "mobile"]}
     >
       {baneri.map((baner) => (
         <Image 

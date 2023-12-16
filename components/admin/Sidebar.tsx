@@ -8,7 +8,6 @@ import { LogOut } from "lucide-react";
 
 import { sidebarLinks } from "@/constants";
 import { Separator } from "../ui/separator";
-import { ThemeToggle } from "../ThemeToggle";
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -36,7 +35,10 @@ const Sidebar = () => {
             <Link
               key={link.label}
               href={link.route}
-              className={`relative flex justify-start gap-4 rounded-md p-4 hover:text-primary ${isActive && "bg-primary text-white/90 hover:text-white/60 transition"}`}
+              className={`relative flex justify-start gap-4 rounded-md p-4 hover:text-primary ${
+                isActive &&
+                "bg-primary text-white/90 hover:text-white/60 transition"
+              }`}
             >
               <link.icon className="w-6 h-6" />
               <p className="max-lg:hidden font-medium text-lg">{link.label}</p>
@@ -47,14 +49,9 @@ const Sidebar = () => {
 
       <Separator />
 
-      <div className="mt-10 px-6">
-          <div className="flex justify-start items-center cursor-pointer gap-2 p-2">
-          <ThemeToggle />
-              <p className="font-medium text-lg max-lg:hidden">Tema</p>
-            </div>
-        
+      <div className="px-6 pt-6">
         <SignedIn>
-          <SignOutButton signOutCallback={() => router.push('/sign-in')}>
+          <SignOutButton signOutCallback={() => router.push("/sign-in")}>
             <div className="flex cursor-pointer gap-4 p-4">
               <LogOut />
               <p className="font-medium text-lg max-lg:hidden">Odjava</p>

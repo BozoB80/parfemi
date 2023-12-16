@@ -1,9 +1,7 @@
 "use client";
 
 import { sidebarLinks } from "@/constants";
-
 import { usePathname, useRouter } from "next/navigation";
-import { ThemeToggle } from "../ThemeToggle";
 import { Separator } from "../ui/separator";
 import { SignOutButton, SignedIn } from "@clerk/nextjs";
 import { LogOut, Menu } from "lucide-react";
@@ -62,8 +60,6 @@ const AdminNavbar = () => {
           onClick={() => router.push("/")}
           className="cursor-pointer"
         />
-
-        <ThemeToggle />
       </div>
     </div>
   );
