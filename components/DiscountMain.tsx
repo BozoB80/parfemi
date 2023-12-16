@@ -23,7 +23,7 @@ interface DiscountProps {
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 5,
+    items: 3,
     slidesToSlide: 1, // optional, default to 1.
   },
   tablet: {
@@ -40,13 +40,20 @@ const responsive = {
 
 const DiscountMain = ({ products }: DiscountProps) => {
   return (
-    <div className="max-w-7xl mx-auto pb-10">
+    <div className="max-w-7xl mx-auto pb-10 relative">
+      <h1 className="uppercase text-xl font-semibold">Akcija</h1>
       <Carousel
-        swipeable={true}
+        arrows={false}
+        centerMode
+        customButtonGroup={<ButtonGroup />}
+        draggable
+        infinite
+        minimumTouchDrag={80}
         responsive={responsive}
-        infinite={true}
-        arrows
         removeArrowOnDeviceType={["tablet", "mobile"]}
+        renderButtonGroupOutside
+        slidesToSlide={2}
+        swipeable
       >
         {products.map((product) => (
           <Image
@@ -66,3 +73,13 @@ const DiscountMain = ({ products }: DiscountProps) => {
 };
 
 export default DiscountMain;
+
+const ButtonGroup = ({ next, previous, goToSlide, ...rest }: any) => {
+  const { carouselState: { currentSlide } } = rest;
+  return (
+    <div className="absolute right-0 top-0 flex gap-2"> 
+      <Image src="icons/arrow-left.svg" alt="arrowleft" width={40} height={40} className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} />
+      <Image src="icons/arrow-left.svg" alt="arrowright" width={40} height={40} className="rotate-180" onClick={() => next()} />
+    </div>
+  );
+};
