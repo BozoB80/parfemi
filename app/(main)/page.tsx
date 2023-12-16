@@ -2,6 +2,7 @@ import Brands from "@/components/Brands";
 import Carousel from "@/components/Carousel";
 import Categories from "@/components/Categories";
 import DiscountMain from "@/components/DiscountMain";
+import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
 
 const Home = async () => {
@@ -32,6 +33,7 @@ const Home = async () => {
       <Carousel baneri={baneri} height />
       <Brands brands={brands} />
       <DiscountMain products={discountedProducts} />
+      <Separator className="max-w-7xl mx-auto mb-8" />
       <Categories categories={categories} />
     </main>
   );
