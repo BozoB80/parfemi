@@ -5,11 +5,12 @@ import prismadb from "@/lib/prismadb";
 interface ParfemNameProps {
   params: {
     parfemName: string
+    categoryName: string
   }
 }
 
 const ParfemNamePage = async ({ params }: ParfemNameProps) => {
-  const formattedParfemName = params.parfemName.replace(/-/g, ' ')
+  const formattedParfemName = decodeURIComponent(params.parfemName.replace(/-/g, ' '));
 
   const parfem = await prismadb.product.findFirst({
     where: {
@@ -26,11 +27,11 @@ const ParfemNamePage = async ({ params }: ParfemNameProps) => {
     }
   })
   
-  console.log(parfem?.category?.label);
+  console.log(params.categoryName, params.parfemName);
   
   return (
     <div className="max-w-7xl mx-auto">
-      <BreadCrumbs page="parfemi" params={`${parfem?.category?.label}`} params2={`${params.parfemName}`} />
+      <BreadCrumbs page="parfemi" params={`${params.categoryName}`} params2={`${formattedParfemName}`} />
       <ParfemDetails parfem={parfem} />
     </div>
   );

@@ -83,7 +83,7 @@ const DiscountMain = ({ products }: DiscountProps) => {
             />
             <Badge className="absolute top-0 left-0 aspect-square text-sm md:text-xl">{product.discount}%</Badge>
             {hoveredProductId === product.id && (
-              <div className={cn("absolute bottom-0 w-full bg-secondary/40 h-1/2 space-y-2", hoveredProductId === product.id && "transition-all duration-500 ease-out")}>
+              <div className={cn("absolute bottom-0 w-full bg-secondary/70 h-1/2 space-y-2", hoveredProductId === product.id && "transition-all duration-500 ease-out")}>
                 <h1 className="text-center font-semibold pb-3">{product.title}</h1>
                 {product.priceVariants.map((item) => (
                   <div key={item.id} className="grid grid-cols-3 px-2">
