@@ -90,22 +90,36 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
                 key={price.id}
                 onClick={() => handlePriceVariantClick(price)}
                 className={cn(
-                  "flex flex-col items-start space-x-2 border rounded-md p-3 cursor-pointer hover:border-primary transition hover:font-semibold",
+                  "flex flex-col items-start overflow-hidden space-x-2 border rounded-md p-3 cursor-pointer hover:border-primary transition hover:font-semibold",
                   selectedPriceVariant === price && "bg-primary text-white"
                 )}
               >
-                <h1 className="text-xs">{parfem.title}</h1>
+                <h1 className="text-xs max-sm:truncate">{parfem.title}</h1>
                 <h2 className="w-full text-end pr-3">{price.label}</h2>
               </div>
             ))}
           </div>
           {selectedPriceVariant && (
-            <div className="mt-4 flex justify-center items-center gap-3 border py-4">
+            <div className="mt-4 flex justify-center items-center gap-3 border py-2 sm:py-4">
               <p className="text-green-500">Dostupno</p>
-              <Separator orientation="vertical" className="h-full" />
-              <p className="font-medium">Cijena vašeg parfema:</p>
-              <p className="text-xl font-bold">KM {selectedPriceVariant.price}</p>
+              <Separator orientation="vertical" className="h-6 w-0.5" />
+              <p className="font-medium">Cijena:</p>
+              <p className="text-xl font-bold">{selectedPriceVariant.price.toFixed(2)} KM</p>
             </div>
+          )}
+          {parfem?.discount && selectedPriceVariant ? (
+            <div className="text-center">
+              <h1 className="border py-2 sm:py-4 text-red-400 font-bold">Popust {parfem.discount}%: -{((parfem.discount / 100) * selectedPriceVariant.price).toFixed(2)} KM</h1>
+              <p className="border py-2 sm:py-4">
+                Vaša cijena:{" "}
+                <span className="text-xl font-bold">
+                  {(selectedPriceVariant.price * (1 - parfem.discount / 100)).toFixed(2)} KM
+                </span>
+              </p>
+            </div>
+          ) : ""}
+          {selectedPriceVariant && (
+            <p className="text-xs">* cijena je iskazana bez PDV-a.</p>
           )}
         </div>
       </div>
