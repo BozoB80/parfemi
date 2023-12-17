@@ -21,8 +21,8 @@ import {
 import { Brand, Category } from "@prisma/client";
 
 interface MobileMenuProps {
-  brendovi: Brand[]
-  kategorije: Category[]
+  brendovi: Brand[];
+  kategorije: Category[];
 }
 
 const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
@@ -43,14 +43,13 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
                   <UserButton afterSignOutUrl="/" />
                   <p className="text-md">{user.fullName}</p>
                   <Button
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => router.push("/admin")}
-                  className="lg:hidden text-md font-medium uppercase"
-                >
-                  <ShieldCheck fill="red" className="h-6 w-6 mr-2" />
-                  
-                </Button>
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => router.push("/admin")}
+                    className="lg:hidden text-md font-medium uppercase"
+                  >
+                    <ShieldCheck fill="red" className="h-6 w-6 mr-2" />
+                  </Button>
                 </div>
               ) : (
                 <div>
@@ -68,22 +67,34 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
 
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
-              <AccordionTrigger>
-                <SheetClose onClick={() => router.push("/")}>Početna</SheetClose>
-              </AccordionTrigger>
+              <SheetClose
+                onClick={() => router.push("/")}
+                className="w-full text-start py-4 text-black font-medium"
+              >
+                Početna
+              </SheetClose>
             </AccordionItem>
 
             <AccordionItem value="item-2">
-              <AccordionTrigger>
-                <SheetClose onClick={() => router.push("/parfemi")}>Parfemi</SheetClose>
-              </AccordionTrigger>
+              <SheetClose
+                onClick={() => router.push("/parfemi")}
+                className="w-full text-start py-4 text-black font-medium"
+              >
+                Parfemi
+              </SheetClose>
             </AccordionItem>
 
             <AccordionItem value="item-3">
               <AccordionTrigger>Kategorije</AccordionTrigger>
               <AccordionContent className="flex flex-col space-y-2">
                 {kategorije.map((item) => (
-                  <SheetClose key={item.id} onClick={() => router.push(`/parfemi/${item.label.replace(/\s/g, '-')}`)} className="uppercase py-1">
+                  <SheetClose
+                    key={item.id}
+                    onClick={() =>
+                      router.push(`/parfemi/${item.label.replace(/\s/g, "-")}`)
+                    }
+                    className="uppercase py-1"
+                  >
                     {item.label}
                   </SheetClose>
                 ))}
@@ -94,13 +105,20 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
               <AccordionTrigger>Brendovi</AccordionTrigger>
               <AccordionContent className="flex flex-col space-y-2">
                 {brendovi.map((item) => (
-                  <SheetClose key={item.id} onClick={() => router.push(`/brend/${item.label.toLowerCase().replace(/\s/g, '-')}`)} className="uppercase py-1">
+                  <SheetClose
+                    key={item.id}
+                    onClick={() =>
+                      router.push(
+                        `/brend/${item.label.toLowerCase().replace(/\s/g, "-")}`
+                      )
+                    }
+                    className="uppercase py-1"
+                  >
                     {item.label}
                   </SheetClose>
                 ))}
               </AccordionContent>
             </AccordionItem>
-
           </Accordion>
         </SheetContent>
       </Sheet>

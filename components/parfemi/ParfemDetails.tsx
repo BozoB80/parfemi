@@ -85,7 +85,7 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
 
           <h3 className="pt-3">Izaberite vaš parfem:</h3>
           <div className=" grid grid-cols-3 gap-3">
-            {parfem?.priceVariants.map((price) => (
+            {parfem?.priceVariants.sort((a, b) => a.price - b.price).map((price) => (
               <div
                 key={price.id}
                 onClick={() => handlePriceVariantClick(price)}

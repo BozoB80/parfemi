@@ -13,7 +13,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Badge } from "./ui/badge";
 import Link from "next/link";
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 
 interface DiscountProps {
   products: (Product & {
@@ -27,13 +27,13 @@ interface DiscountProps {
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
+    items: 5,
     slidesToSlide: 2, // optional, default to 1.
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 3,
-    slidesToSlide: 1, // optional, default to 1.
+    items: 4,
+    slidesToSlide: 2, // optional, default to 1.
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -58,7 +58,6 @@ const DiscountMain = ({ products }: DiscountProps) => {
       <h1 className="uppercase text-lg md:text-2xl font-semibold max-lg:pl-2">Parfemi na akciji:</h1>
       <Carousel
         arrows={false}
-        centerMode
         customButtonGroup={<ButtonGroup />}
         draggable
         infinite
@@ -83,13 +82,13 @@ const DiscountMain = ({ products }: DiscountProps) => {
             />
             <Badge className="absolute top-0 left-0 aspect-square text-sm md:text-xl">{product.discount}%</Badge>
             {hoveredProductId === product.id && (
-              <div className={cn("absolute bottom-0 w-full bg-secondary/70 h-1/2 space-y-2", hoveredProductId === product.id && "transition-all duration-500 ease-out")}>
+              <div className={cn("hidden lg:block absolute bottom-0 w-full bg-secondary/70 h-1/2 space-y-2", hoveredProductId === product.id && "transition-all duration-500 ease-out")}>
                 <h1 className="text-center font-semibold pb-3">{product.title}</h1>
-                {product.priceVariants.map((item) => (
-                  <div key={item.id} className="grid grid-cols-3 px-2">
+                {product.priceVariants.sort((a, b) => a.price - b.price).map((item) => (
+                  <div key={item.id} className="grid grid-cols-4 px-2">
                     <h1 className="font-bold">{item.label}:</h1>
                     <h2 className="line-through">{item.price} KM</h2>
-                    <Badge variant="default" className="text-sm">{((item.price * (100 - (product?.discount ?? 0))) / 100).toFixed(2)} KM</Badge>
+                    <Badge variant="default" className="col-span-2 flex justify-center text-sm">{((item.price * (100 - (product?.discount ?? 0))) / 100).toFixed(2)} KM</Badge>
                   </div>
                 ))}
               </div>
