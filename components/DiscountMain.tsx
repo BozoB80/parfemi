@@ -54,7 +54,7 @@ const DiscountMain = ({ products }: DiscountProps) => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto pb-10 relative">
+    <div className="max-w-7xl mx-auto pb-10 relative max-xl:px-1">
       <h1 className="uppercase text-lg md:text-2xl font-semibold max-lg:pl-2">Parfemi na akciji:</h1>
       <Carousel
         arrows={false}

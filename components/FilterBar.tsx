@@ -6,14 +6,18 @@ import Range from "rc-slider"
 import 'rc-slider/assets/index.css';
 
 import { Separator } from "./ui/separator";
+import { Input } from "./ui/input";
+import { X } from "lucide-react";
 
 interface FilterbarProps {
   brands: (Brand | null)[];
   categories: (Category | null)[];
   selectedBrands: (string | null)[];
   selectedCategories: (string | null)[];
+  searchQuery: string
   onBrandChange: (brand: string | null) => void;
   onCategoryChange: (category: string | null) => void;
+  onSearchChange: (searchQuery: string) => void
 }
 
 export const Filterbar = ({
@@ -21,8 +25,10 @@ export const Filterbar = ({
   categories,
   selectedBrands,
   selectedCategories,
+  searchQuery,
   onBrandChange,
   onCategoryChange,
+  onSearchChange
 }: FilterbarProps) => {
   const uniqueBrands = Array.from(new Set(brands.map((brand) => brand?.id))).map(
     (brandId) => brands.find((brand) => brand?.id === brandId)!
@@ -34,7 +40,21 @@ export const Filterbar = ({
 
   return (
     <div className="flex flex-col gap-6 pr-2">
-      <div >
+      <div className="relative">
+        <p className="font-semibold">Pretražite:</p>
+        <Separator className="my-2" />
+        <Input
+          value={searchQuery}
+          placeholder="Upišite tekst..."
+          onChange={(e) => onSearchChange(e.target.value)}
+          className="relative border p-2"
+        />
+        {searchQuery && (
+          <X onClick={() => onSearchChange("")} className="h-4 w-4 absolute bottom-3 right-2 cursor-pointer" />
+        )}
+      </div>
+
+      <div>
         <p className="font-semibold">Kategorije:</p>
         <Separator className="my-2" />
         {uniqueCategories.map((category) => (
@@ -49,6 +69,7 @@ export const Filterbar = ({
           </label>
         ))}
       </div>
+
       <div>
         <p className="font-semibold">Brend:</p>
         <Separator className="my-2" />
