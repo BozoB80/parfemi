@@ -1,6 +1,10 @@
 "use client"
 
 import { Brand, Category } from "@prisma/client";
+import Slider from 'rc-slider';
+import Range from "rc-slider"
+import 'rc-slider/assets/index.css';
+
 import { Separator } from "./ui/separator";
 
 interface FilterbarProps {
@@ -34,7 +38,7 @@ export const Filterbar = ({
         <p className="font-semibold">Kategorije:</p>
         <Separator className="my-2" />
         {uniqueCategories.map((category) => (
-          <label key={category?.id} className="flex gap-2 capitalize">
+          <label key={category?.id} className="flex gap-2 capitalize cursor-pointer hover:text-primary">
             <input
               type="checkbox"
               value={category?.id || ''}
@@ -49,7 +53,7 @@ export const Filterbar = ({
         <p className="font-semibold">Brend:</p>
         <Separator className="my-2" />
           {uniqueBrands.sort((a, b) => (a.label || '').localeCompare(b.label || '')).map((brand) => (
-            <label key={brand?.id} className="flex gap-2">
+            <label key={brand?.id} className="flex gap-2 cursor-pointer hover:text-primary">
               <input
                 type="checkbox"
                 value={brand?.id || ''}
@@ -60,6 +64,16 @@ export const Filterbar = ({
             </label>
         ))}
       </div>      
+      <div>
+        <p className="font-semibold">Cijena:</p>
+        <Separator className="my-2" />
+        {/* <Slider
+            range
+            
+            defaultValue={[minPrice, maxPrice]}
+            onChange={(value) => onPriceChange(value[0], value[1])}
+        /> */}
+      </div>
     </div>
   );
 };
