@@ -27,8 +27,6 @@ const ParfemNamePage = async ({ params }: ParfemNameProps) => {
     }
   })
   
-  console.log(params.categoryName, params.parfemName);
-  
   return (
     <div className="max-w-7xl mx-auto">
       <BreadCrumbs page="parfemi" params={`${params.categoryName}`} params2={`${formattedParfemName}`} />

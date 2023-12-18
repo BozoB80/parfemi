@@ -38,6 +38,7 @@
     "next": "14.0.4",
     "next-cloudinary": "^5.11.0",
     "prisma": "^5.7.0",
+    "query-string": "^8.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.49.0",
