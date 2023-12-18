@@ -34,7 +34,7 @@ export const Filterbar = ({
         <p className="font-semibold">Kategorije:</p>
         <Separator className="my-2" />
         {uniqueCategories.map((category) => (
-          <label key={category?.id} className="flex gap-2">
+          <label key={category?.id} className="flex gap-2 capitalize">
             <input
               type="checkbox"
               value={category?.id || ''}
@@ -48,7 +48,7 @@ export const Filterbar = ({
       <div>
         <p className="font-semibold">Brend:</p>
         <Separator className="my-2" />
-          {uniqueBrands.map((brand) => (
+          {uniqueBrands.sort((a, b) => (a.label || '').localeCompare(b.label || '')).map((brand) => (
             <label key={brand?.id} className="flex gap-2">
               <input
                 type="checkbox"

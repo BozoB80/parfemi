@@ -33,7 +33,7 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   return (
     <div>
       <div className="flex w-full">
-        <div className="w-1/4 hidden lg:block">
+        <div className="w-1/6 hidden lg:block">
           <Filterbar
             brands={parfemi
               .map((p) => p.brand)
@@ -59,7 +59,7 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
             }
           />
         </div>
-        <div className="max-lg:px-2  grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
+        <div className="w-5/6 max-lg:px-2 grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
           {filteredParfemi.map((parfem) => (
             <ParfemCard key={parfem.id} parfem={parfem} />
           ))}
