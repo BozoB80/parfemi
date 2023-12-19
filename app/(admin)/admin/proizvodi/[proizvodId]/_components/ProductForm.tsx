@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { PackagePlus, Trash } from "lucide-react";
+import { Loader2, PackagePlus, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -112,6 +112,8 @@ const ProductForm: React.FC<ProductFormProps> = ({
           brandId: "",
         },
   });
+
+  const { isSubmitting } = form.formState
 
   const onSubmit = async (data: ProductFormValues) => {
     try {
@@ -417,6 +419,7 @@ const ProductForm: React.FC<ProductFormProps> = ({
             type="submit"
             className="md:w-60 mx-auto"
           >
+            {isSubmitting && <Loader2 size={24} className="animate-spin mr-2" />}
             {action}
           </Button>
         </form>

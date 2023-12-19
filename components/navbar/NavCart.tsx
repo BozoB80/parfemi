@@ -1,4 +1,4 @@
-//import useCart from "@/hooks/use-cart"
+import useCart from "@/hooks/use-cart"
 import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -13,13 +13,12 @@ import { cn } from "@/lib/utils";
 
 const NavCart = () => {
   const [isMounted, setIsMounted] = useState(false);
+  const cart = useCart()
+  const router = useRouter()
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
-
-  // const cart = useCart()
-  const router = useRouter();
 
   if (!isMounted) {
     return null;
@@ -36,12 +35,12 @@ const NavCart = () => {
             className="relative flex items-center"
           >
             <ShoppingCart size={24} />
-            {/* <span className="absolute top-0 right-1 flex h-5 w-5">
-                  <span className={cn("absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75",
+            <span className="absolute top-0 right-0 flex h-5 w-5">
+              <span className={cn("absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75",
                 cart.items.length > 0 && "animate-ping"  
               )}></span>
               <span className="relative flex justify-center items-start text-base font-bold rounded-full h-5 w-5 bg-destructive">{cart.items.length}</span>
-            </span> */}
+            </span>
           </Button>
         </TooltipTrigger>
         <TooltipContent>

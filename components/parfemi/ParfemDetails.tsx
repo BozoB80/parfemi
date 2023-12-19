@@ -13,6 +13,7 @@ import CarouselPage from "../Carousel";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import AddToCartButton from "../AddToCartButton";
 
 interface DetailsProps {
   parfem:
@@ -33,12 +34,18 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
     setSelectedPriceVariant((prevSelected) => (prevSelected === price ? null : price));
   };
 
-  const addToCart = () => {
-    // Implement your logic to add the selected item to the cart
-    if (selectedPriceVariant) {
-      // Example: You might want to dispatch an action to add to the cart here
-      console.log("Adding to cart:", parfem?.title, selectedPriceVariant.label);
-    }
+  const combinedData: Product & { priceVariant: PriceVariant } = {
+    id: selectedPriceVariant?.id || '',
+    title: parfem?.title || '', // Make sure to replace 'parfem.title' with the actual title property
+    description: parfem?.description || '', // Similarly, replace 'parfem.description' with the actual description property
+    discount: parfem?.discount || 0,
+    rating: parfem?.rating || 0,
+    createdAt: parfem?.createdAt || new Date,
+    updateAt: parfem?.updateAt || new Date,
+    categoryId: parfem?.categoryId || '',
+    brandId: parfem?.brandId || '',
+    // @ts-ignore
+    priceVariant: selectedPriceVariant
   };
 
   return (
@@ -120,6 +127,9 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
           ) : ""}
           {selectedPriceVariant && (
             <p className="text-xs">* cijena je iskazana bez PDV-a.</p>
+          )}
+          {selectedPriceVariant && (
+            <AddToCartButton product={combinedData} />
           )}
         </div>
       </div>

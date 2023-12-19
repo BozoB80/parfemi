@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Trash } from "lucide-react";
+import { Loader2, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -52,6 +52,8 @@ const BrendForm: React.FC<BrendFormProps> = ({ initialData }) => {
       description: ''
     }
   })
+
+  const { isSubmitting } = form.formState
 
   const onSubmit = async (data: BrendFormValues) => {
     try {
@@ -171,6 +173,7 @@ const BrendForm: React.FC<BrendFormProps> = ({ initialData }) => {
                 )}
               />
           <Button disabled={loading} size="lg" className="ml-auto" type="submit">
+            {isSubmitting && <Loader2 size={24} className="animate-spin mr-2" />}
             {action}
           </Button>
         </form>
