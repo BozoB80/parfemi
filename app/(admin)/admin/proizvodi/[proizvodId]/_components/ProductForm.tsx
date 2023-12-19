@@ -322,7 +322,14 @@ const ProductForm: React.FC<ProductFormProps> = ({
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {sizes.map((size) => (
+                          {sizes
+                            .slice()
+                            .sort((a, b) => {
+                              const aNumeric = parseInt(a.label, 10);
+                              const bNumeric = parseInt(b.label, 10);
+                              return aNumeric - bNumeric;
+                            })
+                            .map((size) => (
                             <SelectItem key={size.id} value={size.label}>
                               {size.label}
                             </SelectItem>
