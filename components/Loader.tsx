@@ -7,7 +7,7 @@ const Loader = () => {
     <div className="h-[70vh] flex flex-col justify-center items-center bg-secondary">
       <CircleLoader 
         size={100}
-        color="blue"
+        color="hsl(var(--primary))"
       />
     </div>
   );
