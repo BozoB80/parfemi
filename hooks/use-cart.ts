@@ -1,10 +1,10 @@
-import { PriceVariant, Product } from "@prisma/client";
+import { Brand, Category, Image, PriceVariant, Product } from "@prisma/client";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 interface CartStore {
-  items: (Product & { priceVariant: PriceVariant})[];
-  addItem: (data: Product & { priceVariant: PriceVariant}, toast: (options: { description: string }) => void) => void; // Add type for toast
+  items: (Product & {images: Image[]; category: Category | null; brand: Brand | null; priceVariant: PriceVariant})[];
+  addItem: (data: Product & {images: Image[]; category: Category | null; brand: Brand | null; priceVariant: PriceVariant}, toast: (options: { description: string }) => void) => void; // Add type for toast
   removeItem: (id: string, toast: (options: { description: string }) => void) => void; // Add type for toast
   removeAll: () => void;
 }
@@ -13,7 +13,7 @@ const useCart = create(
   persist<CartStore>((set, get) => ({
     items: [],
 
-    addItem: (data: Product & { priceVariant: PriceVariant}, toast) => {
+    addItem: (data: Product & {images: Image[]; category: Category | null; brand: Brand | null; priceVariant: PriceVariant}, toast) => {
       const currentItems = get().items;
       const existingItem = currentItems.find((item) => item.id === data.id);
 

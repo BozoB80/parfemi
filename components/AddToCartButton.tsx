@@ -1,14 +1,19 @@
 'use client'
 
 import useCart from "@/hooks/use-cart";
-import { PriceVariant, Product } from "@prisma/client";
+import { Brand, Category, Image, PriceVariant, Product } from "@prisma/client";
 import { useToast } from "./ui/use-toast";
 import { MouseEvent } from "react";
 import { ShoppingBag } from "lucide-react";
 import { Button } from "./ui/button";
 
 interface AddToCartProps {
-  product: Product & { priceVariant: PriceVariant}
+  product: (Product & {
+    images: Image[];
+    category: Category | null;
+    brand: Brand | null;
+    priceVariant: PriceVariant;
+  })
   onClick?: (e: MouseEvent<HTMLButtonElement>) => void
 }
 

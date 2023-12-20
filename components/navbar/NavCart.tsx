@@ -31,7 +31,7 @@ const NavCart = () => {
           <Button
             size="icon"
             variant="ghost"
-            onClick={() => router.push("/cart")}
+            onClick={() => router.push("/kosarica")}
             className="relative flex items-center"
           >
             <ShoppingCart size={24} />

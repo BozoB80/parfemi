@@ -34,18 +34,25 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
     setSelectedPriceVariant((prevSelected) => (prevSelected === price ? null : price));
   };
 
-  const combinedData: Product & { priceVariant: PriceVariant } = {
+  const combinedData: Product & {
+    images: Images[];
+    category: Category | null;
+    brand: Brand | null;
+    priceVariant: PriceVariant | null; // Make priceVariant optional
+  } = {
     id: selectedPriceVariant?.id || '',
-    title: parfem?.title || '', // Make sure to replace 'parfem.title' with the actual title property
-    description: parfem?.description || '', // Similarly, replace 'parfem.description' with the actual description property
+    title: parfem?.title || '',
+    description: parfem?.description || '',
     discount: parfem?.discount || 0,
     rating: parfem?.rating || 0,
-    createdAt: parfem?.createdAt || new Date,
-    updateAt: parfem?.updateAt || new Date,
+    createdAt: parfem?.createdAt || new Date(),
+    updateAt: parfem?.updateAt || new Date(),
     categoryId: parfem?.categoryId || '',
     brandId: parfem?.brandId || '',
-    // @ts-ignore
-    priceVariant: selectedPriceVariant
+    images: parfem?.images || [],
+    category: parfem?.category || null,
+    brand: parfem?.brand || null,
+    priceVariant: selectedPriceVariant, // Make priceVariant optional
   };
 
   return (
