@@ -29,6 +29,7 @@ interface DetailsProps {
 const ParfemDetails = ({ parfem }: DetailsProps) => {
   const [selectedPriceVariant, setSelectedPriceVariant] =
     useState<PriceVariant | null>(null);
+  const [selectedQuantity, setSelectedQuantity] = useState(1)
 
   const handlePriceVariantClick = (price: PriceVariant) => {
     setSelectedPriceVariant((prevSelected) => (prevSelected === price ? null : price));
@@ -54,6 +55,8 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
     brand: parfem?.brand || null,
     priceVariant: selectedPriceVariant, // Make priceVariant optional
   };
+
+  console.log(parfem);
 
   return (
     <div>
@@ -136,7 +139,10 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
             <p className="text-xs">* cijena je iskazana bez PDV-a.</p>
           )}
           {selectedPriceVariant && (
-            <AddToCartButton product={combinedData} />
+            <div className="pt-8">
+                {/* @ts-ignore */}
+                <AddToCartButton product={combinedData} quantity={selectedQuantity} />
+            </div>
           )}
         </div>
       </div>

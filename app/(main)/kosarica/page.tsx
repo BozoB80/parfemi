@@ -25,16 +25,21 @@ const CartPage = () => {
 
   if (!isMounted) {
     return null;
-  }
+  } 
 
   return (
     <div className="max-w-7xl mx-auto">
       <div className="flex items-center py-10">
         <div className="flex flex-col">
-          <div className="flex justify-start items-center gap-2">
-            <Image src="/icons/cart.svg" alt="cart" width={28} height={28} />
-            <h1 className="text-2xl font-medium">Tvoja košarica</h1>
-            <p>({cart.items.length} artikla)</p>
+          <div className="w-full flex justify-between items-center border-b py-2">
+            <div className="flex justify-start items-center gap-2">
+              <Image src="/icons/cart.svg" alt="cart" width={28} height={28} />
+              <h1 className="text-2xl font-medium">Tvoja košarica</h1>
+              <p>({cart.items.length} {cart.items.length === 1 ? 'artikal' : 'artikla'})</p>
+            </div>
+            <Button size="sm" onClick={cart.removeAll}>
+              Očisti košaricu
+            </Button>
           </div>
 
           <Table>
@@ -53,19 +58,18 @@ const CartPage = () => {
                       <span>No Image</span>
                     )}
                   </TableCell>
-                  <TableCell>{item.title}</TableCell>
+                  <TableCell className="flex flex-col justify-center items-start">
+                    <p className="font-semibold">{item.brand?.label}</p>
+                    <p>{item.title}</p></TableCell>
                   <TableCell>{item.priceVariant.label}</TableCell>
-                  <TableCell>{item.priceVariant.price}</TableCell>
+                  <TableCell>{item.priceVariant.price.toFixed(2)} KM</TableCell>
+                  <TableCell>{item.quantity} kom</TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </div>
       </div>
-
-      <Button size="default" onClick={cart.removeAll}>
-        Remove
-      </Button>
     </div>
   );
 };
