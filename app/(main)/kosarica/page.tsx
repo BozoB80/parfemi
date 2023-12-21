@@ -32,8 +32,9 @@ const CartPage = () => {
   }
 
   const totalAmount = cart.items.reduce((total, item) => total + item.priceVariant.price * item.quantity, 0)
-  const totalDiscount = cart.items.reduce((total, item) => total + item.priceVariant.price * item.quantity, 0)
   const totalPriceWithDiscount = cart.items.reduce((total, item) => total + ((item.priceVariant.price * (100 - (item?.discount ?? 0))) / 100) * item.quantity, 0)
+  const totalDiscount = totalAmount - totalPriceWithDiscount
+  const totalPriceWithDelivery = totalPriceWithDiscount + 10
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -139,14 +140,26 @@ const CartPage = () => {
               />
               <h1 className="text-md sm:text-2xl font-medium">Narudžba</h1>
             </div>
-            <div className="w-full grid grid-cols-2 py-4">
+            <div className="w-full grid grid-cols-2 py-4 gap-y-6 text-md">
               <h1>Cijena bez popusta:</h1>
-              <p>{totalAmount.toFixed(2)} KM</p>
+              <p className="text-end">{totalAmount.toFixed(2)} KM</p>
               <h1>Popust:</h1>
-              <p>{totalDiscount.toFixed(2)} KM</p>
+              <p className="text-end">{totalDiscount.toFixed(2)} KM</p>
               <h1>Iznos s popustom:</h1>
-              <p>{totalPriceWithDiscount.toFixed(2)} KM</p>
+              <p className="text-end">{totalPriceWithDiscount.toFixed(2)} KM</p>
             </div>
+            <Separator />
+            <div className="w-full grid grid-cols-2 py-4 gap-y-6 text-md">
+              <h1>Dostava:</h1>
+              <p className="text-end">{totalPriceWithDiscount > 100 ? 'besplatna' : '10 KM'}</p>
+              <h1>Ukupno za osnovicu za PDV:</h1>
+              <p className="text-end">{totalPriceWithDiscount < 100 ? (totalPriceWithDiscount + 10).toFixed(2) : totalPriceWithDiscount.toFixed(2)} KM</p>
+              <h1>PDV 17%:</h1>
+              <p className="text-end">{totalPriceWithDiscount > 100 ? (totalPriceWithDiscount * 0.17).toFixed(2) : (totalPriceWithDelivery * 0.17).toFixed(2)} KM</p>
+              <h1>Iznos s PDV-om:</h1>
+              <p className="text-end">{totalPriceWithDiscount > 100 ? (totalPriceWithDiscount * 1.17).toFixed(2) : (totalPriceWithDelivery * 1.17).toFixed(2)} KM</p>
+            </div>       
+           
           </div>
         )}
       </div>
