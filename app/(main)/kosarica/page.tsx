@@ -16,6 +16,7 @@ import { Trash2 } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -29,6 +30,10 @@ const CartPage = () => {
   if (!isMounted) {
     return null;
   }
+
+  const totalAmount = cart.items.reduce((total, item) => total + item.priceVariant.price * item.quantity, 0)
+  const totalDiscount = cart.items.reduce((total, item) => total + item.priceVariant.price * item.quantity, 0)
+  const totalPriceWithDiscount = cart.items.reduce((total, item) => total + ((item.priceVariant.price * (100 - (item?.discount ?? 0))) / 100) * item.quantity, 0)
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -72,6 +77,7 @@ const CartPage = () => {
                   <TableHead>Artikal</TableHead>
                   <TableHead>J.mj.</TableHead>
                   <TableHead>Cijena</TableHead>
+                  <TableHead>Popust</TableHead>
                   <TableHead>Količina</TableHead>
                   <TableHead>Ukupno</TableHead>
                   <TableHead>Ukloni</TableHead>
@@ -101,9 +107,13 @@ const CartPage = () => {
                     <TableCell>
                       {item.priceVariant.price.toFixed(2)} KM
                     </TableCell>
+                    <TableCell>
+                      {item.discount ? item.discount : 0} %
+                    </TableCell>
                     <TableCell>{item.quantity} kom</TableCell>
                     <TableCell>
-                      {(item.priceVariant.price * item.quantity).toFixed(2)} KM
+                      <p className={cn("", item.discount && item.discount > 0 && "text-red-500 line-through")}>{(item.priceVariant.price * item.quantity).toFixed(2)} KM</p>
+                      {item.discount && item.discount > 0 ? (<p>{((item.priceVariant.price * item.quantity) * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</p>) : ""}
                     </TableCell>
                     <TableCell>
                       <Trash2
@@ -129,9 +139,13 @@ const CartPage = () => {
               />
               <h1 className="text-md sm:text-2xl font-medium">Narudžba</h1>
             </div>
-            <div className="w-full flex flex-col justify-end items-end py-4">
+            <div className="w-full grid grid-cols-2 py-4">
               <h1>Cijena bez popusta:</h1>
-              <h1>Popust</h1>
+              <p>{totalAmount.toFixed(2)} KM</p>
+              <h1>Popust:</h1>
+              <p>{totalDiscount.toFixed(2)} KM</p>
+              <h1>Iznos s popustom:</h1>
+              <p>{totalPriceWithDiscount.toFixed(2)} KM</p>
             </div>
           </div>
         )}
