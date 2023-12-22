@@ -56,7 +56,7 @@ const CarouselPage = ({ baneri, height }: CarouselProps) => {
           height={1000}
           quality={100}
           priority
-          className={cn("w-full sm:h-80 lg:h-96 xl:h-[650px] object-cover object-center", height && "h-48")}
+          className={cn("w-full sm:h-80 lg:h-96 xl:h-[500px] object-cover object-center", height && "h-48")}
         />
       ))}
     </Carousel>
@@ -67,6 +67,6 @@ export default CarouselPage;
 
 CarouselPage.Skeleton = function SkeletonCarouselPage() {
   return (
-    <Skeleton className="w-[1000px] sm:h-80 lg:h-96 xl:h-[650px]" />
+    <Skeleton className="w-[1000px] sm:h-80 lg:h-96 xl:h-[500px]" />
   )
 }

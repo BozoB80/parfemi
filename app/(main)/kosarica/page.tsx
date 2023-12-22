@@ -29,9 +29,14 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
+import { Input } from "@/components/ui/input";
  
 const formSchema = z.object({
-  username: z.string().min(2).max(50),
+  name: z.string().min(5, { message: 'Unesite ime i prezime'}).max(30),
+  phone: z.coerce.number().min(1, { message: 'Unesite broj telefona'}),
+  address: z.string().min(5, { message: 'Unesite adresu'}).max(30),
+  town: z.string().min(5, { message: 'Unesite grad'}).max(30),
+  postal: z.coerce.number().min(1, { message: 'Unesite poštanski broj'})
 })
 
 const CartPage = () => {
@@ -46,9 +51,15 @@ const CartPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
+      name: "",
+      phone: 0,
+      address: '',
+      town: '',
+      postal: 0
     },
   })
+
+  const { isSubmitting } = form.formState
  
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values)
@@ -68,7 +79,7 @@ const CartPage = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>        
         <div className="max-w-7xl mx-auto">
-          <div className="flex py-5 sm:py-10">
+          <div className="relative flex py-5 sm:py-10">
             <div className="w-full flex flex-col">
               <div className="w-full flex justify-between items-center border-b max-lg:px-2 py-2">
                 <div className="flex justify-start items-center gap-2">
@@ -126,7 +137,7 @@ const CartPage = () => {
                               height={60}
                             />
                           ) : (
-                            <span>No Image</span>
+                            <span>Nema slike</span>
                           )}
                           <div>
                             <p className="font-semibold">{item.brand?.label}</p>
@@ -157,10 +168,119 @@ const CartPage = () => {
                   </TableBody>
                 </Table>
               )}
+
+              <div className="w-full">
+                <div className="w-full flex justify-start items-center gap-2 py-2.5 border-b">
+                  <Image src="/icons/shipping.svg" alt="ship" width={28} height={28} />
+                  <h1 className="text-md sm:text-2xl font-medium">Dostava</h1>
+                </div>
+                <div className="w-full flex">
+                  <div className="w-1/2 flex flex-col space-y-4">
+                  <FormField 
+                    control={form.control}
+                    name="name"
+                    render={({field}) => (
+                      <FormItem className="max-w-md">
+                        <FormLabel>Ime i prezime</FormLabel>
+                        <FormControl>
+                          <Input 
+                            disabled={isSubmitting}
+                            placeholder="Unesite ime i prezime"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField 
+                    control={form.control}
+                    name="phone"
+                    render={({field}) => (
+                      <FormItem className="max-w-md">
+                        <FormLabel>Broj telefona</FormLabel>
+                        <FormControl>
+                          <Input 
+                            disabled={isSubmitting}
+                            type="number"
+                            placeholder="Unesite broj telefona"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField 
+                    control={form.control}
+                    name="address"
+                    render={({field}) => (
+                      <FormItem className="max-w-md">
+                        <FormLabel>Adresa</FormLabel>
+                        <FormControl>
+                          <Input 
+                            disabled={isSubmitting}
+                            placeholder="Unesite adresu"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField 
+                    control={form.control}
+                    name="town"
+                    render={({field}) => (
+                      <FormItem className="max-w-md">
+                        <FormLabel>Grad</FormLabel>
+                        <FormControl>
+                          <Input 
+                            disabled={isSubmitting}
+                            placeholder="Unesite grad"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField 
+                    control={form.control}
+                    name="phone"
+                    render={({field}) => (
+                      <FormItem className="max-w-md">
+                        <FormLabel>Poštanski broj</FormLabel>
+                        <FormControl>
+                          <Input 
+                            disabled={isSubmitting}
+                            type="number"
+                            placeholder="Unesite poštanski broj"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  </div>
+
+                  <div>
+                    <h1>Način plaćanja</h1>
+                    <label>
+                      <input
+                        type="radio"
+                        value="pouzecem"                        
+                      />
+                      Pouzećem
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {cart.items.length > 0 && (
-              <div className="w-1/3 pl-6 flex flex-col justify-start items-start">
+              <div className="sticky top-0 w-1/3 pl-6 flex flex-col justify-start items-start">
                 <div className="w-full flex justify-center items-center gap-2 py-2.5 border-b">
                   <Image
                     src="/icons/payment.svg"
@@ -192,15 +312,7 @@ const CartPage = () => {
             )}
           </div>
 
-          <div className="w-full">
-            <div className="w-full flex justify-start items-center gap-2 py-2.5 border-b">
-              <Image src="/icons/shipping.svg" alt="ship" width={28} height={28} />
-              <h1 className="text-md sm:text-2xl font-medium">Dostava</h1>
-            </div>
-            <div>
-              <h1>Unesite adresu:</h1>
-            </div>
-          </div>
+          
           
         </div>
         </form>

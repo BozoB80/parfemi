@@ -43,7 +43,7 @@ const BannerCarousel = ({ baneri }: BannerProps) => {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <div className="relative w-full overflow-clip h-60 sm:h-80 lg:h-96 xl:h-[650px]">
+      <div className="relative w-full overflow-clip h-60 sm:h-80 lg:h-96 xl:h-[500px]">
         <div onClick={previousSlide}>
           <Image src="/icons/arrow-left.svg" alt="leftarrow" width={40} height={40} className="absolute top-[50%] left-6 z-10 -translate-y-1/2 sm:w-10 sm:h-10 cursor-pointer hover:scale-110 active:scale-90 transition-all" />
         </div>
@@ -58,7 +58,7 @@ const BannerCarousel = ({ baneri }: BannerProps) => {
                 alt="slide"
                 width={1000}
                 height={500}
-                className="w-full h-60 sm:h-80 lg:h-96 xl:h-[650px] object-cover object-center"                
+                className="w-full h-60 sm:h-80 lg:h-96 xl:h-[500px] object-cover object-center"                
               />
             )}
           </div>
