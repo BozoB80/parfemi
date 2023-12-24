@@ -25,8 +25,8 @@ const BrandsCarousel = ({ brands }: BrandsProps) => {
       plugins={[
         Autoplay({
           delay: 3000,
-          jump: 'true',
-          stopOnMouseEnter: 'true'
+          stopOnMouseEnter: true,
+          stopOnInteraction: false
         })
       ]}
       className="max-w-7xl mx-auto py-10"

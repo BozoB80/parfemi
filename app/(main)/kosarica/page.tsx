@@ -84,7 +84,7 @@ const CartPage = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>        
         <div className="max-w-7xl mx-auto">
-          <div className="relative flex py-5 sm:py-10">
+          <div className="relative flex flex-col lg:flex-row py-5 sm:py-10">
             <div className="w-full flex flex-col">
               <div className="w-full flex justify-between items-center border-b max-lg:px-2 py-2">
                 <div className="flex justify-start items-center gap-2">
@@ -175,12 +175,12 @@ const CartPage = () => {
               )}
 
               <div className="w-full">
-                <div className="w-full flex justify-start items-center gap-2 py-2.5 border-b">
+                <div className="w-full flex justify-center items-center gap-2 py-2.5 border-b">
                   <Image src="/icons/shipping.svg" alt="ship" width={28} height={28} />
                   <h1 className="text-md sm:text-2xl font-medium">Dostava</h1>
                 </div>
-                <div className="w-full flex">
-                  <div className="w-1/2 flex flex-col space-y-4">
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 max-xl:p-2">
+                  <div className="flex flex-col space-y-4">
                   <FormField 
                     control={form.control}
                     name="name"
@@ -289,7 +289,7 @@ const CartPage = () => {
                                 </FormControl>
                                 <FormLabel className="font-normal flex justify-center items-center gap-2">
                                   Pouzećem
-                                  <Truck size={36} />
+                                  <Truck size={50} />
                                 </FormLabel>
                               </FormItem>
                               <FormItem className="flex items-center space-x-3 space-y-0">
@@ -299,8 +299,8 @@ const CartPage = () => {
                                 <FormLabel className="font-normal flex justify-center items-center">
                                   Kartično plaćanje
                                   <div className="flex gap-2">
-                                    <Image src="/visa.png" alt="visa" width={80} height={50} />
-                                    <Image src="/mastercard.png" alt="mastercard" width={80} height={50} />
+                                    <Image src="/visa.png" alt="visa" width={50} height={30} />
+                                    <Image src="/mastercard.png" alt="mastercard" width={50} height={30} />
                                   </div>
                                 </FormLabel>
                               </FormItem>
@@ -311,14 +311,15 @@ const CartPage = () => {
                       )}
                     />
                     <Separator className="my-4 w-full" />
+                    <h1 className="text-2xl">Besplatna dostava za narudžbe iznad 100 KM</h1>
+                    <Image src="/dostava.png" alt="dostava" width={500} height={300} className="w-1/2 flex justify-center items-center" />
                   </div>
-                  
                 </div>
               </div>
             </div>
 
             {cart.items.length > 0 && (
-              <div className="sticky top-0 w-1/3 pl-6 flex flex-col justify-start items-start">
+              <div className="md:sticky top-0 w-full lg:w-1/3 max-lg:px-2 lg:pl-6 flex flex-col justify-start items-start">
                 <div className="w-full flex justify-center items-center gap-2 py-2.5 border-b">
                   <Image
                     src="/icons/payment.svg"

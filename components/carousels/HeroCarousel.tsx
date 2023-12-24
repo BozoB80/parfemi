@@ -27,8 +27,8 @@ const HeroCarousel = ({ baneri }: BannerProps) => {
       plugins={[
         Autoplay({
           delay: 7000,
-          jump: 'true',
-          stopOnMouseEnter: 'true'
+          stopOnMouseEnter: true,
+          stopOnInteraction: false
         })
       ]}
       className="max-w-7xl mx-auto"
