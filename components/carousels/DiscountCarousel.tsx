@@ -16,7 +16,7 @@ import {
 } from "@prisma/client";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Badge } from "./ui/badge";
+import { Badge } from "../ui/badge";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -110,7 +110,7 @@ const DiscountMain = ({ products }: DiscountProps) => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="max-sm:hidden -top-4 w-full content-end" />
+        <CarouselPrevious className="max-sm:hidden -top-4 left-auto right-12 content-end" />
         <CarouselNext className="max-sm:hidden -top-4 right-0" />
       </Carousel>
     </div>

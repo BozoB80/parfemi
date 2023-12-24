@@ -21,7 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Trash2 } from "lucide-react";
+import { Trash2, Truck } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
@@ -30,13 +30,17 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
  
 const formSchema = z.object({
   name: z.string().min(5, { message: 'Unesite ime i prezime'}).max(30),
   phone: z.coerce.number().min(1, { message: 'Unesite broj telefona'}),
   address: z.string().min(5, { message: 'Unesite adresu'}).max(30),
   town: z.string().min(5, { message: 'Unesite grad'}).max(30),
-  postal: z.coerce.number().min(1, { message: 'Unesite poštanski broj'})
+  postal: z.coerce.number().min(1, { message: 'Unesite poštanski broj'}),
+  payment: z.enum(["pouzecem", "karticom"], {
+    required_error: "Izaberite način plaćanja.",
+  }),
 })
 
 const CartPage = () => {
@@ -55,7 +59,8 @@ const CartPage = () => {
       phone: 0,
       address: '',
       town: '',
-      postal: 0
+      postal: 0,
+      payment: "pouzecem"
     },
   })
 
@@ -266,15 +271,48 @@ const CartPage = () => {
                   </div>
 
                   <div>
-                    <h1>Način plaćanja</h1>
-                    <label>
-                      <input
-                        type="radio"
-                        value="pouzecem"                        
-                      />
-                      Pouzećem
-                    </label>
+                    <FormField
+                      control={form.control}
+                      name="payment"
+                      render={({ field }) => (
+                        <FormItem className="space-y-3">
+                          <FormLabel>Način plaćanja</FormLabel>
+                          <FormControl>
+                            <RadioGroup
+                              onValueChange={field.onChange}
+                              defaultValue={field.value}
+                              className="flex flex-col space-y-1"
+                            >
+                              <FormItem className="flex items-center space-x-3 space-y-0">
+                                <FormControl>
+                                  <RadioGroupItem value="pouzecem" />
+                                </FormControl>
+                                <FormLabel className="font-normal flex justify-center items-center gap-2">
+                                  Pouzećem
+                                  <Truck size={36} />
+                                </FormLabel>
+                              </FormItem>
+                              <FormItem className="flex items-center space-x-3 space-y-0">
+                                <FormControl>
+                                  <RadioGroupItem value="karticom" />
+                                </FormControl>
+                                <FormLabel className="font-normal flex justify-center items-center">
+                                  Kartično plaćanje
+                                  <div className="flex gap-2">
+                                    <Image src="/visa.png" alt="visa" width={80} height={50} />
+                                    <Image src="/mastercard.png" alt="mastercard" width={80} height={50} />
+                                  </div>
+                                </FormLabel>
+                              </FormItem>
+                            </RadioGroup>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <Separator className="my-4 w-full" />
                   </div>
+                  
                 </div>
               </div>
             </div>

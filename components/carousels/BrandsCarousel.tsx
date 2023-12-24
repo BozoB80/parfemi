@@ -4,8 +4,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel"
 import Autoplay from "embla-carousel-autoplay"
 import Image from "next/image"
@@ -16,7 +14,7 @@ interface BrandsProps {
   brands: Brand[]
 }
 
-const Brands = ({ brands }: BrandsProps) => {
+const BrandsCarousel = ({ brands }: BrandsProps) => {
   const router = useRouter()
 
   return (
@@ -51,4 +49,4 @@ const Brands = ({ brands }: BrandsProps) => {
   );
 }
 
-export default Brands;
+export default BrandsCarousel;

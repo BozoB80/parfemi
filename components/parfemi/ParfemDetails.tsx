@@ -14,6 +14,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import AddToCartButton from "../AddToCartButton";
+import DetailsCarousel from "../carousels/DetailsCarousel";
 
 interface DetailsProps {
   parfem:
@@ -56,8 +57,6 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
     priceVariant: selectedPriceVariant, // Make priceVariant optional
   };
 
-  console.log(parfem);
-
   return (
     <div>
       <Separator />
@@ -84,9 +83,9 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
       </div>
       <Separator />
       <div className="grid grid-cols-1 sm:grid-cols-2">
-        <div className="p-2">
+        <div className="flex flex-col p-2">
           {parfem?.images ? (
-            <CarouselPage baneri={parfem?.images} />
+            <DetailsCarousel images={parfem?.images} />
           ) : (
             <p>Loading...</p>
           )}

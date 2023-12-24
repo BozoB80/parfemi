@@ -1,6 +1,6 @@
-import Brands from "@/components/Brands";
+import BrandsCarousel from "@/components/carousels/BrandsCarousel";
 import Categories from "@/components/Categories";
-import DiscountMain from "@/components/DiscountMain";
+import DiscountMain from "@/components/carousels/DiscountCarousel";
 import HeroCarousel from "@/components/carousels/HeroCarousel";
 import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
@@ -31,7 +31,7 @@ const Home = async () => {
   return (
     <main>
       <HeroCarousel baneri={baneri} />
-      <Brands brands={brands} />
+      <BrandsCarousel brands={brands} />
       <DiscountMain products={discountedProducts} />
       <Separator className="max-w-7xl mx-auto mb-8" />
       <Categories categories={categories} />
