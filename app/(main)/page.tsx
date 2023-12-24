@@ -1,8 +1,6 @@
 import Brands from "@/components/Brands";
-import Carousel from "@/components/Carousel";
 import Categories from "@/components/Categories";
 import DiscountMain from "@/components/DiscountMain";
-import BannerCarousel from "@/components/carousels/BannerCarousel";
 import HeroCarousel from "@/components/carousels/HeroCarousel";
 import { Separator } from "@/components/ui/separator";
 import prismadb from "@/lib/prismadb";
@@ -32,8 +30,6 @@ const Home = async () => {
 
   return (
     <main>
-      {/* <Carousel baneri={baneri} height /> */}
-      {/* <BannerCarousel baneri={baneri} /> */}
       <HeroCarousel baneri={baneri} />
       <Brands brands={brands} />
       <DiscountMain products={discountedProducts} />

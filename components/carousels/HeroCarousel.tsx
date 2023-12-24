@@ -26,7 +26,7 @@ const HeroCarousel = ({ baneri }: BannerProps) => {
       }}
       plugins={[
         Autoplay({
-          delay: 3000,
+          delay: 7000,
           jump: 'true',
           stopOnMouseEnter: 'true'
         })
@@ -46,8 +46,8 @@ const HeroCarousel = ({ baneri }: BannerProps) => {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious className="absolute left-5" />
-      <CarouselNext className="absolute right-5" />
+      <CarouselPrevious className="max-sm:hidden" />
+      <CarouselNext className="max-sm:hidden" />
     </Carousel>
   );
 }
