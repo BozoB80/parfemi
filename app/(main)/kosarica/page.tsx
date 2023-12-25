@@ -15,7 +15,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -32,6 +31,8 @@ import * as z from "zod"
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import axios from "axios";
+
+import { currentUser } from "@clerk/nextjs";
  
 const formSchema = z.object({
   name: z.string().min(5, { message: 'Unesite ime i prezime'}).max(30),
@@ -48,6 +49,10 @@ const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const cart = useCart();
   const { toast } = useToast();
+
+  const user = currentUser()
+  console.log(user);
+  
 
   useEffect(() => {
     setIsMounted(true);
