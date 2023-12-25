@@ -1,4 +1,6 @@
 import { Brand, Category, Image, PriceVariant, Product } from "@prisma/client";
+import { ShoppingBag } from "lucide-react";
+import { ToastAction, ToastActionProps } from "@/components/ui/toast"
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
@@ -31,7 +33,9 @@ const useCart = create(
             { ...data, quantity: quantity || 1 },
           ],
         });
-        toast({ description: "Artikal dodan u košaricu." });
+        toast({
+          description: "Artikal dodan u košaricu.",
+        });
       }
     },
 

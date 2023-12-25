@@ -91,6 +91,10 @@ model Product {
   categoryId    String?        @db.ObjectId
   brand         Brand?         @relation(fields: [brandId], references: [id])
   brandId       String?        @db.ObjectId
+
+  @@index([categoryId])
+  @@index([brandId])
+  @@fulltext([title])
 }
 
 model Image {
@@ -132,7 +136,7 @@ model OrderItem {
 model Address {
   id      String  @id @default(auto()) @map("_id") @db.ObjectId
   name    String
-  phone   Float
+  phone   String
   address String
   town    String
   postal  Float

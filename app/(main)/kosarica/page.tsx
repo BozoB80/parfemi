@@ -31,10 +31,11 @@ import { useForm } from "react-hook-form"
 import * as z from "zod"
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import axios from "axios";
  
 const formSchema = z.object({
   name: z.string().min(5, { message: 'Unesite ime i prezime'}).max(30),
-  phone: z.coerce.number().min(1, { message: 'Unesite broj telefona'}),
+  phone: z.string().refine(value => /^(\+)?\d+$/.test(value), { message: 'Unesite broj telefona' }),
   address: z.string().min(5, { message: 'Unesite adresu'}).max(30),
   town: z.string().min(5, { message: 'Unesite grad'}).max(30),
   postal: z.coerce.number().min(1, { message: 'Unesite poštanski broj'}),
@@ -55,8 +56,8 @@ const CartPage = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      phone: 0,
+      name: '',
+      phone: '',
       address: '',
       town: '',
       postal: 0,
@@ -66,8 +67,20 @@ const CartPage = () => {
 
   const { isSubmitting } = form.formState
  
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      const requestBody = {
+        orderDetails: values,
+        cartItems: cart.items,
+      };
+
+      await axios.post("/api/proizvodi/kosarica", requestBody)
+
+      
+      console.log(values)
+    } catch (error) {
+      
+    }    
   }
 
 
@@ -207,7 +220,7 @@ const CartPage = () => {
                         <FormControl>
                           <Input 
                             disabled={isSubmitting}
-                            type="number"
+                            type="tel"
                             placeholder="Unesite broj telefona"
                             {...field}
                           />
@@ -252,7 +265,7 @@ const CartPage = () => {
                   />
                   <FormField 
                     control={form.control}
-                    name="phone"
+                    name="postal"
                     render={({field}) => (
                       <FormItem className="max-w-md">
                         <FormLabel>Poštanski broj</FormLabel>
@@ -349,12 +362,9 @@ const CartPage = () => {
                 </Button>             
               </div>
             )}
-          </div>
-
-          
-          
+          </div>  
         </div>
-        </form>
+      </form>
     </Form>
   );
 };
