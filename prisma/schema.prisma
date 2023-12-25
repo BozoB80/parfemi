@@ -71,8 +71,9 @@ model PriceVariant {
   updateAt  DateTime @updatedAt
 
   sizes     Size[]
-  Product   Product? @relation(fields: [productId], references: [id])
-  productId String?  @db.ObjectId
+  orderItem OrderItem[]
+  Product   Product?    @relation(fields: [productId], references: [id])
+  productId String?     @db.ObjectId
 }
 
 model Product {
@@ -86,7 +87,6 @@ model Product {
 
   images        Image[]
   priceVariants PriceVariant[]
-  orderItems    OrderItem[]
   category      Category?      @relation(fields: [categoryId], references: [id])
   categoryId    String?        @db.ObjectId
   brand         Brand?         @relation(fields: [brandId], references: [id])
@@ -121,16 +121,15 @@ model Order {
 }
 
 model OrderItem {
-  id      String @id @default(auto()) @map("_id") @db.ObjectId
-  userId  String
-  orderId String @db.ObjectId
-  order   Order  @relation(fields: [orderId], references: [id])
-
-  product   Product @relation(fields: [productId], references: [id])
-  productId String  @db.ObjectId
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String
+  quantity       Float
+  orderId        String        @db.ObjectId
+  order          Order         @relation(fields: [orderId], references: [id])
+  priceVariant   PriceVariant? @relation(fields: [priceVariantId], references: [id])
+  priceVariantId String?       @db.ObjectId
 
   @@index([orderId])
-  @@index([productId])
 }
 
 model Address {

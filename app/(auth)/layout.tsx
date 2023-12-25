@@ -23,6 +23,8 @@ const localization = {
   formFieldLabel__lastName: 'Prezime',
   formButtonPrimary: 'Nastavite',
   formFieldHintText__optional: 'Opcija',
+  formFieldError__matchingPasswords: 'Lozinke se podudaraju.',
+  formFieldLabel__signOutOfOtherSessions: 'Odjavite se sa svih uređaja.',
   formFieldInputPlaceholder__confirmDeletionUserAccount: 'Izbrišite račun',
   formFieldAction__forgotPassword: 'Zaboravljena lozinka?',
   signInEnterPasswordTitle: 'Unesite vašu lozinku',
@@ -56,6 +58,32 @@ const localization = {
       title: 'Zaboravljena lozinka?',
       label__alternativeMethods: 'Ili, prijava po drugoj metodi',
       blockButton__resetPassword: 'Resetirajte vašu lozinku',
+    },
+    forgotPassword: {
+      title: 'Resetirajte lozinku',
+      subtitle_email: 'First, enter the code sent to your email ID',
+      subtitle_phone: 'First, enter the code sent to your phone',
+      inputLabel: 'Reset password code',
+      resendButton: "Niste primili šifru? Zatražite ponovo",
+      // TODO-RETHEME remove
+      title_email: 'Provjerite vaš email',
+      // TODO-RETHEME remove
+      title_phone: 'Check your phone',
+      // TODO-RETHEME remove
+      subtitle: 'za izmjenu vaše lozinke',
+      // TODO-RETHEME remove
+      formTitle: 'Šifra za novu lozinku',
+      // TODO-RETHEME remove
+      formSubtitle_email: 'Unesite šifru poslanu na vašu email adresu',
+      // TODO-RETHEME remove
+      formSubtitle_phone: 'Enter the code sent to your phone number',
+    },
+    resetPassword: {
+      title: 'Postavite novu lozinku',
+      formButtonPrimary: 'Resetirajte lozinku',
+      successMessage: 'Vaša lozinka je uspješno promijenjena. Prijava je u tijeku, pričekajte trenutak.',
+      requiredMessage:
+        'Račun već postoji sa nepotvrđenom email adresom. Molimo resetirajte lozinku zbog sigurnosti.',
     },
     alternativeMethods: {
       title: 'Koristite drugu metodu',

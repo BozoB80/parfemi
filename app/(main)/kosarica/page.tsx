@@ -31,8 +31,7 @@ import * as z from "zod"
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import axios from "axios";
-
-import { currentUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
  
 const formSchema = z.object({
   name: z.string().min(5, { message: 'Unesite ime i prezime'}).max(30),
@@ -48,11 +47,8 @@ const formSchema = z.object({
 const CartPage = () => {
   const [isMounted, setIsMounted] = useState(false);
   const cart = useCart();
-  const { toast } = useToast();
-
-  const user = currentUser()
-  console.log(user);
-  
+  const { toast } = useToast();  
+  const router = useRouter()
 
   useEffect(() => {
     setIsMounted(true);
@@ -80,11 +76,13 @@ const CartPage = () => {
       };
 
       await axios.post("/api/proizvodi/kosarica", requestBody)
+      toast({ title: "Narudžba potvrđena", description: "Uspješno ste plasirali narudžbu." });
+      cart.removeAll()
+      router.push("/")
 
-      
-      console.log(values)
     } catch (error) {
-      
+      console.log(error);  
+      toast({ variant: "destructive", description: "Narudžba nije poslana." })    
     }    
   }
 
@@ -191,6 +189,8 @@ const CartPage = () => {
                   </TableBody>
                 </Table>
               )}
+
+              {cart.items.length > 0 && (
 
               <div className="w-full">
                 <div className="w-full flex justify-center items-center gap-2 py-2.5 border-b">
@@ -334,6 +334,7 @@ const CartPage = () => {
                   </div>
                 </div>
               </div>
+              )}
             </div>
 
             {cart.items.length > 0 && (
