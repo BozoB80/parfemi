@@ -20,7 +20,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form"
-import { Trash2, Truck } from "lucide-react";
+import { Loader2, Trash2, Truck } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
@@ -364,7 +364,8 @@ const CartPage = () => {
                   <p className="text-end font-bold">{totalPriceWithDiscount > 100 ? (totalPriceWithDiscount * 1.17).toFixed(2) : (totalPriceWithDelivery * 1.17).toFixed(2)} KM</p>
                 </div>   
                 <Button size="lg" className="w-full">
-                  Dovrši narudžbu  
+                  {isSubmitting && <Loader2 size={24} className="animate-spin mr-2" />}
+                  Pošalji narudžbu  
                 </Button>             
               </div>
             )}
