@@ -30,7 +30,7 @@ export async function POST(req: Request) {
     const order = await prismadb.order.create({
       data: {
         userId: user.id,
-        userName: user?.username || '',
+        userName: user?.firstName || '',
         payment: payment,
         address: {
           create: {
