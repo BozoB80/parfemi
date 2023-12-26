@@ -73,8 +73,8 @@ const MainNav = ({ brendovi, kategorije }: MainNavProps) => {
         </HoverCardContent>
       </HoverCard>
       
-      <Button variant="ghost" className="uppercase text-md">O Nama</Button>
-      <Button variant="ghost" className="uppercase text-md">Kontakt</Button>
+      <Button variant="ghost" onClick={() => router.push('/onama')} className="uppercase text-md">O Nama</Button>
+      <Button variant="ghost" onClick={() => router.push('/kontakt')} className="uppercase text-md">Kontakt</Button>
       <Button variant="ghost" className="uppercase text-md">Moj račun</Button>
     </div>
   );
