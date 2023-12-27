@@ -12,17 +12,7 @@ const MojRacunPage = async () => {
       userId: userId
     },
     include: {
-      priceVariant: {
-        include: {
-          Product: {
-            include: {
-              images: true,
-              brand: true,
-              category: true
-            }
-          }
-        }
-      }
+      order: true
     }
   })
 

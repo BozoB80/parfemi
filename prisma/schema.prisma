@@ -123,6 +123,13 @@ model Order {
 model OrderItem {
   id             String        @id @default(auto()) @map("_id") @db.ObjectId
   userId         String
+  title          String
+  measure        String
+  imageUrl       String
+  brand          String
+  category       String
+  price          Float
+  discount       Int?
   quantity       Float
   orderId        String        @db.ObjectId
   order          Order         @relation(fields: [orderId], references: [id])

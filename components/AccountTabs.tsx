@@ -5,28 +5,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { CalendarHeart, Package, User, WalletCards } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { Separator } from "./ui/separator";
-import {
-  Brand,
-  Category,
-  Image as Images,
-  OrderItem,
-  PriceVariant,
-  Product,
-} from "@prisma/client";
+import { Order, OrderItem } from "@prisma/client";
 import Link from "next/link";
+import { format } from "date-fns";
+import { hr } from "date-fns/locale";
 
 type AccountProps = {
-  kupljeniArtikli:
-    | (OrderItem & {
-        priceVariant?: PriceVariant & {
-          Product?: Product & {
-            images?: Images[];
-            brand?: Brand | null; // Adjust this based on your actual data
-            category?: Category | null; // Adjust this based on your actual data
-          } | null;
-        } | null;
-      })[]
-    | null;
+  kupljeniArtikli: (OrderItem & { order: Order })[]
 };
 
 const AccountTabs = ({ kupljeniArtikli }: AccountProps) => {
@@ -77,18 +62,18 @@ const AccountTabs = ({ kupljeniArtikli }: AccountProps) => {
         <TabsContent value="kupovine" className="w-full space-y-2">
           {kupljeniArtikli?.map((item) => (
             <Link
-              href={`/parfemi/${item.priceVariant?.Product?.category?.label.replace(
+              href={`/parfemi/${item.category.replace(
                 /\s/g,
                 "-"
-              )}/${item.priceVariant?.Product?.title
+              )}/${item.title
                 .toLowerCase()
                 .replace(/\s/g, "-")}`}
               key={item.id}
               className="flex w-full border-b py-1"
             >
-              {item.priceVariant?.Product?.images?.[0]?.url && (
+              {item.imageUrl && (
                 <Image
-                  src={item.priceVariant.Product.images[0].url}
+                  src={item.imageUrl}
                   alt="productImage"
                   width={100}
                   height={100}
@@ -96,15 +81,31 @@ const AccountTabs = ({ kupljeniArtikli }: AccountProps) => {
                 />
               )}
               <div className="grid grid-cols-3 w-full text-center items-center">
-                <h1 className="text-start font-semibold">{item.priceVariant?.Product?.title}</h1>
-                <h1 className="text-center font-semibold">{item.priceVariant?.label}</h1>
-                <h1 className="text-end font-semibold">{item.priceVariant?.Product?.brand?.label}</h1>
-                <h1 className="text-start">Cijena: {item.priceVariant?.price.toFixed(2)} KM</h1>
+                <h1 className="text-start font-semibold">{item.title}</h1>
+                <h1 className="text-center font-semibold">{item.measure}</h1>
+                <h1 className="text-end font-semibold">{item.brand}</h1>
+                <div className="text-start">
+                  {item.discount && item.discount > 0 ? (
+                    <>
+                      <div className="flex gap-2">
+                        <h1>Popust: {item.discount}%</h1>             
+                        <h1 className="text-red-500 line-through">Cijena: {item.price.toFixed(2)} KM</h1>
+                      </div>
+                      <h1>Cijena s popustom: {((item.price * item.quantity) * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
+                    </>
+                  ) : (
+                    <h1>Cijena: {item.price.toFixed(2)} KM</h1>
+                  )}
+                </div>
                 <h1 className="text-center">{item.quantity} kom</h1>
                 <h1 className="text-end">
-                  Ukupno: {item.priceVariant?.price && (item.priceVariant?.price * item.quantity).toFixed(2)}{" "}
-                  KM
+                  {item.discount && item.discount > 0 ? (
+                    <h1>Ukupno: {((item.price * item.quantity) * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
+                  ) : (
+                    <h1>Ukupno: {item.price && (item.price * item.quantity).toFixed(2)}{" "}KM</h1>
+                  )}
                 </h1>
+                <h1 className="text-start">Narudžba napravljena: {format(item.order.createdAt, "dd.MM.yyyy", { locale: hr })} </h1>
               </div>
             </Link>
           ))}

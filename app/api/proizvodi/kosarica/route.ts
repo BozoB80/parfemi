@@ -24,6 +24,13 @@ export async function POST(req: Request) {
         connect: { id: cartItem.id },
       },
       userId: user.id,
+      title: cartItem.title,
+      measure: cartItem.priceVariant.label,
+      imageUrl: cartItem.images[0].url,
+      brand: cartItem.brand.label,
+      category: cartItem.category.label,
+      price: cartItem.priceVariant.price,
+      discount: cartItem.discount,
       quantity: cartItem.quantity,
     }));
 
