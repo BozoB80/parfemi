@@ -9,7 +9,6 @@ import {
 } from "@prisma/client";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
-import CarouselPage from "../Carousel";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";

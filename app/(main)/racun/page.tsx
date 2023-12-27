@@ -16,9 +16,21 @@ const MojRacunPage = async () => {
     }
   })
 
+  const narudzbe = await prismadb.order.findMany({
+    where: {
+      userId: userId
+    },
+    include: {
+      orderItems: true
+    },
+    orderBy: {
+      createdAt: "asc"
+    }
+  })
+
   return (
     <div className="max-w-7xl mx-auto h-5/6">
-      <AccountTabs kupljeniArtikli={kupljeniArtikli} />
+      <AccountTabs kupljeniArtikli={kupljeniArtikli} narudzbe={narudzbe} />
     </div>
   );
 }
