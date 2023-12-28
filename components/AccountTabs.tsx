@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { CalendarHeart, Package, User, WalletCards } from "lucide-react";
-import { useUser } from "@clerk/nextjs";
+import { UserProfile, useUser } from "@clerk/nextjs";
 import { Separator } from "./ui/separator";
 import { Order, OrderItem } from "@prisma/client";
 import Link from "next/link";
@@ -61,7 +61,21 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
         </TabsList>
 
         <TabsContent value="osobne">
-          <h1>Osobne</h1>
+          <h1>Osobne informacije:</h1>
+          <UserProfile             
+            appearance={{
+              elements: {
+                card: "shadow-none rounded-md border-gray-300",
+                profilePage__security: "hidden",
+                navbar: "hidden",
+                profileSection__emailAddresses: "hidden",
+                profileSection__connectedAccounts: "hidden",
+              }
+            }}
+          >
+
+              <UserProfile.Page label="Testing" />
+          </UserProfile>
         </TabsContent>
 
         <TabsContent value="kupovine" className="w-full space-y-2">

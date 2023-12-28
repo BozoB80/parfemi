@@ -41,7 +41,6 @@ const localization = {
       goodPassword: 'Vaša lozinka zadovoljava sve potrebne uvjete.',
     },
   },  
-  
   signIn: {
     start: {
       title: 'Prijava',
