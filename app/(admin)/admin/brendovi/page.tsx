@@ -6,7 +6,7 @@ import BrandsClient from "./components/BrandsClient";
 const BrandsPage = async () => {
   const brands = await prismadb.brand.findMany({
     orderBy: {
-      createdAt: "asc"
+      label: "asc"
     }
   })
 

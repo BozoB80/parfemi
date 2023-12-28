@@ -78,7 +78,7 @@ const DiscountMain = ({ products }: DiscountProps) => {
                 {hoveredProductId === product.id && (
                   <div
                     className={cn(
-                      "hidden lg:block absolute bottom-0 w-full bg-secondary/70 h-1/2 space-y-2",
+                      "hidden lg:block absolute bottom-0 w-full bg-secondary/70 h-fit space-y-2",
                       hoveredProductId === product.id &&
                         "transition-all duration-500 ease-out"
                     )}

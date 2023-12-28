@@ -12,6 +12,7 @@ import { hr } from "date-fns/locale";
 import { ScrollArea } from "./ui/scroll-area";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
 
 type AccountProps = {
   kupljeniArtikli: (OrderItem & { order: Order })[]
@@ -22,7 +23,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
   const { user } = useUser();
 
   return (
-    <div className="h-full px-1 lg:px-0 py-4 md:py-10">
+    <div className="h-full px-1 xl:px-0 py-4 md:py-10">
       <div className="flex justify-between items-center">
         <h1 className="text-xl md:text-3xl font-semibold">Moj račun</h1>
         <div className="flex items-center justify-center gap-3">
@@ -86,7 +87,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
                   className="aspect-square object-contain lg:object-cover"
                 />
               )}
-              <div className="flex flex-col lg:grid grid-cols-3 w-full text-center items-start lg:items-center max-md:text-sm">
+              <div className="flex flex-col lg:grid grid-cols-3 w-full text-center items-start lg:items-center max-xl:text-sm">
                 <div className="flex lg:hidden font-semibold">
                   {item.title} | {item.measure} | {item.brand}
                 </div>
@@ -135,10 +136,10 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
             narudzbe.map((item) => (
               <Dialog key={item.id}>
                 <DialogTrigger asChild>
-                  <div className="flex flex-col cursor-pointer hover:bg-primary-foreground transition">
+                  <div className="group flex flex-col cursor-pointer hover:bg-primary-foreground transition border-b max-lg:text-sm">
                     <div className="flex justify-between items-center">
                       <h1 className="font-semibold">Narudžba broj: {item.id}</h1>
-                      <Button variant="ghost">Pregledajte narudžbu</Button>
+                      <Badge variant="outline" className="group-hover:bg-primary group-hover:text-white text-center">Pregledajte narudžbu</Badge>
                     </div>
                     <h1>
                       Ukupan iznos:{" "}
@@ -154,7 +155,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
                     <h1>Datum narudžbe: {format(item.createdAt, "dd.MM.yyyy", { locale: hr })}</h1>
                   </div>
                 </DialogTrigger>
-                <DialogContent className="w-fit">
+                <DialogContent className="max-w-3xl">
                   <DialogTitle className="text-xl">
                     Broj narudžbe: {item.id}
                   </DialogTitle>
@@ -185,17 +186,20 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
                             className="aspect-square object-contain lg:object-cover"
                           />
                         )}
-                        <div className="flex flex-col w-full">
+                        <div className="flex flex-col w-full text-sm md:text-base">
                           <div className="flex font-semibold">
                             {item.title} | {item.measure} | {item.brand}
                           </div>
                           {item.discount && item.discount > 0 ? (
                             <>
-                              <div className="flex gap-2">
+                              <div className="flex justify-between gap-2">
                                 <h1>Popust: {item.discount}%</h1>             
                                 <h1 className="text-red-500 line-through">Cijena: {item.price.toFixed(2)} KM</h1>
                               </div>
-                              <h1>Cijena s popustom: {(item.price * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
+                              <div className="flex justify-between gap-2">
+                                <h1>Cijena s popustom:</h1>
+                                <h1>{(item.price * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
+                              </div>
                             </>
                           ) : (
                             <h1>Cijena: {item.price.toFixed(2)} KM</h1>

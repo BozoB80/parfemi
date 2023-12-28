@@ -6,7 +6,7 @@ import SizeClient from "./components/SizeClient";
 const SizePage = async () => {
   const size = await prismadb.size.findMany({
     orderBy: {
-      createdAt: "asc"
+      value: "asc"
     }
   })
 

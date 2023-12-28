@@ -29,7 +29,7 @@ const MojRacunPage = async () => {
   })
 
   return (
-    <div className="max-w-7xl mx-auto h-5/6">
+    <div className="max-w-7xl mx-auto">
       <AccountTabs kupljeniArtikli={kupljeniArtikli} narudzbe={narudzbe} />
     </div>
   );
