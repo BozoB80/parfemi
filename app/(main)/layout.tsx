@@ -22,10 +22,9 @@ const localization = {
   userProfile: {
     mobileButton__menu: "Menu",
     formButtonPrimary__save: "Save",
-    // TODO-RETHEME remove
-    formButtonPrimary__continue: "Continue",
-    formButtonPrimary__finish: "Finish",
-    formButtonReset: "Cancel",
+    formButtonPrimary__continue: "Nastavite",
+    formButtonPrimary__finish: "Završi",
+    formButtonReset: "Otkažite",
     navbar: {
       title: "Account",
       description: "Manage your account info.",
@@ -36,6 +35,7 @@ const localization = {
         primaryButton: "Uredite Profil",
       },
       headerTitle__account: "Vaš Profil",
+      headerSubtitle__account: "Upravljaje informacijama o vašem profilu.",
       headerTitle__security: "",
       usernameSection: {
         title: "Username",
@@ -53,7 +53,7 @@ const localization = {
       fileDropAreaHint:
         "Dodajte u formatu JPG, PNG, GIF, or WEBP sliku manju od 10 MB",
       readonly:
-        "Your profile information has been provided by the enterprise connection and cannot be edited.",
+        "Vaši podaci o profilu su dostavljeni putem enterprise veze i ne mogu se uređivati.",
       successMessage: "Vaša profilna slika je ažurirana.",
     },
   },

@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { CalendarHeart, Package, User, WalletCards } from "lucide-react";
 import { UserProfile, useUser } from "@clerk/nextjs";
 import { Separator } from "./ui/separator";
-import { Order, OrderItem } from "@prisma/client";
+import { Address, Order, OrderItem } from "@prisma/client";
 import Link from "next/link";
 import { format } from "date-fns";
 import { hr } from "date-fns/locale";
@@ -16,7 +16,7 @@ import { Badge } from "./ui/badge";
 
 type AccountProps = {
   kupljeniArtikli: (OrderItem & { order: Order })[]
-  narudzbe: (Order & { orderItems: OrderItem[] })[]
+  narudzbe: (Order & { orderItems: OrderItem[], address: Address })[]
 };
 
 const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
@@ -80,6 +80,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
 
         <TabsContent value="kupovine" className="w-full space-y-2">
           <h1>Moja kupovina:</h1>
+          <Separator />
           <ScrollArea>
           {kupljeniArtikli?.map((item) => (
             <Link
@@ -175,19 +176,31 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
                   </DialogTitle>
                   <Separator className="my-2" />
                   <div>
-                    <h1 className="capitalize text-lg">Plaćanje: {item.payment}</h1>
-                    <h1 className="text-lg">Datum narudžbe: {format(item.createdAt, "dd.MM.yyyy", { locale: hr })}</h1>
-                    <h1 className="font-semibold text-lg">
-                      Ukupan iznos:{" "}
-                      {item.orderItems.reduce(
-                        (total, orderItem) =>
-                          total +
-                          (orderItem.price * orderItem.quantity * (100 - (orderItem.discount ?? 0))) /
-                            100,
-                        0
-                      ).toFixed(2)}{" "}
-                      KM + PDV
-                    </h1>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <h1 className="capitalize text-lg">Plaćanje: {item.payment}</h1>
+                        <h1 className="text-lg">Datum narudžbe: {format(item.createdAt, "dd.MM.yyyy", { locale: hr })}</h1>
+                        <h1 className="font-semibold text-lg">
+                          Ukupan iznos:{" "}
+                          {item.orderItems.reduce(
+                            (total, orderItem) =>
+                              total +
+                              (orderItem.price * orderItem.quantity * (100 - (orderItem.discount ?? 0))) /
+                                100,
+                            0
+                          ).toFixed(2)}{" "}
+                          KM + PDV
+                        </h1>
+                      </div>
+
+                      <div>
+                        <h1 className="capitalize text-sm">Ime: {item.address.name}</h1>
+                        <h1 className="text-sm">Adresa: {item.address.address}</h1>
+                        <h1 className="text-sm">Telefon: {item.address.phone}</h1>
+                        <h1 className="text-sm">Poštanski broj: {item.address.postal}</h1>
+                        <h1 className="text-sm">Grad: {item.address.town}</h1>
+                      </div>
+                    </div>
                     <Separator className="my-2" />
                     {item.orderItems.map((item) => (
                       <div key={item.id} className="flex w-full border-b py-1">
@@ -242,7 +255,8 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
         </TabsContent>
 
         <TabsContent value="zelje" className="w-full space-y-2">
-          <h1>Osobne</h1>
+          <h1>Lista želja</h1>
+          <Separator />
         </TabsContent>
       </Tabs>
     </div>

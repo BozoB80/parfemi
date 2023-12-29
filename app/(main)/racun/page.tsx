@@ -21,7 +21,8 @@ const MojRacunPage = async () => {
       userId: userId
     },
     include: {
-      orderItems: true
+      orderItems: true,
+      address: true
     },
     orderBy: {
       createdAt: "asc"

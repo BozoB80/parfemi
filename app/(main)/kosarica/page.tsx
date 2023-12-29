@@ -78,6 +78,7 @@ const CartPage = () => {
       await axios.post("/api/proizvodi/kosarica", requestBody)
       toast({ title: "Narudžba potvrđena", description: "Uspješno ste plasirali narudžbu." });
       cart.removeAll()
+      router.refresh()
       router.push("/")
 
     } catch (error) {
@@ -192,8 +193,8 @@ const CartPage = () => {
 
               {cart.items.length > 0 && (
 
-              <div className="w-full">
-                <div className="w-full flex justify-center items-center gap-2 py-2.5 border-b">
+              <div className="w-full md:pt-8">
+                <div className="w-full flex justify-center md:justify-start items-center gap-2 py-2.5 border-b">
                   <Image src="/icons/shipping.svg" alt="ship" width={28} height={28} />
                   <h1 className="text-md sm:text-2xl font-medium">Dostava</h1>
                 </div>
@@ -363,7 +364,7 @@ const CartPage = () => {
                   <h1 className="font-bold">Iznos s PDV-om:</h1>
                   <p className="text-end font-bold">{totalPriceWithDiscount > 100 ? (totalPriceWithDiscount * 1.17).toFixed(2) : (totalPriceWithDelivery * 1.17).toFixed(2)} KM</p>
                 </div>   
-                <Button size="lg" className="w-full">
+                <Button size="lg" disabled={isSubmitting} className="w-full">
                   {isSubmitting && <Loader2 size={24} className="animate-spin mr-2" />}
                   Pošalji narudžbu  
                 </Button>             
