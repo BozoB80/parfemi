@@ -34,7 +34,7 @@ const NavCart = () => {
             onClick={() => router.push("/kosarica")}
             className="relative flex items-center"
           >
-            <ShoppingCart size={24} />
+            <ShoppingCart size={24} className="hover:scale-105 hover:fill-red-500 transition" />
             <span className="absolute top-0 right-0 flex h-5 w-5">
               <span className={cn("absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75",
                 cart.items.length > 0 && "animate-ping"  

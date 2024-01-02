@@ -2,85 +2,87 @@
 
 
 import { Heart } from "lucide-react";
-// import * as z from "zod";
-// import { zodResolver } from "@hookform/resolvers/zod";
-// import { useForm } from "react-hook-form";
-// import { Form, FormField, FormItem } from "./ui/form";
-// import axios from "axios";
-// import { Game, Wishlist } from "@prisma/client";
-import { useToast } from "./ui/use-toast";
-import { cn } from "@/lib/utils";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+
+import { Form, FormField, FormItem } from "./ui/form";
+import { Product, Wishlist } from "@prisma/client";
+import { useToast } from "./ui/use-toast";
 import { Button } from "./ui/button";
 
-// const formSchema = z.object({
-//   isWishlisted: z.boolean().default(false),
-//   gameId: z.string(),
-// });
+const formSchema = z.object({
+  isWishlisted: z.boolean().default(false),
+  productId: z.string(),
+});
 
-// interface WishlistButtonProps {
-//   game: Game & {
-//     wishlist?: Wishlist[];
-//   };
-// }
+interface WishlistButtonProps {
+  product: Product & {
+    wishlist?: Wishlist[];
+  };
+}
 
-const WishlistButton = () => {
+const WishlistButton = ({ product }: WishlistButtonProps) => {
   const { toast } = useToast();
   const router = useRouter()
   const { user } = useUser()
 
-  // const form = useForm<z.infer<typeof formSchema>>({
-  //   resolver: zodResolver(formSchema),
-  //   defaultValues: {
-  //     isWishlisted: false,
-  //     gameId: game.id,
-  //   },
-  // });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      isWishlisted: false,
+      productId: product.id,
+    },
+  });
 
-  // const isWished = game.wishlist?.some((item) => item.isWishlisted && item.userId === user?.id);
+  const isWished = product.wishlist?.some((item) => item.isWishlisted && item.userId === user?.id);
+
+  console.log(product.id);
   
-  // const onSubmit = async (data: z.infer<typeof formSchema>) => {
-  //   try {
-  //     if (!isWished) {
-  //       data.isWishlisted = true;
-  //       await axios.post("/api/wishlist", data);
-  //       toast({ description: "Game added to wishlist" });
-  //     } else {
-  //       await axios.delete(`/api/wishlist/${game.id}`)
-  //       toast({ variant: "destructive", description: "Game removed from wishlist" });
-  //     }
-  //     router.refresh()    
+  
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    try {
+      if (!isWished) {
+        data.isWishlisted = true;
+        await axios.post("/api/wishlist", data);
+        toast({ description: "Dodano na vašu listu želja" });
+      } else {
+        await axios.delete(`/api/wishlist/${product.id}`)
+        toast({ variant: "destructive", description: "Uklonjeno iz liste želja" });
+      }
+      router.refresh()    
       
-  //   } catch (error) {
-  //     toast({ variant: "destructive", description: "Something went wrong" });
-  //   }
-  // };
+    } catch (error) {
+      toast({ variant: "destructive", description: "Greška" });
+    }
+  };
 
   return (
-    // <Form {...form}>
-    //   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-    //     <FormField
-    //       control={form.control}
-    //       name="isWishlisted"
-    //       render={({ field }) => (
-    //         <FormItem>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <FormField
+          control={form.control}
+          name="isWishlisted"
+          render={({ field }) => (
+            <FormItem>
               <Button
                 size="icon"
                 variant="ghost"
                 type="submit"
-                // value={field.value.toString()}
-                // onChange={field.onChange}
+                value={field.value.toString()}
+                onChange={field.onChange}
                 className="py-2 rounded-lg"
               >
-                <Heart size={24} />
-                {/* {isWished ? "Wishlisted" : "Wishlist it"} */}
+                <Heart size={28} className={isWished ? "hover:fill-green-500" : ""} />
               </Button>
-    //         </FormItem>
-    //       )}
-    //     />
-    //   </form>
-    // </Form>
+            </FormItem>
+          )}
+        />
+      </form>
+    </Form>
   );
 };
 

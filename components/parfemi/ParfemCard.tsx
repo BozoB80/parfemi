@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
+import WishlistButton from "../WishlistButton";
 
 interface ParfemCardProps {
   parfem: Product & {
@@ -17,7 +18,7 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
   const firstImageUrl = parfem.images.length > 0 ? parfem.images[0].url : '';
 
   return (
-    <Card className="shadow-lg relative">
+    <Card className="group cursor-pointer shadow-lg relative">
       <CardHeader className="p-0 py-3">
         <Link href={`/parfemi/${parfem.category?.label.replace(/\s/g, '-')}/${parfem.title.toLowerCase().replace(/\s/g, '-')}`} className="overflow-hidden">
           <Image 
@@ -34,6 +35,9 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
           {parfem.discount}%
         </Badge>
       ) : ""}
+      <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition ease-in-out duration-500">
+        <WishlistButton product={parfem} />
+      </div>
       <CardContent className="text-center p-0 py-2">
         <Link href={`/brend/${parfem.brand?.label.toLowerCase().replace(/\s/g, '-')}`} className="text-xl font-bold">{parfem.brand?.label}</Link>
         <p className="text-sm sm:text-base truncate px-1">{parfem.title}</p>

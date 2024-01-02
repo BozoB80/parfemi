@@ -11,8 +11,8 @@ import { format } from "date-fns";
 import { hr } from "date-fns/locale";
 import { ScrollArea } from "./ui/scroll-area";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
+import { useRouter, useSearchParams } from 'next/navigation'
 
 type AccountProps = {
   kupljeniArtikli: (OrderItem & { order: Order })[]
@@ -21,6 +21,14 @@ type AccountProps = {
 
 const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
   const { user } = useUser();
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const activeTab = searchParams.get('tab') || 'osobne'
+
+  const handleTabClick = (tabName: string) => {
+    router.push(`?tab=${tabName}`)
+  }
+  
 
   return (
     <div className="h-full px-1 xl:px-0 py-4 md:py-10">
@@ -44,18 +52,18 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
         </div>
       </div>
       <Separator className="my-2" />
-      <Tabs defaultValue="osobne" className="flex flex-col lg:flex-row lg:py-2 lg:gap-10">
+      <Tabs defaultValue={activeTab} className="flex flex-col lg:flex-row lg:py-2 lg:gap-10">
         <TabsList className="flex">
-          <TabsTrigger value="osobne">
+          <TabsTrigger value="osobne" onClick={() => handleTabClick('osobne')}>
             <User size={28} className="mr-2" /> Osobne informacije
           </TabsTrigger>
-          <TabsTrigger value="kupovine">
+          <TabsTrigger value="kupovine" onClick={() => handleTabClick('kupovine')}>
             <WalletCards size={28} className="mr-2" /> Kupljeni Artikli
           </TabsTrigger>
-          <TabsTrigger value="narudžbe">
+          <TabsTrigger value="narudžbe" onClick={() => handleTabClick('narudžbe')}>
             <Package size={28} className="mr-2" /> Moje narudžbe
           </TabsTrigger>
-          <TabsTrigger value="zelje">
+          <TabsTrigger value="zelje" onClick={() => handleTabClick('zelje')}>
             <CalendarHeart size={28} className="mr-2" /> Lista Želja
           </TabsTrigger>
         </TabsList>
