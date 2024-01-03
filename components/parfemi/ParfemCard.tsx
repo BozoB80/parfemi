@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import WishlistButton from "../WishlistButton";
+import { Separator } from "../ui/separator";
 
 interface ParfemCardProps {
   parfem: Product & {
@@ -42,12 +43,35 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
         <Link href={`/brend/${parfem.brand?.label.toLowerCase().replace(/\s/g, '-')}`} className="text-xl font-bold">{parfem.brand?.label}</Link>
         <p className="text-sm sm:text-base truncate px-1">{parfem.title}</p>
       </CardContent>
-      <CardFooter className="flex justify-between md:justify-around max-lg:px-2 max-lg:py-2 px-1 gap-1">
-        {parfem.priceVariants.sort((a, b) => a.price - b.price).slice(0, 3).map((item) => (
-          <div key={item.id} className="border px-2 md:px-4 py-1 sm:py-2 rounded-md">
-            <p className="text-xs md:text-sm">{item.label}</p>
-          </div>
-        ))}
+      <CardFooter className="flex justify-center max-lg:px-2 max-lg:py-2 px-1 gap-1">
+        {
+          parfem.discount && parfem?.discount > 0 ? (
+            parfem.priceVariants
+              .sort((a, b) => a.price - b.price)
+              .slice(0, 1)
+              .map((item) => (
+                <div key={item.id} className="flex items-center gap-1 sm:gap-3 md:px-4 py-1 sm:py-2 rounded-md">
+                  <p className="text-xs md:text-sm">{item.label}</p>
+                  <Separator orientation="vertical" className="h-4 sm:h-5 w-0.5" />
+                  <div className="flex gap-1 sm:gap-3">
+                    <p className="text-xs md:text-sm text-red-500 line-through">{item.price.toFixed(2)} KM</p>
+                    <p className="text-xs md:text-sm">{(item.price - (item.price * (parfem.discount ?? 0)) / 100).toFixed(2)} KM</p>
+                  </div>
+                </div>
+              ))
+          ) : (
+            parfem.priceVariants
+              .sort((a, b) => a.price - b.price)
+              .slice(0, 1)
+              .map((item) => (
+                <div key={item.id} className="flex items-center justify-center gap-3 px-2 md:px-4 py-1 sm:py-2 rounded-md">
+                  <p className="text-xs md:text-sm">{item.label}</p>
+                  <Separator orientation="vertical" className="h-4 sm:h-5 w-0.5" />
+                  <p className="text-xs md:text-sm">{item.price.toFixed(2)} KM</p>
+                </div>
+              ))
+          )
+        }
       </CardFooter>
     </Card>
   );

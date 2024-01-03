@@ -19,6 +19,7 @@ import {
   AccordionTrigger,
 } from "../ui/accordion";
 import { Brand, Category } from "@prisma/client";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface MobileMenuProps {
   brendovi: Brand[];
@@ -35,7 +36,7 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
         <SheetTrigger asChild>
           <Menu size={34} className="mr-8" />
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent side="left">
           <SheetHeader>
             <SheetTitle>
               {user ? (
@@ -65,6 +66,7 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
             </SheetTitle>
           </SheetHeader>
 
+          <ScrollArea className="max-h-full overflow-y-scroll">
           <Accordion type="single" collapsible className="w-full">
             <AccordionItem value="item-1">
               <SheetClose
@@ -86,38 +88,42 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
 
             <AccordionItem value="item-3">
               <AccordionTrigger>Kategorije</AccordionTrigger>
-              <AccordionContent className="flex flex-col space-y-2">
-                {kategorije.map((item) => (
-                  <SheetClose
-                    key={item.id}
-                    onClick={() =>
-                      router.push(`/parfemi/${item.label.replace(/\s/g, "-")}`)
-                    }
-                    className="uppercase py-1"
-                  >
-                    {item.label}
-                  </SheetClose>
-                ))}
-              </AccordionContent>
+              <ScrollArea className="max-h-64 overflow-y-scroll">
+                <AccordionContent className="flex flex-col space-y-2">
+                  {kategorije.map((item) => (
+                    <SheetClose
+                      key={item.id}
+                      onClick={() =>
+                        router.push(`/parfemi/${item.label.replace(/\s/g, "-")}`)
+                      }
+                      className="uppercase py-1"
+                    >
+                      {item.label}
+                    </SheetClose>
+                  ))}
+                </AccordionContent>
+              </ScrollArea>
             </AccordionItem>
 
             <AccordionItem value="item-4">
               <AccordionTrigger>Brendovi</AccordionTrigger>
-              <AccordionContent className="flex flex-col space-y-2">
-                {brendovi.map((item) => (
-                  <SheetClose
-                    key={item.id}
-                    onClick={() =>
-                      router.push(
-                        `/brend/${item.label.toLowerCase().replace(/\s/g, "-")}`
-                      )
-                    }
-                    className="uppercase py-1"
-                  >
-                    {item.label}
-                  </SheetClose>
-                ))}
-              </AccordionContent>
+              <ScrollArea className="max-h-64 overflow-y-scroll">
+                <AccordionContent className="flex flex-col space-y-2">
+                  {brendovi.map((item) => (
+                    <SheetClose
+                      key={item.id}
+                      onClick={() =>
+                        router.push(
+                          `/brend/${item.label.toLowerCase().replace(/\s/g, "-")}`
+                        )
+                      }
+                      className="uppercase py-1"
+                    >
+                      {item.label}
+                    </SheetClose>
+                  ))}
+                </AccordionContent>
+              </ScrollArea>
             </AccordionItem>
 
             <AccordionItem value="item-5">
@@ -164,6 +170,7 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
             </AccordionItem>
             
           </Accordion>
+          </ScrollArea>
         </SheetContent>
       </Sheet>
     </div>

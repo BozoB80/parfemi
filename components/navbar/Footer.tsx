@@ -34,7 +34,7 @@ const Footer = () => {
               height={80}
             />
           </Link>
-          <h1 className="text-white/90 max-lg:text-sm max-sm:hidden">Copyright © L&apos;Aurora Parfums {new Date().getFullYear()}. Sva prava pridržana.</h1>
+          <h1 className="text-white/90 max-lg:text-sm max-sm:hidden">Copyright ©L&apos;Aurora Parfums {new Date().getFullYear()}. Sva prava pridržana.</h1>
           <div className="flex items-center gap-2 sm:gap-8">
             <Link href="/">
               <Image 
@@ -65,7 +65,7 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <h1 className="text-white/90 text-xs mt-2 sm:hidden">Copyright © PARFEMI {new Date().getFullYear()}. Sva prava pridržana.</h1>
+        <h1 className="text-white/90 text-xs mt-2 sm:hidden">Copyright ©L&apos;Aurora Parfums {new Date().getFullYear()}. Sva prava pridržana.</h1>
       </div>
     </footer>
   );

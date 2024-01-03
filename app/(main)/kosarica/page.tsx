@@ -139,9 +139,9 @@ const CartPage = () => {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Artikal</TableHead>
-                      <TableHead>J.mj.</TableHead>
-                      <TableHead>Cijena</TableHead>
-                      <TableHead>Popust</TableHead>
+                      <TableHead className="hidden md:block">J.mj.</TableHead>
+                      <TableHead className="hidden md:block">Cijena</TableHead>
+                      <TableHead className="hidden md:block">Popust</TableHead>
                       <TableHead>Količina</TableHead>
                       <TableHead>Ukupno</TableHead>
                       <TableHead>Ukloni</TableHead>
@@ -163,21 +163,21 @@ const CartPage = () => {
                           )}
                           <div>
                             <p className="font-semibold">{item.brand?.label}</p>
-                            <p>{item.title}</p>
+                            <p className="line-clamp-3">{item.title}</p>
                           </div>
                         </TableCell>
 
-                        <TableCell>{item.priceVariant.label}</TableCell>
-                        <TableCell>
+                        <TableCell className="hidden md:block">{item.priceVariant.label}</TableCell>
+                        <TableCell className="hidden md:block">
                           {item.priceVariant.price.toFixed(2)} KM
                         </TableCell>
-                        <TableCell>
+                        <TableCell className="hidden md:block">
                           {item.discount ? item.discount : 0} %
                         </TableCell>
                         <TableCell>{item.quantity} kom</TableCell>
                         <TableCell>
-                          <p className={cn("", item.discount && item.discount > 0 && "text-red-500 line-through")}>{(item.priceVariant.price * item.quantity).toFixed(2)} KM</p>
-                          {item.discount && item.discount > 0 ? (<p>{((item.priceVariant.price * item.quantity) * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</p>) : ""}
+                          <p className={cn("", item.discount && item.discount > 0 && "text-red-500 line-through")}>{(item.priceVariant.price * item.quantity).toFixed(2)}KM</p>
+                          {item.discount && item.discount > 0 ? (<p>{((item.priceVariant.price * item.quantity) * (100 - (item.discount ?? 0)) / 100).toFixed(2)}KM</p>) : ""}
                         </TableCell>
                         <TableCell>
                           <Trash2
@@ -329,9 +329,9 @@ const CartPage = () => {
                         </FormItem>
                       )}
                     />
-                    <Separator className="my-4 w-full" />
-                    <h1 className="text-2xl">Besplatna dostava za narudžbe iznad 100 KM</h1>
-                    <Image src="/dostava.png" alt="dostava" width={500} height={300} className="w-1/2 flex justify-center items-center" />
+                    <Separator className="my-4 w-full hidden sm:block" />
+                    <h1 className="text-2xl hidden sm:block">Besplatna dostava za narudžbe iznad 100 KM</h1>
+                    <Image src="/dostava.png" alt="dostava" width={500} height={300} className="w-1/2 hidden sm:flex justify-center items-center" />
                   </div>
                 </div>
               </div>

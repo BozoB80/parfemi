@@ -10,7 +10,7 @@ import {
 import { Separator } from "../ui/separator";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import AddToCartButton from "../AddToCartButton";
 import DetailsCarousel from "../carousels/DetailsCarousel";
@@ -27,8 +27,9 @@ interface DetailsProps {
 }
 
 const ParfemDetails = ({ parfem }: DetailsProps) => {
+  const sortedPriceVariants = parfem?.priceVariants.sort((a, b) => a.price - b.price);
   const [selectedPriceVariant, setSelectedPriceVariant] =
-    useState<PriceVariant | null>(null);
+    useState<PriceVariant | null>(sortedPriceVariants?.[0] || null);
   const [selectedQuantity, setSelectedQuantity] = useState(1)
 
   const handlePriceVariantClick = (price: PriceVariant) => {
@@ -99,7 +100,7 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
           </div>
 
           <h3 className="pt-3">Izaberite vaš parfem:</h3>
-          <div className=" grid grid-cols-3 gap-3">
+          <div className=" grid grid-cols-5 gap-3">
             {parfem?.priceVariants.sort((a, b) => a.price - b.price).map((price) => (
               <div
                 key={price.id}
@@ -109,8 +110,7 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
                   selectedPriceVariant === price && "bg-primary text-white"
                 )}
               >
-                <h1 className="text-xs max-sm:truncate">{parfem.title}</h1>
-                <h2 className="w-full text-end pr-3">{price.label}</h2>
+                <h2 className="w-full text-center pr-3">{price.label}</h2>
               </div>
             ))}
           </div>
