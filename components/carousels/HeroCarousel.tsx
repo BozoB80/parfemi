@@ -41,7 +41,7 @@ const HeroCarousel = ({ baneri }: BannerProps) => {
               alt={item.id}
               width={1000}
               height={500}
-              className="w-full h-60 sm:h-80 lg:h-96 xl:h-[500px] object-cover object-center"
+              className="w-full h-40 sm:h-80 lg:h-96 xl:h-[500px] object-cover object-center"
             />
           </CarouselItem>
         ))}

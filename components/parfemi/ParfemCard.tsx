@@ -43,7 +43,7 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
         <Link href={`/brend/${parfem.brand?.label.toLowerCase().replace(/\s/g, '-')}`} className="text-xl font-bold">{parfem.brand?.label}</Link>
         <p className="text-sm sm:text-base truncate px-1">{parfem.title}</p>
       </CardContent>
-      <CardFooter className="flex justify-center max-lg:px-2 max-lg:py-2 px-1 gap-1">
+      <CardFooter className="flex justify-center max-lg:px-0.5 max-lg:py-2 px-0.5 gap-1">
         {
           parfem.discount && parfem?.discount > 0 ? (
             parfem.priceVariants
@@ -54,7 +54,7 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
                   <p className="text-xs md:text-sm">{item.label}</p>
                   <Separator orientation="vertical" className="h-4 sm:h-5 w-0.5" />
                   <div className="flex gap-1 sm:gap-3">
-                    <p className="text-xs md:text-sm text-red-500 line-through">{item.price.toFixed(2)} KM</p>
+                    <p className="text-xs md:text-sm text-red-500 line-through">{item.price.toFixed(2)}</p>
                     <p className="text-xs md:text-sm">{(item.price - (item.price * (parfem.discount ?? 0)) / 100).toFixed(2)} KM</p>
                   </div>
                 </div>

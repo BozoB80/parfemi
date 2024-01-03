@@ -100,7 +100,7 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
           </div>
 
           <h3 className="pt-3">Izaberite vaš parfem:</h3>
-          <div className=" grid grid-cols-5 gap-3">
+          <div className=" grid grid-cols-3 lg:grid-cols-5 gap-3">
             {parfem?.priceVariants.sort((a, b) => a.price - b.price).map((price) => (
               <div
                 key={price.id}

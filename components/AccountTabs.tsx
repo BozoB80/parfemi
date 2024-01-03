@@ -78,6 +78,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
                 navbar: "hidden",
                 profileSection__emailAddresses: "hidden",
                 profileSection__connectedAccounts: "hidden",
+                navbarMobileMenuButton: "hidden",
               }
             }}
           >

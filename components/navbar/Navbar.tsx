@@ -28,9 +28,9 @@ const Navbar = async () => {
           <Image
             src="/logo2.png"
             alt="logo"
-            width={200}
-            height={150}
-            className="cursor-pointer max-sm:w-40"
+            width={500}
+            height={350}
+            className="h-14 md:h-20 object-contain cursor-pointer"
           />
         </Link>
         <NavRight />

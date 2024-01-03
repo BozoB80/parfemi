@@ -106,6 +106,21 @@ const DiscountMain = ({ products }: DiscountProps) => {
                       ))}
                   </div>
                 )}
+                {product.priceVariants
+                  .sort((a, b) => a.price - b.price)
+                  .slice(0, 1)
+                  .map((item) => (
+                    <div key={item.id} className="md:hidden flex justify-around text-xs">
+                      <h2 className="text-secondary-foreground/60 line-through">{item.price} KM</h2>
+                      <h2 className="col-span-2 flex justify-center">
+                        {(
+                          (item.price * (100 - (product?.discount ?? 0))) /
+                          100
+                        ).toFixed(2)}{" "}
+                        KM
+                      </h2>
+                    </div>
+                  ))}
               </Link>
             </CarouselItem>
           ))}
@@ -118,32 +133,3 @@ const DiscountMain = ({ products }: DiscountProps) => {
 };
 
 export default DiscountMain;
-
-const ButtonGroup = ({ next, previous, goToSlide, ...rest }: any) => {
-  const {
-    carouselState: { currentSlide },
-  } = rest;
-  return (
-    <div className="absolute right-0 top-0 hidden md:flex gap-2 max-lg:pr-2">
-      <Image
-        src="icons/arrow-left.svg"
-        alt="arrowleft"
-        width={30}
-        height={30}
-        className={cn(
-          "cursor-pointer hover:bg-secondary hover:scale-105 rounded-md",
-          currentSlide === 0 ? "disable" : ""
-        )}
-        onClick={() => previous()}
-      />
-      <Image
-        src="icons/arrow-left.svg"
-        alt="arrowright"
-        width={30}
-        height={30}
-        className="rotate-180 cursor-pointer hover:bg-secondary hover:scale-105 rounded-md"
-        onClick={() => next()}
-      />
-    </div>
-  );
-};

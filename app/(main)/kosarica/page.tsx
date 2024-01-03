@@ -139,9 +139,9 @@ const CartPage = () => {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Artikal</TableHead>
-                      <TableHead className="hidden md:block">J.mj.</TableHead>
-                      <TableHead className="hidden md:block">Cijena</TableHead>
-                      <TableHead className="hidden md:block">Popust</TableHead>
+                      <TableHead className="max-sm:hidden">J.mj.</TableHead>
+                      <TableHead className="max-sm:hidden">Cijena</TableHead>
+                      <TableHead className="max-sm:hidden">Popust</TableHead>
                       <TableHead>Količina</TableHead>
                       <TableHead>Ukupno</TableHead>
                       <TableHead>Ukloni</TableHead>
@@ -157,6 +157,7 @@ const CartPage = () => {
                               alt={item.title}
                               width={60}
                               height={60}
+                              className="hidden md:block"
                             />
                           ) : (
                             <span>Nema slike</span>
@@ -167,11 +168,11 @@ const CartPage = () => {
                           </div>
                         </TableCell>
 
-                        <TableCell className="hidden md:block">{item.priceVariant.label}</TableCell>
-                        <TableCell className="hidden md:block">
+                        <TableCell className="max-sm:hidden">{item.priceVariant.label}</TableCell>
+                        <TableCell className="max-sm:hidden">
                           {item.priceVariant.price.toFixed(2)} KM
                         </TableCell>
-                        <TableCell className="hidden md:block">
+                        <TableCell className="max-sm:hidden">
                           {item.discount ? item.discount : 0} %
                         </TableCell>
                         <TableCell>{item.quantity} kom</TableCell>

@@ -42,8 +42,7 @@ const AddToCartButton = ({ product, onClick }: AddToCartProps) => {
   };
 
   return (
-    <div className="flex items-center gap-4">
-      
+    <div className="flex justify-center sm:justify-start items-center gap-4">
       <Button size="icon" variant="outline" onClick={handleMinus} className="text-lg"><Image src="/icons/minus.svg" alt="plus" width={20} height={20} /></Button>
       <span className="text-lg">{quantity}</span>
       <Button size="icon" variant="outline" onClick={handlePlus} className="text-lg"><Image src="/icons/plus.svg" alt="plus" width={20} height={20} /></Button>
