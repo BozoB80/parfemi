@@ -6,15 +6,9 @@ interface CategoryPageProps {
   params: {
     categoryName: string
   }
-  searchParams: {[key: string]: string | string[] | undefined }
 }
 
-const CategoryPage = async ({ params, searchParams }: CategoryPageProps) => {
-  const page = searchParams['page'] ?? '1'
-  const perPage = searchParams['perPage'] ?? '12'
-
-  const start = (Number(page) - 1) * Number(perPage)
-  const end = start + Number(perPage)
+const CategoryPage = async ({ params }: CategoryPageProps) => {
 
   const parfemi = await prismadb.product.findMany({
     where: {
@@ -30,14 +24,10 @@ const CategoryPage = async ({ params, searchParams }: CategoryPageProps) => {
     }
   }) 
 
-  const entries = parfemi.slice(start, end)
-
-  const totalAmount = parfemi.length
-
   return (
     <div className="max-w-7xl mx-auto">
       <BreadCrumbs page="parfemi" params={`${params.categoryName}`} />
-      <ParfemiList parfemi={entries} totalAmount={totalAmount} hasNextPage={end < parfemi.length} hasPrevPage={start > 0} />
+      <ParfemiList parfemi={parfemi} />
     </div>
   );
 }

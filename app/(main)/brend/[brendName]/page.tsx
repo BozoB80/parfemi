@@ -8,16 +8,9 @@ interface BrandProps {
   params: {
     brendName: string
   }
-  searchParams: {[key: string]: string | string[] | undefined }
 }
 
-const BrendNamePage = async ({ params, searchParams }: BrandProps) => {
-  const page = searchParams['page'] ?? '1'
-  const perPage = searchParams['perPage'] ?? '12'
-
-  const start = (Number(page) - 1) * Number(perPage)
-  const end = start + Number(perPage)
-
+const BrendNamePage = async ({ params }: BrandProps) => {
   const decodedBrandName = params.brendName.replace(/%26/g, '&');
 
   const parfemi = await prismadb.product.findMany({
@@ -36,10 +29,6 @@ const BrendNamePage = async ({ params, searchParams }: BrandProps) => {
       priceVariants: true
     }
   })  
-
-  const entries = parfemi.slice(start, end)
-
-  const totalAmount = parfemi.length
 
   const brend = await prismadb.brand.findFirst({
     where: {
@@ -67,7 +56,7 @@ const BrendNamePage = async ({ params, searchParams }: BrandProps) => {
         </div>
       </div>
       <Separator className="mb-2 sm:mb-6" />
-      <ParfemiList parfemi={entries} totalAmount={totalAmount} hasNextPage={end < parfemi.length} hasPrevPage={start > 0} />
+      <ParfemiList parfemi={parfemi} />
     </div>
   );
 }

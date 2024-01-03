@@ -18,51 +18,14 @@ interface ParfemiListProps {
     brand: Brand | null;
     priceVariants: PriceVariant[];
   })[];
-  totalAmount: number;
-  hasNextPage?: boolean;
-  hasPrevPage?: boolean;
 }
 
-const ParfemiList = ({
-  parfemi,
-  totalAmount,
-  hasNextPage,
-  hasPrevPage,
-}: ParfemiListProps) => {
+const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   const [selectedBrands, setSelectedBrands] = useState<(string | null)[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<
-    (string | null)[]
-  >([]);
+  const [selectedCategories, setSelectedCategories] = useState<(string | null)[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const pathname = usePathname();
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const page = searchParams.get("page") ?? "1";
-  const per_page = searchParams.get("per_page") ?? "12";
-
-  const currentPage = searchParams.get("page");
-  const currentPageNum = currentPage ? parseInt(currentPage) : 1
-
-  const adjacentPages = 1;
-
-  // Calculate start and end page numbers to show
-  const startPage = Math.max(currentPageNum - adjacentPages, 1); 
-  const endPage = Math.min(currentPageNum + adjacentPages, Math.ceil(totalAmount / Number(per_page)));
-  const lastPage = Math.ceil(totalAmount / Number(per_page));
-
-  // Page numbers to show
-  const pagesToShow = totalAmount <= Number(per_page)
-  ? [1] // Show the only page if there's only one page
-  : [
-      ...(startPage === 1 ? [] : [1]), // Exclude startPage if it's 1
-      -1,
-      ...Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i),
-      -1,
-      ...(endPage === lastPage ? [] : [lastPage]), // Exclude endPage if it's the last page
-    ];
-
-
 
   const filteredParfemi = parfemi.filter((parfem) => {
     const titleMatch = parfem.title
@@ -172,8 +135,8 @@ const ParfemiList = ({
               </SheetContent>
             </Sheet>
             <h1 className="font-semibold">
-              {totalAmount}{" "}
-              {totalAmount === 1 ? "proizvod" : "proizvoda"}
+              {parfemi.length}{" "}
+              {parfemi.length === 1 ? "proizvod" : "proizvoda"}
             </h1>
           </div>
 
@@ -184,60 +147,7 @@ const ParfemiList = ({
               <ParfemCard key={parfem.id} parfem={parfem} />
             ))}
           </div>
-
-          {/* Pagination */}
-          <div className="flex justify-center items-center pt-8 gap-2">
-            <Button
-              variant="ghost"
-              disabled={!hasPrevPage}
-              onClick={() => {
-                router.push(
-                  `?page=${Number(page) - 1}&per_page=${per_page}`
-                );
-              }}
-            >
-              <ChevronLeft size={24} />
-              <p className="hidden sm:block">Prethodna</p>
-            </Button>
-
-            {pagesToShow.map((page, index) => {
-              if (page === -1) {
-                // Remove ellipsis (...) if there are fewer than 3 pages or only one page
-                if (pagesToShow.length < 5 || totalAmount <= Number(per_page)) {
-                  return null;
-                }
-                // Remove ellipsis (...) if it's the second occurrence of -1
-                if (index > 0 && index < pagesToShow.length - 1 && pagesToShow[index - 1] !== -1) {
-                  return <span key={index}>...</span>;
-                }
-                return null;
-              }
-
-              return (
-                <Link key={index} href={`?page=${page}&per_page=${per_page}`}>
-                  <Button
-                    size="icon"
-                    variant={page === currentPageNum ? "default" : "ghost"}
-                  >
-                    {page}
-                  </Button>
-                </Link>
-              );
-            })}
-
-            <Button
-              variant="ghost"
-              disabled={!hasNextPage}
-              onClick={() => {
-                router.push(
-                  `?page=${Number(page) + 1}&per_page=${per_page}`
-                );
-              }}
-            >
-              <p className="hidden sm:block">Slijedeća</p>
-              <ChevronRight size={24} />
-            </Button>
-          </div>
+         
         </div>
       </div>
     </div>
