@@ -7,6 +7,7 @@ import Navbar from "@/components/navbar/Navbar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import Footer from "@/components/navbar/Footer";
+import MobileBottomNav from "@/components/navbar/MobileBottomNav";
 
 const font = Asap({ subsets: ["latin"] });
 
@@ -70,6 +71,7 @@ export default function RootLayout({
         <body className={font.className}>
           <Navbar />
           {children}
+          <MobileBottomNav />
           <Footer />
           <Toaster />
           <SpeedInsights />
