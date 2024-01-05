@@ -1,6 +1,5 @@
 "use client";
 
-
 import { Heart } from "lucide-react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,7 +37,10 @@ const WishlistButton = ({ product }: WishlistButtonProps) => {
     },
   });
 
-  const isWished = product.wishlist?.some((item) => item.isWishlisted && item.userId === user?.id);
+  const isWished = product?.wishlist?.some((item) => item.isWishlisted === true && item.userId === user?.id);
+
+  console.log(isWished);
+  
 
   
   
@@ -76,7 +78,7 @@ const WishlistButton = ({ product }: WishlistButtonProps) => {
                 onChange={field.onChange}
                 className="py-2 rounded-lg"
               >
-                <Heart size={28} className={isWished ? "hover:fill-green-500" : ""} />
+                <Heart size={28} className={isWished ? "fill-primary" : ""} />
               </Button>
             </FormItem>
           )}

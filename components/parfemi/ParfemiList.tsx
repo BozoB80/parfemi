@@ -1,6 +1,6 @@
 "use client";
 
-import { Brand, Category, Image, PriceVariant, Product } from "@prisma/client";
+import { Brand, Category, Image, PriceVariant, Product, Wishlist } from "@prisma/client";
 import ParfemCard from "./ParfemCard";
 import { Filterbar } from "@/components/FilterBar";
 import { useCallback, useEffect, useState } from "react";
@@ -17,6 +17,7 @@ interface ParfemiListProps {
     category: Category | null;
     brand: Brand | null;
     priceVariants: PriceVariant[];
+    wishlist: Wishlist[];
   })[];
 }
 

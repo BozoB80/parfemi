@@ -8,7 +8,8 @@ const ParfemiPage = async () => {
       brand: true,
       category: true,
       images: true,
-      priceVariants: true
+      priceVariants: true,
+      wishlist: true
     },
     orderBy: {
       createdAt: 'asc'

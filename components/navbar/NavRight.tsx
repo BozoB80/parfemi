@@ -38,7 +38,7 @@ const NavRight = () => {
               onClick={handleClick}
               className="relative hidden md:flex items-center"
             >
-              <Heart size={28} className="hover:scale-105 hover:fill-green-500 transition ease-in-out duration-500" />          
+              <Heart size={28} className="hover:scale-105 hover:fill-primary transition ease-in-out duration-500" />          
             </Button>
           </TooltipTrigger>
           <TooltipContent>

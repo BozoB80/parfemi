@@ -20,7 +20,8 @@ const CategoryPage = async ({ params }: CategoryPageProps) => {
       brand: true,
       category: true,
       images: true,
-      priceVariants: true
+      priceVariants: true,
+      wishlist: true
     }
   }) 
 

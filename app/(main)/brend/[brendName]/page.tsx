@@ -26,7 +26,8 @@ const BrendNamePage = async ({ params }: BrandProps) => {
       brand: true,
       category: true,
       images: true,
-      priceVariants: true
+      priceVariants: true,
+      wishlist: true
     }
   })  
 
