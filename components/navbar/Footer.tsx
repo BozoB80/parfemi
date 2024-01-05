@@ -23,8 +23,7 @@ const Footer = () => {
           ))}
         </div>
       )}
-      <div className={cn("bg-black w-full px-5 py-2 sm:p-10 flex flex-col justify-between items-center",
-      !isHomePage && "mt-8")}>
+      <div className={cn("bg-black w-full px-5 py-2 sm:p-10 flex flex-col justify-between items-center", !isHomePage && "mt-2 md:mt-8")}>
         <div className="flex justify-between items-center w-full">
           <Link href="/">
             <Image 

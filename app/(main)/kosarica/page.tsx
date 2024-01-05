@@ -101,7 +101,7 @@ const CartPage = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>        
         <div className="max-w-7xl mx-auto">
-          <div className="relative flex flex-col lg:flex-row py-5 sm:py-10">
+          <div className="relative flex flex-col lg:flex-row py-2.5 md:py-5 sm:py-10">
             <div className="w-full flex flex-col">
               <div className="w-full flex justify-between items-center border-b max-lg:px-2 py-2">
                 <div className="flex justify-start items-center gap-2">
@@ -150,7 +150,7 @@ const CartPage = () => {
                   <TableBody>
                     {cart.items.map((item) => (
                       <TableRow key={item.id}>
-                        <TableCell className="flex justify-start items-center space-x-4">
+                        <TableCell className="flex justify-start items-center md:space-x-4">
                           {item.images && item.images.length > 0 ? (
                             <Image
                               src={item.images[0].url}
@@ -164,7 +164,7 @@ const CartPage = () => {
                           )}
                           <div>
                             <p className="font-semibold">{item.brand?.label}</p>
-                            <p className="line-clamp-3">{item.title}</p>
+                            <p className="line-clamp-1">{item.title}</p>
                           </div>
                         </TableCell>
 
@@ -195,11 +195,11 @@ const CartPage = () => {
               {cart.items.length > 0 && (
 
               <div className="w-full md:pt-8">
-                <div className="w-full flex justify-center md:justify-start items-center gap-2 py-2.5 border-b">
-                  <Image src="/icons/shipping.svg" alt="ship" width={28} height={28} />
+                <div className="w-full flex justify-center md:justify-start items-center gap-2 max-sm:pt-6 max-sm:pb-2.5 sm:py-2.5 border-b">
+                  <Image src="/icons/shipping.svg" alt="shipping" width={28} height={28} />
                   <h1 className="text-md sm:text-2xl font-medium">Dostava</h1>
                 </div>
-                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 max-xl:p-2">
+                <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-2 max-xl:p-2 pt-6">
                   <div className="flex flex-col space-y-4">
                   <FormField 
                     control={form.control}
@@ -290,12 +290,12 @@ const CartPage = () => {
                   />
                   </div>
 
-                  <div>
+                  <div className="max-sm:py-8">
                     <FormField
                       control={form.control}
                       name="payment"
                       render={({ field }) => (
-                        <FormItem className="space-y-3">
+                        <FormItem className="space-y-1">
                           <FormLabel>Način plaćanja</FormLabel>
                           <FormControl>
                             <RadioGroup
@@ -309,7 +309,7 @@ const CartPage = () => {
                                 </FormControl>
                                 <FormLabel className="font-normal flex justify-center items-center gap-2">
                                   Pouzećem
-                                  <Truck size={50} />
+                                  <Truck size={40} />
                                 </FormLabel>
                               </FormItem>
                               <FormItem className="flex items-center space-x-3 space-y-0">

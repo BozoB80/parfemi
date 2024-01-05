@@ -3,8 +3,8 @@
 import { Brand, Category, Image, PriceVariant, Product } from "@prisma/client";
 import ParfemCard from "./ParfemCard";
 import { Filterbar } from "@/components/FilterBar";
-import { useEffect, useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Separator } from "../ui/separator";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import { ListFilter } from "lucide-react";
@@ -24,29 +24,9 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   const [selectedBrands, setSelectedBrands] = useState<(string | null)[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<(string | null)[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [visibleParfemi, setVisibleParfemi] = useState<number>(6);
+  const [visibleParfemi, setVisibleParfemi] = useState<number>(8);
   const [totalParfemi, setTotalParfemi] = useState<number>(parfemi.length);
   const pathname = usePathname();
-
-  // const filteredParfemi = parfemi.filter((parfem) => {
-  //   const titleMatch = parfem.title
-  //     .toLowerCase()
-  //     .includes(searchQuery.toLowerCase());
-  //   const brandLabelMatch = parfem.brand?.label
-  //     .toLowerCase()
-  //     .includes(searchQuery.toLowerCase());
-
-  //   if (
-  //     (selectedBrands.length === 0 ||
-  //       selectedBrands.includes(parfem.brand?.id || "")) &&
-  //     (selectedCategories.length === 0 ||
-  //       selectedCategories.includes(parfem.category?.id || "")) &&
-  //     (searchQuery === "" || titleMatch || brandLabelMatch)
-  //   ) {
-  //     return true;
-  //   }
-  //   return false;
-  // });
 
   const filteredParfemi = parfemi
   .filter((parfem) => {
@@ -61,10 +41,10 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   })
   .slice(0, visibleParfemi);
 
-  const loadMoreItems = () => {
-    // Increase the number of visible items by 8 (or any other desired amount)
-    setVisibleParfemi((prevVisibleParfemi) => prevVisibleParfemi + 3);
-  };
+  const loadMoreItems = useCallback(() => {
+    // Increase the number of visible items by 5 (or any other desired amount)
+    setVisibleParfemi((prevVisibleParfemi) => prevVisibleParfemi + 4);
+  }, [])
 
   useEffect(() => {
     // Update the total number of items when the parfemi prop changes
@@ -73,20 +53,23 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Load more items when the user scrolls to the bottom
-      if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 50) {
+      // Load more items when the user reaches the bottom
+      const isBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
+  
+      if (isBottom) {
         loadMoreItems();
       }
     };
-
+  
     // Attach the scroll event listener
     window.addEventListener("scroll", handleScroll);
-
+  
     // Detach the event listener when the component is unmounted
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [visibleParfemi]);
+  }, [visibleParfemi, totalParfemi, loadMoreItems]);
 
   const onFilterReset = () => {
     // Reset the filters and set visible items back to the initial value

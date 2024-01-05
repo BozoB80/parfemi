@@ -68,7 +68,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="osobne">
+        <TabsContent value="osobne" className="w-full space-y-2">
           <h1>Osobne informacije:</h1>
           <UserProfile             
             appearance={{
@@ -79,6 +79,8 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
                 profileSection__emailAddresses: "hidden",
                 profileSection__connectedAccounts: "hidden",
                 navbarMobileMenuButton: "hidden",
+                pageScrollBox: "max-sm:pt-0.5",
+                headerTitle: "text-xl",
               }
             }}
           >

@@ -35,8 +35,8 @@ const localization = {
         title: "Profil",
         primaryButton: "Uredite Profil",
       },
-      headerTitle__account: "Vaš Profil",
-      headerSubtitle__account: "Upravljaje informacijama o vašem profilu.",
+      headerTitle__account: "Moj Profil",
+      headerSubtitle__account: "Upravljajte informacijama o vašem profilu.",
       headerTitle__security: "",
       usernameSection: {
         title: "Username",
