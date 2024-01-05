@@ -83,24 +83,24 @@ const MobileBottomNav = () => {
     <section className="flex sm:hidden">
       <div className={`flex fixed ${visible ? 'bottom-0 z-50' : '-bottom-96 -z-50'} bg-white shadow-black shadow-2xl w-full justify-around items-center py-3`}>
         <Link href="/" onClick={homeLink} className="flex flex-col justify-center items-center">
-          <Home className={cn("w-5 h-5 transition-all duration-300", activeButton === 'Home' && 'fill-primary')} />
-          <p className="text-xs">Početna</p>
+          <Home size={24} className={cn("transition-all duration-300", activeButton === 'Home' && 'text-primary')} />
+          <p className={cn("text-xs", activeButton === 'Home' && 'font-semibold text-primary')}>Početna</p>
         </Link>
         <div onClick={parfemiLink} className="flex flex-col justify-center items-center">
-          <Backpack className={cn("w-5 h-5 transition-all duration-300", activeButton === 'Parfemi' && 'fill-primary')} />
-          <p className="text-xs">Parfemi</p>
+          <Backpack size={24} className={cn("transition-all duration-300", activeButton === 'Parfemi' && 'text-primary')} />
+          <p className={cn("text-xs", activeButton === 'Parfemi' && 'font-semibold text-primary')}>Parfemi</p>
         </div>
         <div onClick={brandLink} className="flex flex-col justify-center items-center">
-          <Codesandbox className={cn("w-5 h-5 transition-all duration-300", activeButton === 'Brend' && 'fill-primary')} />
-          <p className="text-xs">Brend</p>
+          <Codesandbox size={24} className={cn("transition-all duration-300", activeButton === 'Brend' && 'text-primary')} />
+          <p className={cn("text-xs", activeButton === 'Brend' && 'font-semibold text-primary')}>Brend</p>
         </div>
         <div onClick={profileLink} className="flex flex-col justify-center items-center">
-          <CircleUser className={cn("w-5 h-5 transition-all duration-300", activeButton === 'Racun' && 'fill-primary')} />
-          <p className="text-xs">Moj profil</p>
+          <CircleUser size={24} className={cn("transition-all duration-300", activeButton === 'Racun' && 'text-primary')} />
+          <p className={cn("text-xs", activeButton === 'Racun' && 'font-semibold text-primary')}>Moj profil</p>
         </div>
         <div onClick={cartLink} className="flex flex-col justify-center items-center">
-          <ShoppingCart className={cn("w-5 h-5 transition-all duration-300", activeButton === 'Kosarica' && 'fill-primary')} />
-          <p className="text-xs">Košarica</p>
+          <ShoppingCart size={24} className={cn("transition-all duration-300", activeButton === 'Kosarica' && 'text-primary')} />
+          <p className={cn("text-xs", activeButton === 'Kosarica' && 'font-semibold text-primary')}>Košarica</p>
         </div>
       </div>    
     </section>      
