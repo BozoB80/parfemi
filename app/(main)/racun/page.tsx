@@ -29,9 +29,27 @@ const MojRacunPage = async () => {
     }
   })
 
+  const wishlist = await prismadb.wishlist.findMany({
+    where: {
+      userId: userId,
+      isWishlisted: true
+    },
+    include: {
+      product: {
+        include: {
+          brand: true,
+          category: true,
+          images: true,
+          priceVariants: true,
+          wishlist: true
+        }
+      }
+    }
+  })
+
   return (
     <div className="max-w-7xl mx-auto">
-      <AccountTabs kupljeniArtikli={kupljeniArtikli} narudzbe={narudzbe} />
+      <AccountTabs kupljeniArtikli={kupljeniArtikli} narudzbe={narudzbe} wishlist={wishlist} />
     </div>
   );
 }

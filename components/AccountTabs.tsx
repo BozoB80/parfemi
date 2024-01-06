@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 import { CalendarHeart, Package, User, WalletCards } from "lucide-react";
 import { UserProfile, useUser } from "@clerk/nextjs";
 import { Separator } from "./ui/separator";
-import { Address, Order, OrderItem } from "@prisma/client";
+import { Address, Brand, Category, Image as Images, Order, OrderItem, PriceVariant, Product, Wishlist } from "@prisma/client";
 import Link from "next/link";
 import { format } from "date-fns";
 import { hr } from "date-fns/locale";
@@ -13,13 +13,15 @@ import { ScrollArea } from "./ui/scroll-area";
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
 import { Badge } from "./ui/badge";
 import { useRouter, useSearchParams } from 'next/navigation'
+import ParfemCard from "./parfemi/ParfemCard";
 
 type AccountProps = {
   kupljeniArtikli: (OrderItem & { order: Order })[]
   narudzbe: (Order & { orderItems: OrderItem[], address: Address })[]
+  wishlist: (Wishlist & { product: Product & { images: Images[], category: Category | null, brand: Brand | null, priceVariants: PriceVariant[] } })[] 
 };
 
-const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
+const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
   const { user } = useUser();
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -268,6 +270,17 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe }: AccountProps) => {
         <TabsContent value="zelje" className="w-full space-y-2">
           <h1>Lista želja</h1>
           <Separator />
+          {wishlist && wishlist.length > 0 ? (
+            <div className="w-full grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
+              {wishlist.map((item) => (
+                <div key={item.id} >
+                  <ParfemCard parfem={item.product} />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <h1 className="flex justify-center items-center h-full font-bold text-xl md:text-3xl">Nemate nijedan artikal u listi želja</h1>
+          )}
         </TabsContent>
       </Tabs>
     </div>
