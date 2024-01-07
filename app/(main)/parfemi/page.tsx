@@ -12,7 +12,7 @@ const ParfemiPage = async () => {
       wishlist: true
     },
     orderBy: {
-      createdAt: 'asc'
+      createdAt: 'desc'
     },
     
   })

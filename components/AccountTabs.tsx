@@ -83,6 +83,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
                 navbarMobileMenuButton: "hidden",
                 pageScrollBox: "max-sm:pt-0.5",
                 headerTitle: "text-xl",
+                page: "min-h-full"
               }
             }}
           >
@@ -95,72 +96,84 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
           <h1>Moja kupovina:</h1>
           <Separator />
           <ScrollArea>
-          {kupljeniArtikli?.map((item) => (
-            <Link
-              href={`/parfemi/${item.category.replace(
-                /\s/g,
-                "-"
-              )}/${item.title
-                .toLowerCase()
-                .replace(/\s/g, "-")}`}
-              key={item.id}
-              className="flex w-full border-b py-1"
-            >
-              {item.imageUrl && (
-                <Image
-                  src={item.imageUrl}
-                  alt="productImage"
-                  width={100}
-                  height={100}
-                  className="aspect-square object-contain lg:object-cover"
-                />
-              )}
-              <div className="flex flex-col lg:grid grid-cols-3 w-full text-center items-start lg:items-center max-xl:text-sm">
-                <div className="flex lg:hidden font-semibold">
-                  {item.title} | {item.measure} | {item.brand}
+          {kupljeniArtikli && kupljeniArtikli.length > 0 ? (
+            kupljeniArtikli?.map((item) => (
+              <Link
+                href={`/parfemi/${item.category.replace(
+                  /\s/g,
+                  "-"
+                )}/${item.title
+                  .toLowerCase()
+                  .replace(/\s/g, "-")}`}
+                key={item.id}
+                className="flex w-full border-b py-1"
+              >
+                {item.imageUrl && (
+                  <Image
+                    src={item.imageUrl}
+                    alt="productImage"
+                    width={100}
+                    height={100}
+                    className="aspect-square object-contain lg:object-cover"
+                  />
+                )}
+                <div className="flex flex-col lg:grid grid-cols-3 w-full text-center items-start lg:items-center max-xl:text-sm">
+                  <div className="flex lg:hidden font-semibold">
+                    {item.title} | {item.measure} | {item.brand}
+                  </div>
+                  <h1 className="hidden lg:block text-start font-semibold">{item.title}</h1>
+                  <h1 className="hidden lg:block text-center font-semibold">{item.measure}</h1>
+                  <h1 className="hidden lg:block text-end font-semibold">{item.brand}</h1>
+                  <div className="text-start">
+                    {item.discount && item.discount > 0 ? (
+                      <>
+                        <div className="flex gap-2">
+                          <h1>Popust: {item.discount}%</h1>             
+                          <h1 className="text-red-500 line-through">Cijena: {item.price.toFixed(2)} KM</h1>
+                        </div>
+                        <h1>Cijena s popustom: {(item.price * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
+                      </>
+                    ) : (
+                      <h1>Cijena: {item.price.toFixed(2)} KM</h1>
+                    )}
+                  </div>
+                  <div className="flex lg:hidden">
+                    Količina: {item.quantity} kom | {item.discount && item.discount > 0 ? (
+                      <h1>Ukupno: {((item.price * item.quantity) * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
+                    ) : (
+                      <h1>Ukupno: {item.price && (item.price * item.quantity).toFixed(2)}{" "}KM</h1>
+                    )}
+                  </div>
+                  <h1 className="hidden lg:block text-center">{item.quantity} kom</h1>
+                  <h1 className="hidden lg:block text-end">
+                    {item.discount && item.discount > 0 ? (
+                      <h1>Ukupno: {((item.price * item.quantity) * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
+                    ) : (
+                      <h1>Ukupno: {item.price && (item.price * item.quantity).toFixed(2)}{" "}KM</h1>
+                    )}
+                  </h1>
+                  <h1 className="text-start">Narudžba napravljena: {format(item.order.createdAt, "dd.MM.yyyy", { locale: hr })} </h1>
                 </div>
-                <h1 className="hidden lg:block text-start font-semibold">{item.title}</h1>
-                <h1 className="hidden lg:block text-center font-semibold">{item.measure}</h1>
-                <h1 className="hidden lg:block text-end font-semibold">{item.brand}</h1>
-                <div className="text-start">
-                  {item.discount && item.discount > 0 ? (
-                    <>
-                      <div className="flex gap-2">
-                        <h1>Popust: {item.discount}%</h1>             
-                        <h1 className="text-red-500 line-through">Cijena: {item.price.toFixed(2)} KM</h1>
-                      </div>
-                      <h1>Cijena s popustom: {(item.price * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
-                    </>
-                  ) : (
-                    <h1>Cijena: {item.price.toFixed(2)} KM</h1>
-                  )}
-                </div>
-                <div className="flex lg:hidden">
-                  Količina: {item.quantity} kom | {item.discount && item.discount > 0 ? (
-                    <h1>Ukupno: {((item.price * item.quantity) * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
-                  ) : (
-                    <h1>Ukupno: {item.price && (item.price * item.quantity).toFixed(2)}{" "}KM</h1>
-                  )}
-                </div>
-                <h1 className="hidden lg:block text-center">{item.quantity} kom</h1>
-                <h1 className="hidden lg:block text-end">
-                  {item.discount && item.discount > 0 ? (
-                    <h1>Ukupno: {((item.price * item.quantity) * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
-                  ) : (
-                    <h1>Ukupno: {item.price && (item.price * item.quantity).toFixed(2)}{" "}KM</h1>
-                  )}
-                </h1>
-                <h1 className="text-start">Narudžba napravljena: {format(item.order.createdAt, "dd.MM.yyyy", { locale: hr })} </h1>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            ))
+          ) : (
+            <div className="flex flex-col justify-center items-center h-52 lg:h-64 gap-4">
+              <h1 className="font-bold text-xl md:text-3xl">Zasada niste kupili nijedan artikal.</h1>
+              <Link
+                href="/parfemi"
+                className="underline underline-offset-2 text-primary hover:text-primary/60 text-md md:text-xl"
+              >
+                Pregledajte top proizvode iz našeg asortimana
+              </Link>
+            </div>
+          )}
           </ScrollArea>
         </TabsContent>
 
         <TabsContent value="narudžbe" className="w-full space-y-2">
           <h1>Narudžbe:</h1>
           <Separator />
-          {narudzbe ? (
+          {narudzbe && narudzbe.length > 0 ? (
             narudzbe.map((item) => (
               <Dialog key={item.id}>
                 <DialogTrigger asChild>
@@ -184,16 +197,16 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
                   </div>
                 </DialogTrigger>
                 <DialogContent className="max-w-3xl">
-                  <DialogTitle className="text-xl">
+                  <DialogTitle className="text-base md:text-xl">
                     Broj narudžbe: {item.id}
                   </DialogTitle>
                   <Separator className="my-2" />
                   <div>
-                    <div className="flex justify-between items-center">
-                      <div>
-                        <h1 className="capitalize text-lg">Plaćanje: {item.payment}</h1>
-                        <h1 className="text-lg">Datum narudžbe: {format(item.createdAt, "dd.MM.yyyy", { locale: hr })}</h1>
-                        <h1 className="font-semibold text-lg">
+                    <div className="flex justify-between items-start">
+                      <div className="text-xs md:text-lg">
+                        <h1 className="capitalize">Plaćanje: {item.payment === 'pouzecem' ? 'Pouzećem' : 'Kartično'}</h1>
+                        <h1> Datum narudžbe: {format(item.createdAt, "dd.MM.yyyy", { locale: hr })}</h1>
+                        <h1 className="font-semibold">
                           Ukupan iznos:{" "}
                           {item.orderItems.reduce(
                             (total, orderItem) =>
@@ -206,12 +219,12 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
                         </h1>
                       </div>
 
-                      <div>
-                        <h1 className="capitalize text-sm">Ime: {item.address.name}</h1>
-                        <h1 className="text-sm">Adresa: {item.address.address}</h1>
-                        <h1 className="text-sm">Telefon: {item.address.phone}</h1>
-                        <h1 className="text-sm">Poštanski broj: {item.address.postal}</h1>
-                        <h1 className="text-sm">Grad: {item.address.town}</h1>
+                      <div className="text-xs md:text-sm">
+                        <h1 className="capitalize">Ime: {item.address.name}</h1>
+                        <h1>Adresa: {item.address.address}</h1>
+                        <h1>Telefon: {item.address.phone}</h1>
+                        <h1>Poštanski broj: {item.address.postal}</h1>
+                        <h1>Grad: {item.address.town}</h1>
                       </div>
                     </div>
                     <Separator className="my-2" />
@@ -226,7 +239,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
                             className="aspect-square object-contain lg:object-cover"
                           />
                         )}
-                        <div className="flex flex-col w-full text-sm md:text-base">
+                        <div className="flex flex-col justify-around w-full text-sm md:text-base">
                           <div className="flex font-semibold">
                             {item.title} | {item.measure} | {item.brand}
                           </div>
@@ -236,7 +249,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
                                 <h1>Popust: {item.discount}%</h1>             
                                 <h1 className="text-red-500 line-through">Cijena: {item.price.toFixed(2)} KM</h1>
                               </div>
-                              <div className="flex justify-between gap-2">
+                              <div className="flex justify-end gap-1">
                                 <h1>Cijena s popustom:</h1>
                                 <h1>{(item.price * (100 - (item.discount ?? 0)) / 100).toFixed(2)} KM</h1>
                               </div>
@@ -259,11 +272,18 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
                     ))}
                   </div>
                 </DialogContent>
-
               </Dialog>
             ))
           ) : (
-            <h1 className="flex justify-center items-center h-full font-bold text-xl md:text-3xl">Niste plasirali nijednu narudžbu</h1>
+            <div className="flex flex-col justify-center items-center h-52 lg:h-64 gap-4">
+              <h1 className="font-bold text-xl md:text-3xl">Niste plasirali nijednu narudžbu.</h1>
+              <Link
+                href="/parfemi"
+                className="underline underline-offset-2 text-primary hover:text-primary/60 text-md md:text-xl"
+              >
+                Pregledajte top proizvode iz našeg asortimana
+              </Link>
+            </div>
           )}
         </TabsContent>
 
@@ -279,7 +299,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
               ))}
             </div>
           ) : (
-            <h1 className="flex justify-center items-center h-full font-bold text-xl md:text-3xl">Nemate nijedan artikal u listi želja</h1>
+            <h1 className="flex justify-center items-center h-52 lg:h-72   font-bold text-xl md:text-3xl">Nemate nijedan artikal u listi želja.</h1>
           )}
         </TabsContent>
       </Tabs>
