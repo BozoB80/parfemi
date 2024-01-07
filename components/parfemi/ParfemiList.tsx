@@ -55,8 +55,7 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   useEffect(() => {
     const handleScroll = () => {
       // Load more items when the user reaches the bottom
-      const isBottom =
-        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
+      const isBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50;
   
       if (isBottom) {
         loadMoreItems();
@@ -162,8 +161,11 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
               </SheetContent>
             </Sheet>
             <h1 className="font-semibold">
-              {parfemi.length}{" "}
-              {parfemi.length === 1 ? "proizvod" : "proizvoda"}
+            {selectedBrands.length === 0 && selectedCategories.length === 0 && searchQuery === ""
+              ? `${parfemi.length} ${parfemi.length === 1 ? "proizvod" : "proizvoda"}`
+              : `${filteredParfemi.length} ${
+                  filteredParfemi.length === 1 ? "proizvod" : "proizvoda"
+            }`}
             </h1>
           </div>
 

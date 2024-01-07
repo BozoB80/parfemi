@@ -36,7 +36,7 @@ const ParfemCard = ({ parfem }: ParfemCardProps) => {
           {parfem.discount}%
         </Badge>
       ) : ""}
-      <div className="absolute top-0 right-0 opacity-0 group-hover:opacity-100 transition ease-in-out duration-500">
+      <div className="absolute top-0 right-0 lg:opacity-0 group-hover:opacity-100 transition ease-in-out duration-500">
         <WishlistButton product={parfem} />
       </div>
       <CardContent className="text-center p-0 py-2">

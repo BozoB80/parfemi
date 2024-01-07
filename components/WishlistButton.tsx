@@ -38,12 +38,6 @@ const WishlistButton = ({ product }: WishlistButtonProps) => {
   });
 
   const isWished = product?.wishlist?.some((item) => item.isWishlisted === true && item.userId === user?.id);
-
-  console.log(isWished);
-  
-
-  
-  
   
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
