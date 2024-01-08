@@ -58,6 +58,12 @@ const localization = {
       successMessage: "Vaša profilna slika je ažurirana.",
     },
   },
+  userButton: {
+    action__manageAccount: 'Upravljajte računom',
+    action__signOut: 'Odjava',
+    action__signOutAll: 'Odjvaite se sa svih računa',
+    action__addAccount: 'Dodajte novi račun',
+  },
 };
 
 export default function RootLayout({

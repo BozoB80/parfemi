@@ -1,6 +1,6 @@
 "use client";
 
-import { LogOut, Menu, ShieldCheck } from "lucide-react";
+import { Award, Backpack, BookMarked, Contact, Home, LogIn, LogOut, Menu, ShieldCheck } from "lucide-react";
 import { SignOutButton, SignedIn, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
@@ -20,6 +20,7 @@ import {
 } from "../ui/accordion";
 import { Brand, Category } from "@prisma/client";
 import { ScrollArea } from "../ui/scroll-area";
+import Image from "next/image";
 
 interface MobileMenuProps {
   brendovi: Brand[];
@@ -41,7 +42,7 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
             <SheetTitle>
               {user ? (
                 <div className="flex items-center justify-start gap-2 pb-2">
-                  <UserButton afterSignOutUrl="/" />
+                  <Image src={user.imageUrl} alt="user" width={35} height={35} className="rounded-full" />
                   <p className="text-md">{user.fullName}</p>
                   <Button
                     variant="ghost"
@@ -57,9 +58,10 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
                   <Button
                     variant="link"
                     onClick={() => router.push("/sign-in")}
-                    className="text-md font-medium"
+                    className="text-md font-medium gap-2 underline"
                   >
                     Prijava
+                    <LogIn size={20} />
                   </Button>
                 </div>
               )}
@@ -71,18 +73,20 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
             <AccordionItem value="item-1">
               <SheetClose
                 onClick={() => router.push("/")}
-                className="w-full text-start py-4 text-black font-medium"
+                className="w-full flex justify-between items-center py-4 text-black font-medium"
               >
                 Početna
+                <Home size={20} />
               </SheetClose>
             </AccordionItem>
 
             <AccordionItem value="item-2">
               <SheetClose
                 onClick={() => router.push("/parfemi")}
-                className="w-full text-start py-4 text-black font-medium"
+                className="w-full flex justify-between items-center py-4 text-black font-medium"
               >
                 Parfemi
+                <Backpack size={20} />
               </SheetClose>
             </AccordionItem>
 
@@ -129,46 +133,48 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
             <AccordionItem value="item-5">
               <SheetClose
                 onClick={() => router.push("/racun")}
-                className="w-full text-start py-4 text-black font-medium"
+                className="w-full flex justify-between items-center py-4 text-black font-medium"
               >
                 Moj račun
+                <Award size={20} />
               </SheetClose>
             </AccordionItem>
 
             <AccordionItem value="item-6">
               <SheetClose
                 onClick={() => router.push("/onama")}
-                className="w-full text-start py-4 text-black font-medium"
+                className="w-full flex justify-between items-center py-4 text-black font-medium"
               >
                 O Nama
+                <BookMarked size={20} />
               </SheetClose>
             </AccordionItem>
 
             <AccordionItem value="item-7">
               <SheetClose
                 onClick={() => router.push("/kontakt")}
-                className="w-full text-start py-4 text-black font-medium"
+                className="w-full flex justify-between items-center py-4 text-black font-medium"
               >
                 Kontakt
+                <Contact size={20} />
               </SheetClose>
             </AccordionItem>
 
             <AccordionItem value="item-7">
               <SheetClose
-                onClick={() => router.push("/kontakt")}
+                onClick={() => router.push("/")}
                 className="w-full text-start py-4 text-black font-medium"
               >
                 <SignedIn>
                   <SignOutButton signOutCallback={() => router.push("/")}>
-                    <div className="flex justify-start items-center cursor-pointer gap-4">
-                      <LogOut size={20} />
+                    <div className="flex justify-between items-center cursor-pointer gap-4">
                       <p className="">Odjava</p>
+                      <LogOut size={20} />
                     </div>
                   </SignOutButton>
                 </SignedIn>
               </SheetClose>
-            </AccordionItem>
-            
+            </AccordionItem>          
           </Accordion>
           </ScrollArea>
         </SheetContent>

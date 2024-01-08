@@ -53,7 +53,9 @@ const NavRight = () => {
 
       <div className="max-lg:hidden">
         {user ? (  
-          <UserButton afterSignOutUrl="/" />
+          <div className="pl-2">
+            <UserButton afterSignOutUrl="/" appearance={{ elements: { userButtonPopoverActionButton__manageAccount: "hidden" } }} />        
+          </div>
         ) : (
           <div>
             <Button

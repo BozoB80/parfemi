@@ -83,7 +83,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
                 navbarMobileMenuButton: "hidden",
                 pageScrollBox: "max-sm:pt-0.5",
                 headerTitle: "text-xl",
-                page: "min-h-full"
+                page: "min-h-full",
               }
             }}
           >
