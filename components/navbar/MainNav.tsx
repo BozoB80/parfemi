@@ -23,12 +23,12 @@ const MainNav = ({ brendovi, kategorije }: MainNavProps) => {
   return (
     <div className="hidden max-w-7xl mx-auto md:flex justify-between items-center space-x-3">
       <Link href="/parfemi">
-        <Button variant="ghost" className="uppercase text-md">Parfemi</Button>
+        <Button variant="ghost" className="uppercase text-md hover:bg-white/30">Parfemi</Button>
       </Link>
 
       <HoverCard open={open} onOpenChange={setOpen} openDelay={100} closeDelay={100}>
         <HoverCardTrigger asChild>
-          <Button variant="ghost" className="uppercase text-md">Kategorije</Button>
+          <Button variant="ghost" className="uppercase text-md hover:bg-white/30">Kategorije</Button>
         </HoverCardTrigger>
         <HoverCardContent className="w-full flex flex-col p-4 gap-4">
           {kategorije.map((kategorija) => {
@@ -56,7 +56,7 @@ const MainNav = ({ brendovi, kategorije }: MainNavProps) => {
 
       <HoverCard open={openBrend} onOpenChange={setOpenBrend} openDelay={100} closeDelay={100}>
         <HoverCardTrigger asChild>
-          <Button variant="ghost" className="uppercase text-md">Brendovi</Button>
+          <Button variant="ghost" className="uppercase text-md hover:bg-white/30">Brendovi</Button>
         </HoverCardTrigger>
         <HoverCardContent className="space-y-2">
           {brendovi.map((brend) => {
@@ -73,9 +73,9 @@ const MainNav = ({ brendovi, kategorije }: MainNavProps) => {
         </HoverCardContent>
       </HoverCard>
       
-      <Button variant="ghost" onClick={() => router.push('/onama')} className="uppercase text-md">O Nama</Button>
-      <Button variant="ghost" onClick={() => router.push('/kontakt')} className="uppercase text-md">Kontakt</Button>
-      <Button variant="ghost" onClick={() => router.push('/racun')} className="uppercase text-md">Moj račun</Button>
+      <Button variant="ghost" onClick={() => router.push('/onama')} className="uppercase text-md hover:bg-white/30">O Nama</Button>
+      <Button variant="ghost" onClick={() => router.push('/kontakt')} className="uppercase text-md hover:bg-white/30">Kontakt</Button>
+      <Button variant="ghost" onClick={() => router.push('/racun')} className="uppercase text-md hover:bg-white/30">Moj račun</Button>
     </div>
   );
 }

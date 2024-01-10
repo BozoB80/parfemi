@@ -72,7 +72,7 @@ const WishlistButton = ({ product }: WishlistButtonProps) => {
                 onChange={field.onChange}
                 className="py-2 rounded-lg"
               >
-                <Heart size={28} className={isWished ? "fill-primary" : ""} />
+                <Heart size={28} className={isWished ? "fill-primary text-primary" : ""} />
               </Button>
             </FormItem>
           )}

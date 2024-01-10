@@ -20,7 +20,7 @@ const Navbar = async () => {
   })
 
   return (
-    <nav className="border-b shadow-xl">
+    <nav className="shadow-xl">
       <div className="h-16 sm:h-24 flex justify-between items-center px-4 gap-10">
         <MobileMenu kategorije={kategorije} brendovi={brendovi} />
         <Searchbar />
@@ -30,12 +30,14 @@ const Navbar = async () => {
             alt="logo"
             width={500}
             height={350}
-            className="h-14 md:h-20 object-contain cursor-pointer"
+            className="h-14 object-contain cursor-pointer"
           />
         </Link>
         <NavRight />
       </div>
-      <MainNav brendovi={brendovi} kategorije={kategorije} />
+      <div className="bg-primary">
+        <MainNav brendovi={brendovi} kategorije={kategorije} />
+      </div>
     </nav>
   );
 };
