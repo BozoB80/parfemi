@@ -5,7 +5,7 @@ import { authMiddleware } from "@clerk/nextjs";
 // See https://clerk.com/docs/references/nextjs/auth-middleware for more information about configuring your Middleware
 export default authMiddleware({
   publicRoutes: (req) => {
-    const excludedRoutes = ['/admin', '/racun'];
+    const excludedRoutes = ['/admin', '/racun', '/kosarica'];
     return !excludedRoutes.some((route) => req.url.includes(route));
   },
 });

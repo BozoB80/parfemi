@@ -11,9 +11,9 @@ const Footer = () => {
   const isHomePage = pathname === "/"
 
   return (
-    <footer className="w-full flex flex-col">
+    <footer className="w-full flex flex-col relative">
       {isHomePage && (
-        <div className="max-xl:px-5 max-w-7xl py-10 mx-auto w-full grid grid-cols-2 sm:grid-cols-4 justify-between items-center gap-4">
+        <div className="max-xl:px-5 max-w-7xl py-10 mx-auto w-full grid grid-cols-2 sm:grid-cols-4 justify-between items-center gap-4 max-sm:pb-40">
           {inclusions.map((item) => (
             <div key={item.title}>
               <Image src={item.icon} alt="icon" width={40} height={40} className="dark:invert" />
@@ -23,7 +23,7 @@ const Footer = () => {
           ))}
         </div>
       )}
-      <div className={cn("bg-black w-full px-5 py-2 sm:p-10 flex flex-col justify-between items-center", !isHomePage && "mt-2 md:mt-8")}>
+      <div className={cn("bg-black w-full px-5 py-2 sm:p-10 flex flex-col justify-between items-center max-sm:absolute max-sm:bottom-16", !isHomePage && "mt-2 md:mt-8")}>
         <div className="flex justify-between items-center w-full">
           <Link href="/">
             <Image 

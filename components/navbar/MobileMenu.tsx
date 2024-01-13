@@ -1,6 +1,6 @@
 "use client";
 
-import { Award, Backpack, BookMarked, Contact, Home, LogIn, LogOut, Menu, ShieldCheck } from "lucide-react";
+import { Award, Backpack, BookMarked, Contact, Home, LogIn, LogOut, Menu, ShieldCheck, User2, UserCircle2 } from "lucide-react";
 import { SignOutButton, SignedIn, UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
@@ -60,8 +60,8 @@ const MobileMenu = ({ brendovi, kategorije }: MobileMenuProps) => {
                     onClick={() => router.push("/sign-in")}
                     className="text-md font-medium gap-2 underline"
                   >
+                    <UserCircle2 size={24} />
                     Prijava
-                    <LogIn size={20} />
                   </Button>
                 </div>
               )}

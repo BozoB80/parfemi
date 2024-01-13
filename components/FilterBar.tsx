@@ -8,6 +8,7 @@ import 'rc-slider/assets/index.css';
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 import { X } from "lucide-react";
+import { ScrollArea } from "./ui/scroll-area";
 
 interface FilterbarProps {
   brands: (Brand | null)[];
@@ -39,10 +40,10 @@ export const Filterbar = ({
   );
 
   return (
-    <div className="flex flex-col gap-6 pr-2">
+    <div className="flex flex-col gap-2 sm:gap-6 pr-2">
       <div className="relative">
         <p className="font-semibold">Pretražite:</p>
-        <Separator className="my-2" />
+        <Separator className="hidden sm:my-2" />
         <Input
           value={searchQuery}
           placeholder="Upišite tekst..."
@@ -56,7 +57,7 @@ export const Filterbar = ({
 
       <div>
         <p className="font-semibold">Kategorije:</p>
-        <Separator className="my-2" />
+        <Separator className="my-1 sm:my-2" />
         {uniqueCategories.map((category) => (
           <label key={category?.id} className="flex gap-2 capitalize cursor-pointer hover:text-primary">
             <input
@@ -72,7 +73,8 @@ export const Filterbar = ({
 
       <div>
         <p className="font-semibold">Brend:</p>
-        <Separator className="my-2" />
+        <Separator className="my-1 sm:my-2" />
+        <ScrollArea className="h-60 overflow-y-scroll sm:hidden">
           {uniqueBrands.sort((a, b) => (a.label || '').localeCompare(b.label || '')).map((brand) => (
             <label key={brand?.id} className="flex gap-2 cursor-pointer hover:text-primary">
               <input
@@ -83,8 +85,10 @@ export const Filterbar = ({
               />
               {brand?.label}
             </label>
-        ))}
+          ))}
+        </ScrollArea>
       </div>      
+
       <div>
         <p className="font-semibold">Cijena:</p>
         <Separator className="my-2" />

@@ -54,7 +54,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
         </div>
       </div>
       <Separator className="my-2" />
-      <Tabs defaultValue={activeTab} className="flex flex-col lg:flex-row lg:py-2 lg:gap-10">
+      <Tabs defaultValue={activeTab} className="flex flex-col lg:flex-row lg:py-2 lg:gap-10 max-sm:pb-40">
         <TabsList className="flex">
           <TabsTrigger value="osobne" onClick={() => handleTabClick('osobne')}>
             <User size={28} className="mr-2" /> Osobne informacije
@@ -70,7 +70,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="osobne" className="w-full space-y-2">
+        <TabsContent value="osobne" className="w-full space-y-2 h-full">
           <h1>Osobne informacije:</h1>
           <UserProfile             
             appearance={{

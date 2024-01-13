@@ -122,7 +122,7 @@ const CartPage = () => {
               </div>
 
               {cart.items.length === 0 ? (
-                <div className="w-full h-full py-32 flex flex-col justify-center items-center space-y-6">
+                <div className="w-full h-full py-40 flex flex-col justify-center items-center space-y-6 max-sm:pb-80">
                   <Image src="/icons/cart.svg" alt="cart" width={56} height={56} />
                   <p className="text-3xl font-bold text-center">
                     Košarica je prazna
@@ -331,8 +331,8 @@ const CartPage = () => {
                       )}
                     />
                     <Separator className="my-4 w-full hidden sm:block" />
-                    <h1 className="text-2xl hidden sm:block">Besplatna dostava za narudžbe iznad 100 KM</h1>
-                    <Image src="/dostava.png" alt="dostava" width={500} height={300} className="w-1/2 hidden sm:flex justify-center items-center" />
+                    <h1 className="text-xl hidden sm:block">Besplatna dostava za narudžbe iznad 100 KM</h1>
+                    <Image src="/dostava.png" alt="dostava" width={500} height={300} className="w-1/3 hidden sm:flex justify-center items-center" />
                   </div>
                 </div>
               </div>
@@ -340,7 +340,7 @@ const CartPage = () => {
             </div>
 
             {cart.items.length > 0 && (
-              <div className="md:sticky top-0 w-full lg:w-1/3 max-lg:px-2 lg:pl-6 flex flex-col justify-start items-start">
+              <div className="md:sticky w-full lg:w-1/3 max-lg:px-2 lg:pl-6 flex flex-col justify-start items-start">
                 <div className="w-full flex justify-center items-center gap-2 py-2.5 border-b">
                   <Image
                     src="/icons/payment.svg"
