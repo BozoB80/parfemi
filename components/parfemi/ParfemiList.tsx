@@ -11,7 +11,7 @@ import { ListFilter } from "lucide-react";
 import { Button } from "../ui/button";
 import LoadMore from '../LoadMore';
 
-interface ParfemiListProps {
+export interface ParfemiListProps {
   parfemi: (Product & {
     images: Image[];
     category: Category | null;
@@ -43,7 +43,7 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   .slice(0, visibleParfemi);
 
   const loadMoreItems = useCallback(() => {
-    // Increase the number of visible items by 5 (or any other desired amount)
+    // Increase the number of visible items by 4 (or any other desired amount)
     setVisibleParfemi((prevVisibleParfemi) => prevVisibleParfemi + 4);
   }, [])
 

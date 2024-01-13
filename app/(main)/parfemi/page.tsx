@@ -13,8 +13,7 @@ const ParfemiPage = async () => {
     },
     orderBy: {
       createdAt: 'desc'
-    },
-    
+    },    
   })
 
   return (

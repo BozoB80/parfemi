@@ -58,18 +58,21 @@ const MainNav = ({ brendovi, kategorije }: MainNavProps) => {
         <HoverCardTrigger asChild>
           <Button variant="ghost" className="uppercase text-md hover:bg-white/30">Brendovi</Button>
         </HoverCardTrigger>
-        <HoverCardContent className="space-y-2">
-          {brendovi.map((brend) => {
-            const handleClick = () => {
-              router.push(`/brend/${brend.label.toLowerCase().replace(/\s/g, "-")}`)
-              setOpenBrend(openBrend => !openBrend)
-            }
+        <HoverCardContent className="space-y-2 w-fit">
+          <Button variant="ghost" onClick={() => router.push("/brend")} className="w-full text-center text-base">Svi brendovi</Button>
+          <div className="grid grid-cols-3 gap-4">
+            {brendovi.map((brend) => {
+              const handleClick = () => {
+                router.push(`/brend/${brend.label.toLowerCase().replace(/\s/g, "-")}`)
+                setOpenBrend(openBrend => !openBrend)
+              }
 
-            return (
-            <h1 key={brend.id} onClick={handleClick} className="cursor-pointer hover:bg-primary-foreground">
-              {brend.label}
-            </h1>
-          )})}
+              return (
+              <h1 key={brend.id} onClick={handleClick} className="cursor-pointer hover:bg-primary-foreground w-32">
+                {brend.label}
+              </h1>
+            )})}
+          </div>
         </HoverCardContent>
       </HoverCard>
       

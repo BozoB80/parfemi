@@ -75,7 +75,8 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
           <UserProfile             
             appearance={{
               elements: {
-                card: "shadow-none rounded-md border-gray-300",
+                rootBox: "w-full",
+                card: "shadow-none rounded-md border-gray-300 w-full",
                 profilePage__security: "hidden",
                 navbar: "hidden",
                 profileSection__emailAddresses: "hidden",
