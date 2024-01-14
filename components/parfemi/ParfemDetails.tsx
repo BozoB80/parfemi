@@ -82,7 +82,7 @@ const ParfemDetails = ({ parfem }: DetailsProps) => {
         </div>
       </div>
       <Separator />
-      <div className="grid grid-cols-1 sm:grid-cols-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 max-sm:pb-44">
         <div className="flex flex-col p-2">
           {parfem?.images ? (
             <DetailsCarousel images={parfem?.images} />
