@@ -33,7 +33,7 @@ export const Filterbar = ({
 }: FilterbarProps) => {
   const uniqueBrands = Array.from(new Set(brands.map((brand) => brand?.id))).map(
     (brandId) => brands.find((brand) => brand?.id === brandId)!
-  );
+  );  
 
   const uniqueCategories = Array.from(new Set(categories.map((category) => category?.id))).map(
     (categoryId) => categories.find((category) => category?.id === categoryId)!
@@ -43,7 +43,7 @@ export const Filterbar = ({
     <div className="flex flex-col gap-2 sm:gap-6 pr-2">
       <div className="relative">
         <p className="font-semibold">Pretražite:</p>
-        <Separator className="hidden sm:my-2" />
+        <Separator className="hidden sm:block sm:my-2" />
         <Input
           value={searchQuery}
           placeholder="Upišite tekst..."
@@ -74,7 +74,7 @@ export const Filterbar = ({
       <div>
         <p className="font-semibold">Brend:</p>
         <Separator className="my-1 sm:my-2" />
-        <ScrollArea className="h-60 overflow-y-scroll sm:hidden">
+        <ScrollArea className="max-sm:h-60 overflow-y-scroll">
           {uniqueBrands.sort((a, b) => (a.label || '').localeCompare(b.label || '')).map((brand) => (
             <label key={brand?.id} className="flex gap-2 cursor-pointer hover:text-primary">
               <input

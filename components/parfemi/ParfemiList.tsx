@@ -30,9 +30,7 @@ export interface ParfemiListProps {
 
 const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   const [selectedBrands, setSelectedBrands] = useState<(string | null)[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<
-    (string | null)[]
-  >([]);
+  const [selectedCategories, setSelectedCategories] = useState<(string | null)[]>([]);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [visibleParfemi, setVisibleParfemi] = useState<number>(8);
   const [totalParfemi, setTotalParfemi] = useState<number>(parfemi.length);
