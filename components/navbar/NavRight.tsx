@@ -7,6 +7,8 @@ import { Heart, Search, ShieldCheck } from "lucide-react";
 import { Button } from "../ui/button";
 import NavCart from "./NavCart";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from "../ui/dialog";
+import Searchbar from "./Searchbar";
 
 const NavRight = () => {
   const { user } = useUser();
@@ -47,7 +49,7 @@ const NavRight = () => {
         </Tooltip>
       </TooltipProvider>
       <div className="sm:hidden">
-        <Search size={24} />
+        <Searchbar />       
       </div>
       <NavCart />
 

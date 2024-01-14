@@ -23,7 +23,9 @@ const Navbar = async () => {
     <nav className="shadow-xl">
       <div className="h-16 sm:h-24 flex justify-between items-center px-4 gap-10">
         <MobileMenu kategorije={kategorije} brendovi={brendovi} />
-        <Searchbar />
+        <div className="hidden sm:block">
+          <Searchbar />
+        </div>
         <Link href="/">
           <Image
             src="/logo2.png"
