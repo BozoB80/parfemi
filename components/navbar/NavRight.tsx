@@ -2,12 +2,11 @@
 
 import { UserButton, useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Heart, Search, ShieldCheck } from "lucide-react";
+import { Heart, ShieldCheck } from "lucide-react";
 
 import { Button } from "../ui/button";
 import NavCart from "./NavCart";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from "../ui/dialog";
 import Searchbar from "./Searchbar";
 
 const NavRight = () => {

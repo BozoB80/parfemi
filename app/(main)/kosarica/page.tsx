@@ -101,7 +101,7 @@ const CartPage = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>        
         <div className="max-w-7xl mx-auto">
-          <div className="relative flex flex-col lg:flex-row py-2.5 md:py-5 sm:py-10">
+          <div className="relative flex flex-col lg:flex-row py-2.5 md:py-5 sm:py-10 max-sm:pb-48">
             <div className="w-full flex flex-col">
               <div className="w-full flex justify-between items-center border-b max-lg:px-2 py-2">
                 <div className="flex justify-start items-center gap-2">
@@ -340,8 +340,8 @@ const CartPage = () => {
             </div>
 
             {cart.items.length > 0 && (
-              <div className="md:sticky w-full lg:w-1/3 max-lg:px-2 lg:pl-6 flex flex-col justify-start items-start">
-                <div className="w-full flex justify-center items-center gap-2 py-2.5 border-b">
+              <div className="sticky top-0 z-10 w-full h-full lg:w-1/3 max-lg:px-2 lg:pl-6 flex flex-col justify-start items-start">
+                <div className="sticky w-full flex justify-center items-center gap-2 py-2.5 border-b">
                   <Image
                     src="/icons/payment.svg"
                     alt="orders"
