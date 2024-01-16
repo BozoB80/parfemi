@@ -2,6 +2,7 @@
 
 import { inclusions } from "@/constants";
 import { cn } from "@/lib/utils";
+import { is } from "date-fns/locale";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -9,9 +10,13 @@ import { usePathname } from "next/navigation";
 const Footer = () => {
   const pathname = usePathname()
   const isHomePage = pathname === "/"
+  const isParfemiScreen = pathname.includes("/parfemi")
+  const isBrendScreen = pathname.match("/brend")
+  const isRacunScreen = pathname.includes("/racun")
+  const isKosaricaScreen = pathname.includes("/kosarica")
 
   return (
-    <footer className="w-full flex flex-col relative">
+    <footer className={cn("w-full flex flex-col relative", isParfemiScreen && isBrendScreen && isRacunScreen && isKosaricaScreen && "max-sm:hidden")}>
       {isHomePage && (
         <div className="max-xl:px-5 max-w-7xl py-10 mx-auto w-full grid grid-cols-2 sm:grid-cols-4 justify-between items-center gap-4 max-sm:pb-40">
           {inclusions.map((item) => (
@@ -23,7 +28,7 @@ const Footer = () => {
           ))}
         </div>
       )}
-      <div className={cn("bg-black w-full px-5 py-2 sm:p-10 flex flex-col justify-between items-center max-sm:absolute max-sm:bottom-16", !isHomePage && "mt-2 md:mt-8")}>
+      <div className={cn("bg-black w-full px-5 py-2 sm:p-10 flex flex-col justify-between items-center max-sm:absolute max-sm:bottom-16", !isHomePage && "max-sm:hidden")}>
         <div className="flex justify-between items-center w-full">
           <Link href="/">
             <Image 

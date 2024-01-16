@@ -24,7 +24,7 @@ const BrandsList = ({ brendovi }: BrandsListProps) => {
   }, {} as GroupedBrands);
 
   return (
-    <div className="py-4 max-sm:pb-40">
+    <div className="py-4 max-sm:pb-20">
       <h1 className="text-center text-2xl font-semibold underline underline-offset-2">Naši brendovi</h1>
       <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 px-2 gap-8 py-8">
         {Object.keys(groupedBrands).map((letter) => (

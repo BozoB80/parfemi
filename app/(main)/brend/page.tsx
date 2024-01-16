@@ -9,7 +9,7 @@ const BrendPage = async () => {
   })
   
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto h-[75vh]">
       <BrandsList brendovi={brendovi} />
     </div>
   );

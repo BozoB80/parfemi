@@ -95,7 +95,7 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   };
 
   return (
-    <div className="flex w-full max-lg:p-0 max-xl:px-2 max-sm:pb-40">
+    <div className="flex w-full max-lg:p-0 max-xl:px-2 max-sm:pb-20 pb-2">
       <div className="lg:w-1/6 hidden lg:block">
         <Filterbar
           brands={parfemi.map((p) => p.brand).filter((brand) => brand !== null)}

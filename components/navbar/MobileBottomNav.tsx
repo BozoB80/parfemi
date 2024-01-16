@@ -103,12 +103,12 @@ const MobileBottomNav = () => {
         <div onClick={cartLink} className="flex flex-col justify-center items-center">
           <div className="relative">
             <ShoppingCart size={24} className={cn("transition-all duration-300", activeButton === 'Kosarica' && 'text-primary')} />
-            <span className="absolute -top-2 -right-3 flex h-5 w-5">
+            {/* <span className="absolute -top-2 -right-3 flex h-5 w-5">
               <span className={cn("absolute inline-flex h-full w-full rounded-full bg-primary opacity-75",
                 cart.items.length > 0 && "animate-ping"  
               )} />
               <span className="relative flex justify-center items-center text-base font-bold rounded-full h-5 w-5 bg-primary">{cart.items.length}</span>
-            </span>
+            </span> */}
           </div>
           <p className={cn("text-xs", activeButton === 'Kosarica' && 'font-semibold text-primary')}>Košarica</p>
         </div>

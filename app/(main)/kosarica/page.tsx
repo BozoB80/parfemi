@@ -100,7 +100,7 @@ const CartPage = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>        
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-7xl mx-auto min-h-[75vh]">
           <div className="relative flex flex-col lg:flex-row py-2.5 md:py-5 sm:py-10 max-sm:pb-48">
             <div className="w-full flex flex-col">
               <div className="w-full flex justify-between items-center border-b max-lg:px-2 py-2">

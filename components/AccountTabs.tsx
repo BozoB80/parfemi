@@ -33,7 +33,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
   
 
   return (
-    <div className="h-full px-1 xl:px-0 py-4 md:py-10">
+    <div className="min-h-[75vh] px-1 xl:px-0 py-4 md:py-10">
       <div className="flex justify-between items-center">
         <h1 className="text-xl md:text-3xl font-semibold">Moj račun</h1>
         <div className="flex items-center justify-center gap-3">
