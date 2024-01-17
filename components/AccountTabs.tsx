@@ -207,7 +207,7 @@ const AccountTabs = ({ kupljeniArtikli, narudzbe, wishlist }: AccountProps) => {
                       <div className="text-xs md:text-lg">
                         <h1 className="capitalize">Plaćanje: {item.payment === 'pouzecem' ? 'Pouzećem' : 'Kartično'}</h1>
                         <h1> Datum narudžbe: {format(item.createdAt, "dd.MM.yyyy", { locale: hr })}</h1>
-                        <h1 className="font-semibold">
+                        <h1 className="font-semibold">w
                           Ukupan iznos:{" "}
                           {item.orderItems.reduce(
                             (total, orderItem) =>

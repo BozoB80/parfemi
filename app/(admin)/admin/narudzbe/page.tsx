@@ -23,12 +23,7 @@ const NarudzbePage = async () => {
     products: order.orderItems.map((item) => item.title).join(", "),
     quantity: order.orderItems.reduce((sum, item) => {return sum + item.quantity}, 0),
     totalPrice: order.orderItems.reduce(
-      (total, orderItem) =>
-        total +
-        (orderItem.price * orderItem.quantity * (100 - (orderItem.discount ?? 0))) /
-          100,
-      0
-    ).toFixed(2),
+      (total, orderItem) => total + (orderItem.price * orderItem.quantity * (100 - (orderItem.discount ?? 0))) /100, 0).toFixed(2),
     createdAt: format(order.createdAt, "dd.MM.yyyy", { locale: hr })
   }))
 

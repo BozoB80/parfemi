@@ -4,9 +4,7 @@ import Heading from "@/components/ui/heading";
 import { Separator } from "@/components/ui/separator";
 import { getGraphRevenue } from "@/lib/get-graph-revenue";
 import prismadb from "@/lib/prismadb";
-import { CreditCard, DollarSign, Package } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
+import { Coins, CreditCard, Package } from "lucide-react";
 
 const AdminPage = async () => {
   const graphRevenue = await getGraphRevenue()
@@ -61,6 +59,9 @@ const AdminPage = async () => {
     }
   }
 
+  console.log(productSalesCount);
+  
+
   return (
     <div className="flex-1 flex-col">
       <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
@@ -72,7 +73,7 @@ const AdminPage = async () => {
               <CardTitle className="text-sm font-medium">
                 Ukupna prodaja
               </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <Coins className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
@@ -83,7 +84,7 @@ const AdminPage = async () => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Broj narudžbi</CardTitle>
-              <CreditCard className="h-4 w-4 text-muted-foreground" />
+              <CreditCard className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">+ {salesCount}</div>
@@ -94,7 +95,7 @@ const AdminPage = async () => {
               <CardTitle className="text-sm font-medium">
                 Najprodavaniji artikal
               </CardTitle>
-              <Package className="h-4 w-4 text-muted-foreground" />
+              <Package className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">

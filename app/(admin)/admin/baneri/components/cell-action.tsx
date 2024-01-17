@@ -4,7 +4,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { BanerColumn } from "./columns";
 import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 
@@ -18,7 +18,6 @@ interface CellActionProps {
 
 const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const router = useRouter()
-  const params = useParams()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
