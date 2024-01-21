@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Loader2, Trash } from "lucide-react";
+import { ArrowLeft, Loader2, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -113,6 +113,14 @@ const CategoryForm: React.FC<CategoryFormProps> = ({ initialData }) => {
         )}
       </div>
       <Separator />
+      <Button
+        variant="link"
+        onClick={() => router.back()}
+        className="pl-0"
+      >
+        <ArrowLeft className="mr-2" />
+        Natrag na kategorije
+      </Button>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-full">
           

@@ -7,7 +7,7 @@ import { SignOutButton, SignedIn } from "@clerk/nextjs";
 import { LogOut, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
+import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "../ui/sheet";
 
 const AdminNavbar = () => {
   const pathname = usePathname();
@@ -27,16 +27,17 @@ const AdminNavbar = () => {
               const isActive = pathname === link.route;
 
               return (
-                <Link
-                  key={link.label}
-                  href={link.route}
-                  className={`relative dark:text-white/80 flex justify-start gap-4 rounded-md p-4 ${
-                    isActive && "bg-primary text-white/90 font-bold"
-                  }`}
-                >
-                  <link.icon className="w-6 h-6" />
-                  <p className="font-medium text-lg">{link.label}</p>
-                </Link>
+                <SheetClose key={link.label} asChild>
+                  <Link                    
+                    href={link.route}
+                    className={`relative dark:text-white/80 flex justify-start gap-4 rounded-md p-4 ${
+                      isActive && "bg-primary text-white/90 font-bold"
+                    }`}
+                  >
+                    <link.icon className="w-6 h-6" />
+                    <p className="font-medium text-lg">{link.label}</p>
+                  </Link>
+                </SheetClose>
               );
             })}
 

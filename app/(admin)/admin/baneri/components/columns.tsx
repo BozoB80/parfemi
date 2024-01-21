@@ -25,6 +25,9 @@ export const columns: ColumnDef<BanerColumn>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs">{row.original.label}</span>
+    )
   },
   {
     accessorKey: "createdAt",
@@ -34,11 +37,14 @@ export const columns: ColumnDef<BanerColumn>[] = [
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Datum izrade
+          Izrađeno
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs max-sm:justify-center">{row.original.createdAt}</span>
+    )
   },
   {
     id: "actions",

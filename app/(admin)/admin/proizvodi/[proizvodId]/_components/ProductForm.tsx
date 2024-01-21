@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Loader2, PackagePlus, Trash } from "lucide-react";
+import { ArrowLeft, Loader2, PackagePlus, Trash } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -170,6 +170,14 @@ const ProductForm: React.FC<ProductFormProps> = ({
         )}
       </div>
       <Separator />
+      <Button
+        variant="link"
+        onClick={() => router.back()}
+        className="pl-0"
+      >
+        <ArrowLeft className="mr-2" />
+        Natrag na listu proizvoda
+      </Button>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
