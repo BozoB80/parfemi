@@ -4,9 +4,6 @@ import { Button } from "@/components/ui/button"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown } from "lucide-react"
 import CellAction from "./cell-action"
-import { format } from "date-fns"
-import { hr } from "date-fns/locale"
-
 
 export type BanerColumn = {
   id: string
@@ -42,16 +39,6 @@ export const columns: ColumnDef<BanerColumn>[] = [
         </Button>
       );
     },
-    // Use the cell function to format the date
-    cell: ({ row }) => {
-      console.log(row.original.createdAt);
-      
-      return (
-        <div>
-          {row.original.createdAt}
-        </div>
-      )
-    }
   },
   {
     id: "actions",

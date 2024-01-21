@@ -11,7 +11,11 @@ const AdminPage = async () => {
 
   const orders = await prismadb.order.findMany({
     include: {
-      orderItems: true
+      orderItems: {
+        include: {
+          priceVariant: true
+        }
+      }
     },
   });
 
@@ -28,7 +32,7 @@ const AdminPage = async () => {
 
   orders.forEach((order) => {
     order.orderItems.forEach((item) => {
-      const productId = item.id;
+      const productId = item.id
       if (productSalesCount[productId]) {
         productSalesCount[productId]++;
       } else {

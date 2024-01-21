@@ -59,7 +59,7 @@ const MainNav = ({ brendovi, kategorije }: MainNavProps) => {
           <Button variant="ghost" className="uppercase text-md hover:bg-white/30">Brendovi</Button>
         </HoverCardTrigger>
         <HoverCardContent className="space-y-2 w-fit">
-          <Button variant="ghost" onClick={() => router.push("/brend")} className="w-full text-center text-base">Svi brendovi</Button>
+          <Button variant="ghost" onClick={() => {router.push("/brend"), setOpenBrend(openBrend => !openBrend)}} className="w-full text-center text-base">Svi brendovi</Button>
           <div className="grid grid-cols-3 gap-4">
             {brendovi.map((brend) => {
               const handleClick = () => {

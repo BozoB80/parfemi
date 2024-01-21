@@ -181,17 +181,24 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
                 }`
               : `${filteredParfemi.length} ${
                   filteredParfemi.length === 1 ? "proizvod" : "proizvoda"
-                }`}
+                }`
+            }
           </h1>
         </div>
 
         <Separator className="my-2" />
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
-          {filteredParfemi.map((parfem) => (
-            <ParfemCard key={parfem.id} parfem={parfem} />
-          ))}
-        </div>
+        {filteredParfemi.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-[500px]">
+            Nema rezultata
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2">
+            {filteredParfemi.map((parfem) => (
+              <ParfemCard key={parfem.id} parfem={parfem} />
+            ))}
+          </div>
+        )}
 
         {visibleParfemi < totalParfemi && (
           <LoadMore onLoadMore={loadMoreItems} />
