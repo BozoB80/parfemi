@@ -56,12 +56,27 @@ const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={onDelete}
         loading={loading}
       />
-      <Button size="icon" variant="ghost" onClick={() => router.push(`/admin/baneri/${data.id}`)}>
-        <Edit className="h-4 w-4" />
-      </Button>
-      <Button size="icon" variant="destructive" onClick={() => setOpen(true)}>
-        <Trash className="h-4 w-4" />
-      </Button>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="h-8 w-8 p-0">
+            <span className="sr-only">Open menu</span>
+            <MoreHorizontal className="h-4 w-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>
+            Opcije
+          </DropdownMenuLabel>     
+          <DropdownMenuItem onClick={() => router.push(`/admin/baneri/${data.id}`)}>
+            <Edit className="mr-2 h-4 w-4" />  
+            Ažuriraj
+          </DropdownMenuItem>    
+          <DropdownMenuItem onClick={() => setOpen(true)}>
+            <Trash className="mr-2 h-4 w-4" />  
+            Izbriši
+          </DropdownMenuItem>    
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 };

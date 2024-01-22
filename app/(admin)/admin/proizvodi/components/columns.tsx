@@ -86,6 +86,9 @@ export const columns: ColumnDef<ProductColumn>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs max-sm:justify-center">{row.original.discount}</span>
+    )
   },
   {
     accessorKey: "rating",
@@ -100,6 +103,9 @@ export const columns: ColumnDef<ProductColumn>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs max-sm:justify-center">{row.original.rating}</span>
+    )
   },
   {
     accessorKey: "createdAt",
@@ -114,6 +120,9 @@ export const columns: ColumnDef<ProductColumn>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs max-sm:justify-center">{row.original.createdAt}</span>
+    )
   },
   {
     id: "actions",

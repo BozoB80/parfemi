@@ -29,6 +29,9 @@ export const columns: ColumnDef<BrandsColumn>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs max-sm:justify-start">{row.original.label}</span>
+    )
   },
   {
     accessorKey: "logo",
@@ -65,6 +68,9 @@ export const columns: ColumnDef<BrandsColumn>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs max-sm:justify-center">{row.original.createdAt}</span>
+    )
   },
   {
     id: "actions",

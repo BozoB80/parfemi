@@ -63,7 +63,7 @@ const AdminPage = async () => {
     }
   }
 
-  console.log(productSalesCount);
+  
   
 
   return (

@@ -3,7 +3,7 @@
 import { sidebarLinks } from "@/constants";
 import { usePathname, useRouter } from "next/navigation";
 import { Separator } from "../ui/separator";
-import { SignOutButton, SignedIn } from "@clerk/nextjs";
+import { SignOutButton, SignedIn, UserButton, useUser } from "@clerk/nextjs";
 import { LogOut, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import { Sheet, SheetClose, SheetContent, SheetTitle, SheetTrigger } from "../ui
 const AdminNavbar = () => {
   const pathname = usePathname();
   const router = useRouter();
+  const { user } = useUser()
 
   return (
     <div className="md:hidden">
@@ -61,6 +62,11 @@ const AdminNavbar = () => {
           onClick={() => router.push("/")}
           className="cursor-pointer"
         />
+        {user && (  
+          <div className="pl-2">
+            <UserButton afterSignOutUrl="/" appearance={{ elements: { userButtonPopoverActionButton__manageAccount: "hidden" } }} />        
+          </div>
+        )}
       </div>
     </div>
   );

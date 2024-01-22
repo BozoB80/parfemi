@@ -64,6 +64,9 @@ export const columns: ColumnDef<CategoryColumn>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs max-sm:justify-center">{row.original.createdAt}</span>
+    )
   },
   {
     id: "actions",

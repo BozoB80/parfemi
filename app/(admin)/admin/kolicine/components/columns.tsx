@@ -40,6 +40,9 @@ export const columns: ColumnDef<SizeColumn>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs max-sm:justify-center">{row.original.value}</span>
+    )
   },
   {
     accessorKey: "createdAt",
@@ -54,6 +57,9 @@ export const columns: ColumnDef<SizeColumn>[] = [
         </Button>
       )
     },
+    cell: ({ row }) => (
+      <span className="flex max-sm:text-xs max-sm:justify-center">{row.original.createdAt}</span>
+    )
   },
   {
     id: "actions",

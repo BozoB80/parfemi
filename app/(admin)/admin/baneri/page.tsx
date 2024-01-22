@@ -18,7 +18,7 @@ const BannerPage = async () => {
   }))
 
   return (
-    <div className="flex-1 flex-col">
+    <div className="w-full">
       <div className="space-y-4 p-2 md:p-8 pt-6">
         <BanerClient data={formattedBaners} />
       </div>

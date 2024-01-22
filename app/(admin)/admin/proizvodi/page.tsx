@@ -2,6 +2,7 @@ import prismadb from "@/lib/prismadb";
 import { ProductColumn } from "./components/columns";
 import { format } from "date-fns";
 import ProductClient from "./components/client";
+import { hr } from "date-fns/locale";
 
 const ProductPage = async () => {
   const product = await prismadb.product.findMany({
@@ -24,11 +25,11 @@ const ProductPage = async () => {
     price: item.priceVariants.map((size) => size.price ?? 0),
     discount: item.discount || 0,
     rating: item.rating || 0,
-    createdAt: format(item.createdAt, "MMMM do, yyyy")
+    createdAt: format(item.createdAt, "dd.MM.yyyy", { locale: hr })
   }))
 
   return (
-    <div className="flex-1 flex-col">
+    <div className="w-full">
       <div className="space-y-4 p-2 md:p-8 pt-6">
         <ProductClient data={formattedProduct} />
       </div>

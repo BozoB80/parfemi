@@ -14,7 +14,7 @@ const Sidebar = () => {
   const router = useRouter();
 
   return (
-    <section className="sticky left-0 top-0 h-screen z-20 w-fit flex flex-col justify-between overflow-auto border-r-primary-foregroundry border-r-2 py-5 max-md:hidden">
+    <section className="sticky left-0 top-0 h-screen z-20 md:w-fit xl:w-[300px] flex flex-col justify-between overflow-auto border-r-primary-foregroundry border-r-2 py-5 max-md:hidden">
       <Link href="/" className="lg:flex justify-center pb-5 md:hidden">
         <Image
           src={"/logo2.png"}
@@ -27,7 +27,7 @@ const Sidebar = () => {
 
       <Separator />
 
-      <div className="flex w-full flex-1 flex-col gap-2 p-6">
+      <div className="flex flex-col w-full gap-2 p-6">
         {sidebarLinks.map((link) => {
           const isActive = pathname === link.route;
 
@@ -41,7 +41,7 @@ const Sidebar = () => {
               }`}
             >
               <link.icon className="w-6 h-6" />
-              <p className="max-lg:hidden font-medium text-lg">{link.label}</p>
+              <p className="max-lg:hidden font-medium text-lg whitespace-nowrap">{link.label}</p>
             </Link>
           );
         })}
