@@ -120,6 +120,7 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
           }
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
+          parfemi={parfemi}
         />
       </div>
 
@@ -159,6 +160,7 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
                 }
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
+                parfemi={filteredParfemi}
               />
               <div className="w-full h-auto flex justify-between rounded-xs py-2">
                 <Button variant="destructive" onClick={onFilterReset}>

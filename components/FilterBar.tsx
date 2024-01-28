@@ -1,7 +1,7 @@
 "use client"
 
-import { Brand, Category } from "@prisma/client";
-import Slider from 'rc-slider';
+import { Brand, Category, PriceVariant, Product } from "@prisma/client";
+//import Slider from 'rc-slider';
 import Range from "rc-slider"
 import 'rc-slider/assets/index.css';
 
@@ -9,6 +9,7 @@ import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 import { X } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
+import { Slider } from "./ui/slider";
 
 interface FilterbarProps {
   brands: (Brand | null)[];
@@ -16,6 +17,7 @@ interface FilterbarProps {
   selectedBrands: (string | null)[];
   selectedCategories: (string | null)[];
   searchQuery: string
+  parfemi: (Product & { priceVariants: PriceVariant[] })[]
   onBrandChange: (brand: string | null) => void;
   onCategoryChange: (category: string | null) => void;
   onSearchChange: (searchQuery: string) => void
@@ -29,8 +31,10 @@ export const Filterbar = ({
   searchQuery,
   onBrandChange,
   onCategoryChange,
-  onSearchChange
+  onSearchChange,
+  parfemi
 }: FilterbarProps) => {
+  
   const uniqueBrands = Array.from(new Set(brands.map((brand) => brand?.id))).map(
     (brandId) => brands.find((brand) => brand?.id === brandId)!
   );  
@@ -38,10 +42,28 @@ export const Filterbar = ({
   const uniqueCategories = Array.from(new Set(categories.map((category) => category?.id))).map(
     (categoryId) => categories.find((category) => category?.id === categoryId)!
   );
+  
+  // Find the overall minimum price among all perfumes
+  const minPricesForPerfumes = parfemi.map((parfem) => {
+    const allPrices = parfem.priceVariants.map((priceVariant) => priceVariant.price);
+    const minPrice = Math.min(...allPrices);
+    return minPrice;
+  });  
+  const overallMinPrice = Math.min(...minPricesForPerfumes);
+
+  // Find the maximum price for each perfume
+  const maxPricesForPerfumes = parfemi.map((parfem) => {
+    const allPrices = parfem.priceVariants.map((priceVariant) => priceVariant.price);
+    const maxPrice = Math.max(...allPrices);
+    return maxPrice;
+  });
+  const overallMaxPrice = Math.max(...maxPricesForPerfumes);
+  
 
   return (
     <div className="flex flex-col gap-2 sm:gap-6 pr-2">
       <div className="relative">
+        <h1 className="text-center font-semibold sm:hidden">Filteri</h1>
         <p className="font-semibold">Pretražite:</p>
         <Separator className="hidden sm:block sm:my-2" />
         <Input
@@ -94,10 +116,18 @@ export const Filterbar = ({
         <Separator className="my-2" />
         {/* <Slider
             range
-            
-            defaultValue={[minPrice, maxPrice]}
-            onChange={(value) => onPriceChange(value[0], value[1])}
+            className=""
+            min={overallMinPrice}
+            max={overallMaxPrice}
+            defaultValue={[overallMinPrice, overallMaxPrice]}
+            //onChange={(value) => onPriceChange(value[0], value[1])}
         /> */}
+        <Slider 
+          min={overallMinPrice}
+          max={overallMaxPrice}
+          defaultValue={[overallMinPrice, overallMaxPrice]}
+          minStepsBetweenThumbs={1}          
+        />
       </div>
     </div>
   );
