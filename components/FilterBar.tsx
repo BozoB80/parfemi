@@ -1,10 +1,6 @@
 "use client"
 
 import { Brand, Category, PriceVariant, Product } from "@prisma/client";
-//import Slider from 'rc-slider';
-import Range from "rc-slider"
-import 'rc-slider/assets/index.css';
-
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 import { X } from "lucide-react";
@@ -61,9 +57,9 @@ export const Filterbar = ({
   
 
   return (
-    <div className="flex flex-col gap-2 sm:gap-6 pr-2">
+    <div className="flex flex-col gap-2 sm:gap-6 max-lg:p-4 lg:pr-2">
       <div className="relative">
-        <h1 className="text-center font-semibold sm:hidden">Filteri</h1>
+        {/* <h1 className="text-center font-semibold sm:hidden">Filteri</h1> */}
         <p className="font-semibold">Pretražite:</p>
         <Separator className="hidden sm:block sm:my-2" />
         <Input
@@ -96,7 +92,7 @@ export const Filterbar = ({
       <div>
         <p className="font-semibold">Brend:</p>
         <Separator className="my-1 sm:my-2" />
-        <ScrollArea className="max-sm:h-60 overflow-y-scroll">
+        <ScrollArea className="max-lg:h-60 overflow-y-scroll">
           {uniqueBrands.sort((a, b) => (a.label || '').localeCompare(b.label || '')).map((brand) => (
             <label key={brand?.id} className="flex gap-2 cursor-pointer hover:text-primary">
               <input

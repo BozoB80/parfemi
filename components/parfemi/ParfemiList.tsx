@@ -17,6 +17,7 @@ import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import { ListFilter } from "lucide-react";
 import { Button } from "../ui/button";
 import LoadMore from "../LoadMore";
+import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "../ui/drawer";
 
 export interface ParfemiListProps {
   parfemi: (Product & {
@@ -120,7 +121,7 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
           }
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
-          parfemi={parfemi}
+          parfemi={filteredParfemi}
         />
       </div>
 
@@ -129,12 +130,12 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
           <h1 className="hidden lg:block capitalize font-semibold">
             {pathname.replace(/\s/g, " ").replace(/\/$/, " ").substring(1)}
           </h1>
-          <Sheet>
-            <SheetTrigger className="lg:hidden flex gap-2">
+          <Drawer>
+            <DrawerTrigger className="lg:hidden flex gap-2">
               <ListFilter size={24} />
               Filteri
-            </SheetTrigger>
-            <SheetContent side={"bottom"}>
+            </DrawerTrigger>
+            <DrawerContent>
               <Filterbar
                 brands={parfemi
                   .map((p) => p.brand)
@@ -162,18 +163,18 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
                 onSearchChange={setSearchQuery}
                 parfemi={filteredParfemi}
               />
-              <div className="w-full h-auto flex justify-between rounded-xs py-2">
+              <div className="w-full h-auto flex justify-between rounded-xs max-lg:px-4 py-2">
                 <Button variant="destructive" onClick={onFilterReset}>
                   Resetiraj
                 </Button>
-                <SheetClose asChild>
+                <DrawerClose asChild>
                   <Button disabled={filteredParfemi.length === 0}>
                     Potvrdi
                   </Button>
-                </SheetClose>
+                </DrawerClose>
               </div>
-            </SheetContent>
-          </Sheet>
+            </DrawerContent>
+          </Drawer>
           <h1 className="font-semibold">
             {selectedBrands.length === 0 &&
             selectedCategories.length === 0 &&
