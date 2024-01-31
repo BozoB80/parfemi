@@ -1,6 +1,6 @@
 const OnamaPage = () => {
   return (
-    <div className="max-w-7xl mx-auto flex justify-center items-center max-sm:pb-40 max-sm:h-full h-4/5">
+    <div className="max-w-7xl mx-auto flex flex-col justify-center items-center max-sm:pb-40 max-sm:h-full h-4/5">
       <p className="text-lg sm:text-3xl font-bold">Tomo smisli tekst za O NAMA stranicu.</p>
     </div>
   );

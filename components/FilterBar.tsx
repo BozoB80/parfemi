@@ -6,6 +6,8 @@ import { Input } from "./ui/input";
 import { X } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
 import { Slider } from "./ui/slider";
+import { FormEventHandler, useState } from "react";
+import ReactSlider from "react-slider";
 
 interface FilterbarProps {
   brands: (Brand | null)[];
@@ -14,9 +16,11 @@ interface FilterbarProps {
   selectedCategories: (string | null)[];
   searchQuery: string
   parfemi: (Product & { priceVariants: PriceVariant[] })[]
+
   onBrandChange: (brand: string | null) => void;
   onCategoryChange: (category: string | null) => void;
   onSearchChange: (searchQuery: string) => void
+
 }
 
 export const Filterbar = ({
@@ -28,18 +32,8 @@ export const Filterbar = ({
   onBrandChange,
   onCategoryChange,
   onSearchChange,
-  parfemi
+  parfemi,
 }: FilterbarProps) => {
-  
-  const uniqueBrands = Array.from(new Set(brands.map((brand) => brand?.id))).map(
-    (brandId) => brands.find((brand) => brand?.id === brandId)!
-  );  
-
-  const uniqueCategories = Array.from(new Set(categories.map((category) => category?.id))).map(
-    (categoryId) => categories.find((category) => category?.id === categoryId)!
-  );
-  
-  // Find the overall minimum price among all perfumes
   const minPricesForPerfumes = parfemi.map((parfem) => {
     const allPrices = parfem.priceVariants.map((priceVariant) => priceVariant.price);
     const minPrice = Math.min(...allPrices);
@@ -54,6 +48,16 @@ export const Filterbar = ({
     return maxPrice;
   });
   const overallMaxPrice = Math.max(...maxPricesForPerfumes);
+  const [sliderValues, setSliderValues] = useState([overallMinPrice, overallMaxPrice])
+
+  
+  const uniqueBrands = Array.from(new Set(brands.map((brand) => brand?.id))).map(
+    (brandId) => brands.find((brand) => brand?.id === brandId)!
+  );  
+
+  const uniqueCategories = Array.from(new Set(categories.map((category) => category?.id))).map(
+    (categoryId) => categories.find((category) => category?.id === categoryId)!
+  );
   
 
   return (
@@ -110,20 +114,24 @@ export const Filterbar = ({
       <div>
         <p className="font-semibold">Cijena:</p>
         <Separator className="my-2" />
-        {/* <Slider
-            range
-            className=""
-            min={overallMinPrice}
-            max={overallMaxPrice}
-            defaultValue={[overallMinPrice, overallMaxPrice]}
-            //onChange={(value) => onPriceChange(value[0], value[1])}
-        /> */}
-        <Slider 
+    
+        <ReactSlider 
           min={overallMinPrice}
           max={overallMaxPrice}
-          defaultValue={[overallMinPrice, overallMaxPrice]}
-          minStepsBetweenThumbs={1}          
+          value={sliderValues}
+          onChange={setSliderValues}
+          ariaLabel={['Lower thumb', 'Upper thumb']}
+          ariaValuetext={state => `Thumb value ${state.valueNow}`}
+          className="py-4 w-full flex justify-center items-center"        
+          thumbClassName="w-4 h-4 rounded-full bg-white ring-2 ring-primary"
+          trackClassName=" h-2 rounded-lg bg-secondary"
+          pearling
+          minDistance={10}
         />
+
+        <div>{sliderValues[0]} - {sliderValues[1]} </div>
+
+        <h1>Raspon: {sliderValues[1] - sliderValues[0]} </h1>
       </div>
     </div>
   );

@@ -13,7 +13,6 @@ import { Filterbar } from "@/components/FilterBar";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Separator } from "../ui/separator";
-import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 import { ListFilter } from "lucide-react";
 import { Button } from "../ui/button";
 import LoadMore from "../LoadMore";
@@ -35,6 +34,8 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [visibleParfemi, setVisibleParfemi] = useState<number>(8);
   const [totalParfemi, setTotalParfemi] = useState<number>(parfemi.length);
+    // Find the overall minimum price among all perfumes
+
   const pathname = usePathname();
 
   const filteredParfemi = parfemi
@@ -45,13 +46,18 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
       const brandLabelMatch = parfem.brand?.label
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
+      // const minPriceMatch =
+      //   sliderValues === overallMinPrice || parfem.priceVariants.some((pv) => pv.price >= minPrice);
+      // const maxPriceMatch =
+      //   maxPrice === overallMaxPrice || parfem.priceVariants.some((pv) => pv.price <= maxPrice);
 
       return (
         (selectedBrands.length === 0 ||
           selectedBrands.includes(parfem.brand?.id || "")) &&
         (selectedCategories.length === 0 ||
           selectedCategories.includes(parfem.category?.id || "")) &&
-        (searchQuery === "" || titleMatch || brandLabelMatch)
+        (searchQuery === "" || titleMatch || brandLabelMatch) 
+        // (minPriceMatch && maxPriceMatch)
       );
     })
     .slice(0, visibleParfemi);
@@ -87,6 +93,11 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
     };
   }, [visibleParfemi, totalParfemi, loadMoreItems]);
 
+  // const onPriceChange = (values: number[]) => {
+  //   setMinPrice(values[0]);
+  //   setMaxPrice(values[1]);
+  // };
+
   const onFilterReset = () => {
     // Reset the filters and set visible items back to the initial value
     setSelectedBrands([]);
@@ -100,9 +111,7 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
       <div className="lg:w-1/6 hidden lg:block">
         <Filterbar
           brands={parfemi.map((p) => p.brand).filter((brand) => brand !== null)}
-          categories={parfemi
-            .map((p) => p.category)
-            .filter((category) => category !== null)}
+          categories={parfemi.map((p) => p.category).filter((category) => category !== null)}
           selectedBrands={selectedBrands}
           selectedCategories={selectedCategories}
           onBrandChange={(brand) =>
@@ -122,6 +131,9 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           parfemi={filteredParfemi}
+          // minPrice={minPrice}
+          // maxPrice={maxPrice}
+          // onPriceChange={onPriceChange}
         />
       </div>
 
@@ -162,6 +174,9 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
                 parfemi={filteredParfemi}
+                // minPrice={minPrice}
+                // maxPrice={maxPrice}
+                // onPriceChange={onPriceChange}
               />
               <div className="w-full h-auto flex justify-between rounded-xs max-lg:px-4 py-2">
                 <Button variant="destructive" onClick={onFilterReset}>
