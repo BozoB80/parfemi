@@ -16,11 +16,14 @@ interface FilterbarProps {
   selectedCategories: (string | null)[];
   searchQuery: string
   parfemi: (Product & { priceVariants: PriceVariant[] })[]
-
+  minPrice: number
+  maxPrice: number
+  sliderValues: number[];
+  
   onBrandChange: (brand: string | null) => void;
   onCategoryChange: (category: string | null) => void;
   onSearchChange: (searchQuery: string) => void
-
+  onSliderChange: (newValues: number[]) => void;
 }
 
 export const Filterbar = ({
@@ -29,26 +32,17 @@ export const Filterbar = ({
   selectedBrands,
   selectedCategories,
   searchQuery,
+  minPrice,
+  maxPrice,
+  sliderValues,
   onBrandChange,
   onCategoryChange,
   onSearchChange,
+  onSliderChange,
   parfemi,
 }: FilterbarProps) => {
-  const minPricesForPerfumes = parfemi.map((parfem) => {
-    const allPrices = parfem.priceVariants.map((priceVariant) => priceVariant.price);
-    const minPrice = Math.min(...allPrices);
-    return minPrice;
-  });  
-  const overallMinPrice = Math.min(...minPricesForPerfumes);
 
-  // Find the maximum price for each perfume
-  const maxPricesForPerfumes = parfemi.map((parfem) => {
-    const allPrices = parfem.priceVariants.map((priceVariant) => priceVariant.price);
-    const maxPrice = Math.max(...allPrices);
-    return maxPrice;
-  });
-  const overallMaxPrice = Math.max(...maxPricesForPerfumes);
-  const [sliderValues, setSliderValues] = useState([overallMinPrice, overallMaxPrice])
+
 
   
   const uniqueBrands = Array.from(new Set(brands.map((brand) => brand?.id))).map(
@@ -116,22 +110,22 @@ export const Filterbar = ({
         <Separator className="my-2" />
     
         <ReactSlider 
-          min={overallMinPrice}
-          max={overallMaxPrice}
+          min={minPrice}
+          max={maxPrice}
           value={sliderValues}
-          onChange={setSliderValues}
+          onAfterChange={(newValues) => {
+            onSliderChange(newValues); // Call the callback on slider change
+          }}
           ariaLabel={['Lower thumb', 'Upper thumb']}
           ariaValuetext={state => `Thumb value ${state.valueNow}`}
           className="py-4 w-full flex justify-center items-center"        
           thumbClassName="w-4 h-4 rounded-full bg-white ring-2 ring-primary"
           trackClassName=" h-2 rounded-lg bg-secondary"
           pearling
-          minDistance={10}
+          minDistance={20}
         />
 
-        <div>{sliderValues[0]} - {sliderValues[1]} </div>
-
-        <h1>Raspon: {sliderValues[1] - sliderValues[0]} </h1>
+        <div>KM {sliderValues[0]} - KM {sliderValues[1]} </div>
       </div>
     </div>
   );

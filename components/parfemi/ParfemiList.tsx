@@ -34,7 +34,23 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [visibleParfemi, setVisibleParfemi] = useState<number>(8);
   const [totalParfemi, setTotalParfemi] = useState<number>(parfemi.length);
-    // Find the overall minimum price among all perfumes
+
+  // Min and max prices for slider
+  const minPricesForPerfumes = parfemi.map((parfem) => {
+    const allPrices = parfem.priceVariants.map((priceVariant) => priceVariant.price);
+    const minPrice = Math.min(...allPrices);
+    return minPrice;
+  });  
+  const overallMinPrice = Math.min(...minPricesForPerfumes);
+
+  // Find the maximum price for each perfume
+  const maxPricesForPerfumes = parfemi.map((parfem) => {
+    const allPrices = parfem.priceVariants.map((priceVariant) => priceVariant.price);
+    const maxPrice = Math.max(...allPrices);
+    return maxPrice;
+  });
+  const overallMaxPrice = Math.max(...maxPricesForPerfumes);
+  const [sliderValues, setSliderValues] = useState([overallMinPrice, overallMaxPrice])
 
   const pathname = usePathname();
 
@@ -46,18 +62,20 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
       const brandLabelMatch = parfem.brand?.label
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
-      // const minPriceMatch =
-      //   sliderValues === overallMinPrice || parfem.priceVariants.some((pv) => pv.price >= minPrice);
-      // const maxPriceMatch =
-      //   maxPrice === overallMaxPrice || parfem.priceVariants.some((pv) => pv.price <= maxPrice);
+          // Check if the perfume price is within the slider range
+          const minPrice = Math.min(...parfem.priceVariants.map((pv) => pv.price));
+          const maxPrice = Math.max(...parfem.priceVariants.map((pv) => pv.price));
+          const priceInRange = minPrice >= sliderValues[0] && maxPrice <= sliderValues[1];
+    
 
       return (
         (selectedBrands.length === 0 ||
           selectedBrands.includes(parfem.brand?.id || "")) &&
         (selectedCategories.length === 0 ||
           selectedCategories.includes(parfem.category?.id || "")) &&
-        (searchQuery === "" || titleMatch || brandLabelMatch) 
-        // (minPriceMatch && maxPriceMatch)
+        (searchQuery === "" || titleMatch || brandLabelMatch) && 
+        (priceInRange)
+
       );
     })
     .slice(0, visibleParfemi);
@@ -93,10 +111,20 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
     };
   }, [visibleParfemi, totalParfemi, loadMoreItems]);
 
-  // const onPriceChange = (values: number[]) => {
-  //   setMinPrice(values[0]);
-  //   setMaxPrice(values[1]);
-  // };
+  const onSliderChange = useCallback((newSliderValues: number[]) => {
+    setSliderValues(newSliderValues);
+
+    const filteredBySliderParfemi = parfemi.filter((parfem) => {
+      const minPrice = Math.min(...parfem.priceVariants.map((pv) => pv.price));
+      const maxPrice = Math.max(...parfem.priceVariants.map((pv) => pv.price));
+
+      // Check if the perfume price is within the slider range
+      return minPrice >= newSliderValues[0] && maxPrice <= newSliderValues[1];
+    });
+
+    // Update the visibleParfemi state based on the filtered results
+    setVisibleParfemi(filteredBySliderParfemi.length > visibleParfemi ? visibleParfemi + 4 : visibleParfemi);
+  }, [parfemi, visibleParfemi]);
 
   const onFilterReset = () => {
     // Reset the filters and set visible items back to the initial value
@@ -130,10 +158,11 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
           }
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
+          minPrice={overallMinPrice}
+          maxPrice={overallMaxPrice}
+          sliderValues={sliderValues}
+          onSliderChange={onSliderChange}
           parfemi={filteredParfemi}
-          // minPrice={minPrice}
-          // maxPrice={maxPrice}
-          // onPriceChange={onPriceChange}
         />
       </div>
 
@@ -173,10 +202,11 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
                 }
                 searchQuery={searchQuery}
                 onSearchChange={setSearchQuery}
+                minPrice={overallMinPrice}
+                maxPrice={overallMaxPrice}
+                sliderValues={sliderValues}
+                onSliderChange={onSliderChange}
                 parfemi={filteredParfemi}
-                // minPrice={minPrice}
-                // maxPrice={maxPrice}
-                // onPriceChange={onPriceChange}
               />
               <div className="w-full h-auto flex justify-between rounded-xs max-lg:px-4 py-2">
                 <Button variant="destructive" onClick={onFilterReset}>
