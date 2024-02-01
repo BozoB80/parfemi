@@ -162,7 +162,6 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
           maxPrice={overallMaxPrice}
           sliderValues={sliderValues}
           onSliderChange={onSliderChange}
-          parfemi={filteredParfemi}
         />
       </div>
 
@@ -206,7 +205,6 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
                 maxPrice={overallMaxPrice}
                 sliderValues={sliderValues}
                 onSliderChange={onSliderChange}
-                parfemi={filteredParfemi}
               />
               <div className="w-full h-auto flex justify-between rounded-xs max-lg:px-4 py-2">
                 <Button variant="destructive" onClick={onFilterReset}>

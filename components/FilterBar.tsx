@@ -1,12 +1,11 @@
 "use client"
 
-import { Brand, Category, PriceVariant, Product } from "@prisma/client";
+import { Brand, Category } from "@prisma/client";
 import { Separator } from "./ui/separator";
 import { Input } from "./ui/input";
 import { X } from "lucide-react";
 import { ScrollArea } from "./ui/scroll-area";
-import { Slider } from "./ui/slider";
-import { FormEventHandler, useState } from "react";
+
 import ReactSlider from "react-slider";
 
 interface FilterbarProps {
@@ -15,11 +14,9 @@ interface FilterbarProps {
   selectedBrands: (string | null)[];
   selectedCategories: (string | null)[];
   searchQuery: string
-  parfemi: (Product & { priceVariants: PriceVariant[] })[]
   minPrice: number
   maxPrice: number
   sliderValues: number[];
-  
   onBrandChange: (brand: string | null) => void;
   onCategoryChange: (category: string | null) => void;
   onSearchChange: (searchQuery: string) => void
@@ -39,12 +36,7 @@ export const Filterbar = ({
   onCategoryChange,
   onSearchChange,
   onSliderChange,
-  parfemi,
 }: FilterbarProps) => {
-
-
-
-  
   const uniqueBrands = Array.from(new Set(brands.map((brand) => brand?.id))).map(
     (brandId) => brands.find((brand) => brand?.id === brandId)!
   );  
@@ -118,14 +110,21 @@ export const Filterbar = ({
           }}
           ariaLabel={['Lower thumb', 'Upper thumb']}
           ariaValuetext={state => `Thumb value ${state.valueNow}`}
-          className="py-4 w-full flex justify-center items-center"        
+          className="pt-4 pb-8 w-full flex justify-center items-center"        
           thumbClassName="w-4 h-4 rounded-full bg-white ring-2 ring-primary"
           trackClassName=" h-2 rounded-lg bg-secondary"
+          renderThumb={(props, state) => 
+            <div {...props} className="w-4 h-4 rounded-full bg-white ring-2 ring-primary">
+              <p className="mt-5 flex justify-end">
+                {state.valueNow}
+              </p>
+            </div>
+          }
           pearling
           minDistance={20}
         />
 
-        <div>KM {sliderValues[0]} - KM {sliderValues[1]} </div>
+        
       </div>
     </div>
   );
