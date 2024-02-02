@@ -111,10 +111,9 @@ export const Filterbar = ({
           ariaLabel={['Lower thumb', 'Upper thumb']}
           ariaValuetext={state => `Thumb value ${state.valueNow}`}
           className="pt-4 pb-8 w-full flex justify-center items-center"        
-          thumbClassName="w-4 h-4 rounded-full bg-white ring-2 ring-primary"
-          trackClassName=" h-2 rounded-lg bg-secondary"
+          trackClassName="h-2 rounded-lg bg-secondary track-0:bg-primary"
           renderThumb={(props, state) => 
-            <div {...props} className="w-4 h-4 rounded-full bg-white ring-2 ring-primary">
+            <div {...props} className="w-4 h-4 rounded-full bg-white ring-2 ring-primary active:bg-primary">
               <p className="mt-5 flex justify-end">
                 {state.valueNow}
               </p>

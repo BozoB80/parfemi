@@ -17,6 +17,7 @@ import { ListFilter } from "lucide-react";
 import { Button } from "../ui/button";
 import LoadMore from "../LoadMore";
 import { Drawer, DrawerClose, DrawerContent, DrawerTrigger } from "../ui/drawer";
+import { set } from "date-fns";
 
 export interface ParfemiListProps {
   parfemi: (Product & {
@@ -37,19 +38,25 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
 
   // Min and max prices for slider
   const minPricesForPerfumes = parfemi.map((parfem) => {
-    const allPrices = parfem.priceVariants.map((priceVariant) => priceVariant.price);
+    const allPrices = parfem.priceVariants.map((priceVariant) => {
+      const discountedPrice = priceVariant.price * (1 - (parfem.discount || 0) / 100);
+      return discountedPrice;
+    });
     const minPrice = Math.min(...allPrices);
     return minPrice;
-  });  
-  const overallMinPrice = Math.min(...minPricesForPerfumes);
+  });   
+  const overallMinPrice = Math.floor(Math.min(...minPricesForPerfumes));
 
   // Find the maximum price for each perfume
   const maxPricesForPerfumes = parfemi.map((parfem) => {
-    const allPrices = parfem.priceVariants.map((priceVariant) => priceVariant.price);
+    const allPrices = parfem.priceVariants.map((priceVariant) => {
+      const discountedPrice = priceVariant.price * (1 - (parfem.discount || 0) / 100);
+      return discountedPrice;
+    });
     const maxPrice = Math.max(...allPrices);
     return maxPrice;
   });
-  const overallMaxPrice = Math.max(...maxPricesForPerfumes);
+  const overallMaxPrice = Math.floor(Math.max(...maxPricesForPerfumes));
   const [sliderValues, setSliderValues] = useState([overallMinPrice, overallMaxPrice])
 
   const pathname = usePathname();
@@ -63,9 +70,10 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
           // Check if the perfume price is within the slider range
-          const minPrice = Math.min(...parfem.priceVariants.map((pv) => pv.price));
-          const maxPrice = Math.max(...parfem.priceVariants.map((pv) => pv.price));
-          const priceInRange = minPrice >= sliderValues[0] && maxPrice <= sliderValues[1];
+          const priceInRange = parfem.priceVariants.some((pv) => {
+            const discountedPrice = pv.price * (1 - (parfem.discount || 0) / 100);
+            return discountedPrice >= sliderValues[0] && discountedPrice <= sliderValues[1];
+          });
     
 
       return (
@@ -127,11 +135,11 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
   }, [parfemi, visibleParfemi]);
 
   const onFilterReset = () => {
-    // Reset the filters and set visible items back to the initial value
     setSelectedBrands([]);
     setSelectedCategories([]);
     setSearchQuery("");
     setVisibleParfemi(8);
+    setSliderValues([overallMinPrice, overallMaxPrice]);
   };
 
   return (
@@ -221,7 +229,8 @@ const ParfemiList = ({ parfemi }: ParfemiListProps) => {
           <h1 className="font-semibold">
             {selectedBrands.length === 0 &&
             selectedCategories.length === 0 &&
-            searchQuery === ""
+            searchQuery === "" &&
+            sliderValues[0] === overallMinPrice && sliderValues[1] === overallMaxPrice
               ? `${parfemi.length} ${
                   parfemi.length === 1 ? "proizvod" : "proizvoda"
                 }`
