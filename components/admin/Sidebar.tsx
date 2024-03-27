@@ -47,9 +47,9 @@ const Sidebar = () => {
         })}
       </div>
 
-      <Separator />
+      <Separator className="mt-auto" />
 
-      <div className="px-6 pt-6">
+      <div className="px-6 pt-6 mt-auto">
         <SignedIn>
           <SignOutButton signOutCallback={() => router.push("/sign-in")}>
             <div className="flex cursor-pointer gap-4 p-4">
