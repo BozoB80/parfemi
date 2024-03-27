@@ -7,64 +7,59 @@ import prismadb from "@/lib/prismadb";
 import { Coins, CreditCard, Package } from "lucide-react";
 
 const AdminPage = async () => {
-  const graphRevenue = await getGraphRevenue()
+  const graphRevenue = await getGraphRevenue();
 
   const orders = await prismadb.order.findMany({
     include: {
       orderItems: {
         include: {
-          priceVariant: true
-        }
-      }
+          priceVariant: true,
+        },
+      },
     },
   });
 
-  const salesCount = await prismadb.order.count()
-
-  const totalRevenue = orders.reduce((total, order) => {
-    const orderTotal = order.orderItems.reduce((orderSum, item) => {
-      return orderSum + item.price
-    }, 0)
-    return total + orderTotal
-  }, 0)
-
-  const productSalesCount: Record<string, number> = {};
-
-  orders.forEach((order) => {
-    order.orderItems.forEach((item) => {
-      const productId = item.id
-      if (productSalesCount[productId]) {
-        productSalesCount[productId]++;
-      } else {
-        productSalesCount[productId] = 1;
-      }
-    });
+  // total Revenue
+  const orderItems = await prismadb.orderItem.findMany({
+    select: {
+      price: true,
+      quantity: true,
+    },
   });
 
-  let mostPopularProductId = null;
-  let maxSalesCount = 0;
-  for (const productId in productSalesCount) {
-    if (productSalesCount[productId] > maxSalesCount) {
-      mostPopularProductId = productId;
-      maxSalesCount = productSalesCount[productId];
-    }
+  let totalSum = 0;
+  for (const orderItem of orderItems) {
+    totalSum += orderItem.price * orderItem.quantity;
   }
 
-  let mostPopularProductTitle = "Artikal ne postoji";
-  if (mostPopularProductId) {
-    const mostPopularProduct = await prismadb.product.findUnique({
-      where: {
-        id: mostPopularProductId
-      }
-    });
-  
-    if (mostPopularProduct) {
-      mostPopularProductTitle = mostPopularProduct.title;
-    }
-  }
+  // totalOrders
+  const salesCount = await prismadb.order.count();
 
-  
-  
+  // best sale
+  const soldItems = await prismadb.orderItem.groupBy({
+    by: ["priceVariantId"],
+    _sum: {
+      quantity: true,
+    },
+    orderBy: {
+      _sum: {
+        quantity: "desc",
+      },
+    },
+  });
+
+  const bestSoldPriceVariantId = soldItems[0].priceVariantId;
+
+  if (!bestSoldPriceVariantId) return null;
+
+  const bestSoldName = await prismadb.priceVariant.findUnique({
+    where: {
+      id: bestSoldPriceVariantId,
+    },
+    include: {
+      Product: true,
+    },
+  });
 
   return (
     <div className="flex-1 flex-col">
@@ -80,14 +75,14 @@ const AdminPage = async () => {
               <Coins className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                KM {totalRevenue.toFixed(2)}
-              </div>
+              <div className="text-2xl font-bold">KM {totalSum.toFixed(2)}</div>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Broj narudžbi</CardTitle>
+              <CardTitle className="text-sm font-medium">
+                Broj narudžbi
+              </CardTitle>
               <CreditCard className="h-5 w-5 text-muted-foreground" />
             </CardHeader>
             <CardContent>
@@ -103,7 +98,8 @@ const AdminPage = async () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-              {mostPopularProductTitle} (Broj primjeraka: {maxSalesCount})
+                <p>{bestSoldName?.Product?.title}</p>
+                <p>(Prodano primjeraka: {soldItems[0]._sum.quantity})</p>                 
               </div>
             </CardContent>
           </Card>
@@ -119,6 +115,6 @@ const AdminPage = async () => {
       </div>
     </div>
   );
-}
+};
 
 export default AdminPage;
